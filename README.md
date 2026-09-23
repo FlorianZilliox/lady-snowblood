@@ -9,5 +9,5 @@ Jeu d'arcade en pixel art, noir, blanc et sang.
 
 Sur téléphone (tenu en paysage) ou sur ordinateur. Une fois ouvert, il s'installe comme une application et se joue sans réseau.
 
-- Se déplacer : ← → (double appui : dash, puis course) · sauter : ↑ · parer : ↓ (au dernier moment : parade parfaite)
-- X coupe légère · C estoc · V grande coupe · X tenu puis relâché : l'Iaï · X + C, jauge pleine : la Fureur
+- Se déplacer : ← → (double appui : dash, puis course) · sauter : ↑ · parer : ↓ tenu (au dernier moment : parade parfaite)
+- X coupe légère · C estoc · V grande coupe · X tenu puis relâché : l'Iaï · X et C enfoncés ensemble, jauge pleine : la Fureur

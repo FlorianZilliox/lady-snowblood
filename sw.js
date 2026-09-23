@@ -2,7 +2,7 @@
 // - à l'installation, tout le jeu est mis en cache (la version et la liste des fichiers sont écrites par outils/construire.mjs) ;
 // - ensuite, le réseau d'abord : chaque fichier est redemandé (vérification rapide, le serveur répond « inchangé » si
 //   rien n'a bougé) et le cache est rafraîchi ; sans réseau, ou s'il tarde plus de 3 s, le cache répond.
-const VERSION = "ffd6f1bf3029";
+const VERSION = "ab61229eb151";
 const FICHIERS = ["./","index.html","jeu.js","styles.css","images/decor/scene.png","images/logo/logo.png","images/roto/r-coup-leger.png","images/roto/r-garde.png","images/roto/r-marche.png","images/roto/r-estoc.png","images/roto/r-parade.png","images/roto/r-saut.png","images/roto/r-coup-fort.png","images/roto/r-touche.png","images/roto/r-mort.png","images/roto/r-sa-garde.png","images/roto/r-sa-attaque.png","images/roto/r-la-garde.png","images/roto/r-la-marche.png","images/roto/r-la-attaque.png","images/roto/r-la-touche.png","images/roto/r-la-mort.png","images/roto/r-ni-garde.png","images/roto/r-ni-course.png","images/roto/r-ni-lancer.png","images/roto/r-ni-bond.png","images/roto/r-ni-touche.png","images/roto/r-ni-mort.png","images/roto/r-sa-marche.png","images/roto/r-sa-touche.png","images/roto/r-sa-mort.png","icones/icone-180.png","icones/icone-192.png","icones/icone-512.png","icones/icone-masquable-512.png","manifest.webmanifest"];
 const CACHE = 'lady-snowblood-' + VERSION;
 
