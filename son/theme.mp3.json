@@ -1,17 +1,48 @@
 {
  "fichier": "theme.mp3",
+ "segments": {
+  "ouverture": {
+   "fichier": "theme-ouverture.mp3",
+   "debut": 0.0,
+   "boucle": [
+    9.203,
+    56.815
+   ]
+  },
+  "nuit": {
+   "fichier": "theme-nuit.mp3",
+   "debut": 7.4396,
+   "boucle": [
+    1.7634,
+    49.3754
+   ]
+  },
+  "boss": {
+   "fichier": "theme-boss.mp3",
+   "debut": 102.6636,
+   "boucle": [
+    1.7634,
+    84.6434
+   ]
+  },
+  "coda": {
+   "fichier": "theme-coda.mp3",
+   "debut": 187.307,
+   "boucle": null
+  }
+ },
  "duree": 212.8,
  "bpm": 136.1,
  "mesure": 1.7634,
  "phase": 0.3857,
  "boucles": {
   "nuit": [
-   9.2028,
-   56.8148
+   9.203,
+   56.815
   ],
   "boss": [
-   104.4269,
-   187.3071
+   104.427,
+   187.307
   ]
  },
  "sections": [

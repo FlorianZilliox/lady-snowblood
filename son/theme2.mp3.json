@@ -1,17 +1,35 @@
 {
  "fichier": "theme2.mp3",
+ "segments": {
+  "nuit": {
+   "fichier": "theme2-nuit.mp3",
+   "debut": 14.1126,
+   "boucle": [
+    1.7204,
+    91.1834
+   ]
+  },
+  "boss": {
+   "fichier": "theme2-boss.mp3",
+   "debut": 144.8656,
+   "boucle": [
+    1.7204,
+    43.0104
+   ]
+  }
+ },
  "duree": 204.84,
  "bpm": 139.5,
  "mesure": 1.7204,
  "phase": 0.3495,
  "boucles": {
   "nuit": [
-   7.2312,
-   96.6935
+   15.833,
+   105.296
   ],
   "boss": [
-   143.1452,
-   194.7581
+   146.586,
+   187.876
   ]
  },
  "sections": [
