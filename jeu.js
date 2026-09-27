@@ -1,2 +1,4541 @@
-var n={};var Rt=/#essai/.test(location.hash),D=704,ke=20,A=301,te=1450,K="#050505",N="#f2f1ec",ne="#8a8a86";var U=["#2a0306","#5c0710","#8e0c18","#b8141f","#dc2a2a"],de=7,ga=25,At=.14,da=.2,Z={vitesse:90,saut:520,reculParade:64},$={"r-garde":{ips:6,boucle:"aller-retour"},"r-k-garde":{cadence:[7,7,7,7,7,7,7,7,7],boucle:!0},"r-marche":{ips:10,boucle:!0},"r-course":{ips:14,boucle:!0},"r-coup-leger":{cadence:[2,3,3,3,3,6,3,5],frappe:[3,5],suite:7,retour:["r-k-saut",11,12],portee:80,degats:1,pas:12,coupe:"lateral"},"r-k-combo2":{cadence:[2,2,2,3,6,4,5],frappe:[3,4],suite:5,portee:86,degats:1,pas:16,coupe:"lateral"},"r-k-fort":{cadence:[3,3,3,4,4,3,4],frappe:[5,6],suite:6,puis:"r-k-final",portee:70,degats:1,pas:24,coupe:"vertical"},"r-bond-coupe":{de:4,cadence:[4,4,5],frappe:[2,2],suite:2,puis:"r-k-final",portee:80,degats:1,pas:34,coupe:"vertical"},"r-k-final":{cadence:[3,3,7,4,4,6],frappe:[1,2],suite:3,retour:["r-k-releve-final",1,2,3],portee:96,degats:2,pas:24,tranche:!0,coupe:"vertical"},"r-estoc":{cadence:[2,2,3,5,5,4,4],frappe:[3,4],suite:4,portee:100,degats:1,pas:30,coupe:"estoc"},"r-estoc-fort":{cadence:[2,2,3,6,6,4,4],frappe:[3,4],suite:4,portee:110,degats:2,pas:40,tranche:!0,coupe:"estoc"},"r-revers":{cadence:[3,4,4,4],frappe:[0,1],suite:2,portee:90,degats:1,pas:14,coupe:"lateral",de:4},"r-k-coupe-epaule":{cadence:[2,3,4,3,4],frappe:[1,3],suite:3,portee:96,degats:1,pas:38,coupe:"lateral"},"r-k-coup-poing":{de:1,cadence:[3,3,3,3,3,3,4,4,3,4],frappe:[6,8],suite:8,esquive:[0,3],portee:62,degats:1,pas:22,repousse:!0,coupe:"pied"},"r-poing-direct":{de:5,cadence:[2,3,4,4,3,4],frappe:[2,4],suite:4,portee:62,degats:1,pas:16,repousse:!0,coupe:"pied"},"r-k-pied-tournant":{cadence:[3,3,3,3,4,5,3,4],frappe:[4,6],suite:6,retour:["r-k-saut",11,12],portee:78,degats:1,pas:18,repousse:!0,coupe:"pied"},"r-coup-fort":{cadence:[4,3,7,4,4,5],frappe:[1,2],suite:3,retour:["r-k-releve-final",1,2,3],portee:96,degats:2,pas:20,tranche:!0,coupe:"vertical"},"r-k-balayage":{cadence:[4,3,6,3,5,4],frappe:[0,4],suite:4,retour:["r-k-releve-final",1,2,3],portee:110,degats:1,pas:14,bas:!0,coupe:"lateral"},"r-k-montante":{cadence:[3,2,3,6,4,4,4],frappe:[1,3],suite:4,retour:["r-k-saut",11,12],portee:80,degats:2,pas:8,tranche:!0,coupe:"vertical"},"r-k-dash-coupe":{cadence:[3,3,7,4,5],frappe:[1,2],suite:3,retour:["r-k-releve-final",1,2,3],portee:100,degats:2,pas:60,tranche:!0,coupe:"vertical"},"r-k-pied":{cadence:[3,3,5,5,3,3,3,4],frappe:[2,5],suite:5,portee:70,degats:1,pas:14,repousse:!0,coupe:"pied"},"r-k-haute":{cadence:[3,3,4,5,5,3,3,4],frappe:[2,5],suite:5,portee:100,degats:2,pas:12,tranche:!0,coupe:"vertical"},"r-moulinet":{cadence:[4,4,4,4,4,4,5,8]},"r-k-saut":{ips:12},"r-k-salto":{ips:20},"r-k-saute-coupe":{de:5,cadence:[3,3,6,6],frappe:[1,2],portee:96,degats:2,pas:0,tranche:!0,coupe:"vertical"},"r-plonge-fin":{de:2,cadence:[6,3,3,4],frappe:[0,1],suite:2,retour:["r-k-releve-final",1,2,3],portee:100,degats:2,pas:6,tranche:!0,coupe:"vertical"},"r-k-pied-saute":{cadence:[2,2,2,3,4,4,4,5,5,5],frappe:[4,9],portee:70,degats:1,pas:0,coupe:"pied"},"r-k-chute":{ips:12},"r-k-releve":{ips:8},"r-k-releve-final":{ips:10},"r-k-charge":{ips:10,boucle:"aller-retour"},"r-saut":{ips:10},"r-coup-air":{image:"r-coup-fort",de:3,a:11,ips:26,frappe:[.3,.75],portee:96,degats:2,pas:0,tranche:!0},"r-parade":{ips:14},"r-touche":{cadence:[3,5,7]},"r-mort":{ips:5,tiens:{3:2}}};for(let e of Object.values($)){if(!e.cadence)continue;let r=e.cadence.reduce((o,t)=>o+t,0),a=o=>e.cadence.slice(0,o).reduce((t,s)=>t+s,0)/r;e.ips=60,e.total=r,e.suiteCadence=e.cadence.flatMap((o,t)=>Array(o).fill((e.de||0)+t)),e.frappe&&Number.isInteger(e.frappe[0])&&(e.frappe=[a(e.frappe[0]),a(e.frappe[1]+1)]),Number.isInteger(e.suite)&&(e.suite=a(e.suite))}function ye(e,r){let a=$[e]||{},o=[];if(a.suiteCadence)return r<a.suiteCadence[a.suiteCadence.length-1]+1?a.suiteCadence.map(t=>Math.min(t,r-1)):a.suiteCadence;if(a.de!=null){for(let t=a.de;t<=a.a;t++)o.push(t);return o}for(let t=0;t<r;t++)for(let s=0;s<=((a.tiens||{})[t]||0);s++)o.push(t);return a.boucle==="aller-retour"?[...o,...o.slice(1,-1).reverse()]:o}var Re=["r-coup-leger","r-estoc","r-coup-fort","r-k-combo2","r-k-final","r-k-balayage","r-k-montante","r-k-dash-coupe","r-k-pied","r-k-haute","r-k-fort","r-bond-coupe","r-estoc-fort","r-revers","r-k-coupe-epaule","r-k-pied-tournant","r-k-coup-poing","r-poing-direct"],X={sabre:[0,3,14,13,1,5],fort:[4,12,15,7,5,11],corps:[17,8,16,15]},ma=46,ha=1.5,wt=2.5,Ae={morts:6,libre:110,fureur:.2,sang:.15,repos:15},xa=.16,va=.4,ba={sabreur:{vitesse:84,ipsMarche:12,distance:64,armer:.3,frappe:.2,portee:74,sautable:70,repos:.4,bond:210,bloque:.3},ninja:{vitesse:100,ipsMarche:12,distance:240,armer:.42,frappe:.12,portee:0,sautable:0,repos:.5,bond:0,bloque:0},boss:{vitesse:92,ipsMarche:12,distance:70,armer:.28,frappe:.2,portee:80,sautable:80,repos:.32,bond:220,bloque:.5}},Tt=30,Ma=4,ka=5;var Ye=document.getElementById("ecran"),p=Ye.getContext("2d",{alpha:!1}),Pe=document.getElementById("jeu");n.W=640;n.HAUT=360;Ye.width=n.W;Ye.height=n.HAUT;function Ne(){let e=window.visualViewport,r=e?e.width:innerWidth,a=e?e.height:innerHeight,o=window.devicePixelRatio||1,t=Math.min(r*o/n.W,a*o/n.HAUT);t>=2&&(t=Math.floor(t));let s=n.W*t/o,i=n.HAUT*t/o;Object.assign(Ye.style,{width:s+"px",height:i+"px",left:Math.round((r-s)/2*o)/o+"px",top:Math.round((a-i)/2*o)/o+"px"}),p.imageSmoothingEnabled=!1}addEventListener("resize",Ne);window.visualViewport?.addEventListener("resize",Ne);screen.orientation?.addEventListener?.("change",Ne);n.actx=null;n.muet=!1;n.bruitBuf=null;n.maitre=null;try{n.muet=localStorage.getItem("lady-snowblood-muet")==="1"}catch{}function We(){if(!n.actx){try{n.actx=new(window.AudioContext||window.webkitAudioContext)({latencyHint:"playback"})}catch{try{n.actx=new(window.AudioContext||window.webkitAudioContext)}catch{return}}let e=()=>{n.actx&&n.actx.state!=="running"&&document.visibilityState==="visible"&&n.actx.resume().catch(()=>{})};n.actx.addEventListener?.("statechange",e),document.addEventListener("visibilitychange",e)}n.actx.state==="suspended"&&n.actx.resume()}function Aa(){return n.maitre||(n.maitre=n.actx.createGain(),n.maitre.gain.value=n.muet?0:.36,n.maitre.connect(n.actx.destination)),n.maitre}function wa(){n.maitre&&(n.maitre.gain.value=n.muet?0:.36)}function en(){if(!n.bruitBuf){n.bruitBuf=n.actx.createBuffer(1,n.actx.sampleRate*2,n.actx.sampleRate);let r=n.bruitBuf.getChannelData(0);for(let a=0;a<r.length;a++)r[a]=Math.random()*2-1}let e=n.actx.createBufferSource();return e.buffer=n.bruitBuf,e}function Ta(e,r,a,o,t){e.gain.setValueAtTime(1e-4,r),e.gain.exponentialRampToValueAtTime(t,r+a),e.gain.exponentialRampToValueAtTime(1e-4,r+a+o)}function oe(e,r,a,o,t,s,i){let c=n.actx.createOscillator(),l=n.actx.createGain();c.type=e,c.frequency.setValueAtTime(r,o),c.frequency.exponentialRampToValueAtTime(a,o+t),Ta(l,o,.004,t,s),c.connect(l).connect(i),c.start(o),c.stop(o+t+.05),c.onended=()=>{c.disconnect(),l.disconnect()}}function ae(e,r,a,o,t,s,i,c=1,l=.006){let f=en(),m=n.actx.createBiquadFilter(),h=n.actx.createGain();m.type=e,m.Q.value=c,m.frequency.setValueAtTime(r,o),m.frequency.exponentialRampToValueAtTime(a,o+t),Ta(h,o,l,t,s),f.connect(m).connect(h).connect(i),f.start(o,Math.random()),f.stop(o+t+.1),f.onended=()=>{f.disconnect(),m.disconnect(),h.disconnect()}}var Sa=!1;function E(e,r=0){if(!Sa||n.muet||!n.actx||n.actx.state!=="running")return;let a=n.actx.currentTime+r,o=Aa();switch(e){case"lame":ae("bandpass",900,3800,a,.13,.55,o,2.5);break;case"lourd":ae("bandpass",500,2600,a,.22,.7,o,1.6);break;case"chair":ae("lowpass",2400,300,a,.16,.9,o,1),oe("square",140,60,a,.07,.12,o);break;case"sang":ae("highpass",1800,900,a+.04,.55,.28,o,.7,.02);break;case"fer":[1,2.76,5.4,8.9].forEach((t,s)=>oe("triangle",820*t,820*t*.99,a,.5-s*.1,[.25,.14,.08,.05][s],o));break;case"parade":[1,2.4,4.1].forEach((t,s)=>oe("sine",1300*t,1290*t,a,.9-s*.2,[.3,.15,.08][s],o)),ae("highpass",5e3,3e3,a,.08,.5,o);break;case"shuriken":ae("bandpass",3e3,5200,a,.18,.25,o,6);break;case"aie":ae("lowpass",1600,200,a,.2,.8,o),oe("sine",300,180,a,.18,.12,o);break;case"chute":ae("lowpass",500,80,a,.3,.7,o);break;case"taiko":oe("sine",110,42,a,.6,.9,o),ae("lowpass",400,60,a,.25,.6,o);break;case"fureur":oe("sawtooth",70,35,a,1.4,.18,o),ae("bandpass",300,2400,a,1.1,.4,o,.8,.3);break;case"soin":[523,659,784].forEach((t,s)=>oe("sine",t,t,a+s*.09,.4,.12,o));break;case"glas":[1,2,2.76,5.4].forEach((t,s)=>oe("sine",82*t,82*t*.995,a,3.2-s*.5,[.5,.2,.14,.06][s],o));break;case"choix":oe("square",660,660,a,.04,.05,o);break}}var tn=["theme","theme2"],b={meta:{},brut:{},dec:{},charge:!1,voix:null,etat:null,piste:null,bus:null,filtre:null,volume:Sa?.55:.95,fx:null};function an(){if(!(b.charge||!n.actx)){b.charge=!0;for(let e of tn)fetch(`son/${e}.mp3.json`).then(r=>r.json()).then(r=>{b.meta[e]=r,b.etat&&!b.voix&&rn()}).catch(()=>{})}}function rn(){let e=b.etat,r=b.piste;b.etat=null,Et(e,r)}var Ue=(e,r)=>`${e}/${r}`;function ya(e,r){let a=Ue(e,r),o=b.meta[e];return!o||!o.segments[r]?null:(b.dec[a]||(b.dec[a]=fetch("son/"+o.segments[r].fichier).then(t=>t.arrayBuffer()).then(t=>(n.evt&&(n.evt.musique=!0),new Promise((s,i)=>n.actx.decodeAudioData(t,s,i)))).then(t=>({buf:t,seg:o.segments[r],mesure:o.mesure,phase:o.phase-o.segments[r].debut})).catch(()=>(delete b.dec[a],null))),b.dec[a])}function Ra(e){for(let r of Object.keys(b.dec))e.includes(r)||delete b.dec[r]}function nn(){return b.bus||(b.filtre=n.actx.createBiquadFilter(),b.filtre.type="lowpass",b.filtre.frequency.value=18e3,b.filtre.Q.value=.5,b.bus=n.actx.createGain(),b.bus.gain.value=b.volume,b.filtre.connect(b.bus).connect(Aa())),b.filtre}function Ea(e){let r=e.debut+(n.actx.currentTime-e.t0);return e.boucle&&r>e.boucle[1]&&(r=e.boucle[0]+(r-e.boucle[0])%(e.boucle[1]-e.boucle[0])),r}function on(e){if(!e)return n.actx.currentTime+.05;let r=Ea(e),a=Math.ceil((r-e.phase)/e.mesure+.001);return n.actx.currentTime+(e.phase+a*e.mesure-r)}function St(e,r,a,o){let t=n.actx.createBufferSource(),s=n.actx.createGain();t.buffer=e.buf;let i=e.seg.boucle;return i&&(t.loop=!0,t.loopStart=i[0],t.loopEnd=i[1]),s.gain.setValueAtTime(o?1e-4:1,a),o&&s.gain.exponentialRampToValueAtTime(1,a+o),t.connect(s).connect(nn()),t.start(a,r),t.onended=()=>{t.disconnect(),s.disconnect()},{s:t,g:s,t0:a,debut:r,boucle:i,mesure:e.mesure,phase:e.phase,k:null}}function Qe(e,r,a){e&&(e.g.gain.setValueAtTime(Math.max(1e-4,e.g.gain.value),r),e.g.gain.exponentialRampToValueAtTime(1e-4,r+a),e.s.stop(r+a+.05))}function Et(e,r="theme",a=null){if(!n.actx)return;an(),(e==="fin"||e==="ouverture")&&(r="theme");let o=e==="fin"?"coda":e,t=e?Ue(r,o):null,s=a?Ue(r,a):null;if(s&&s!==b.bientot&&b.meta[r]&&(b.bientot=s,ya(r,a)),e===b.etat&&r===b.piste)return;let i=b.etat,c=b.piste;if(b.etat=e,b.piste=r,!e){Qe(b.voix,n.actx.currentTime,1.2),b.voix=null,Ra([]);return}if(e==="nuit"&&i==="ouverture"&&c===r&&b.voix){b.voix.k=Ue(r,"ouverture");return}if(!b.meta[r])return;let l={etat:e,piste:r};Promise.resolve(ya(r,o)).then(f=>{if(!f||b.etat!==l.etat||b.piste!==l.piste)return;let m=b.voix,h=f.seg.boucle,g=f.mesure,v;if(e==="fin"){let d=n.actx.currentTime+.05;Qe(m,d,2.5),v=St(f,0,d,m?2.5:.5)}else if(e==="ouverture"||!m)Qe(m,n.actx.currentTime,.4),v=St(f,e==="ouverture"?0:h[0],n.actx.currentTime+.05,e==="ouverture"?0:1);else{let d=on(m),x=c!==r?g*2:e==="boss"?g/2:g;Qe(m,d,x),v=St(f,h[0],d,x)}v.k=Ue(r,o),b.voix=v,Ra([v.k,b.bientot].filter(Boolean))})}function Ia(e,r,a,o){if(!b.filtre)return;let t=`${e||r?1:0}${a?1:0}${o?1:0}`;if(t===b.fx)return;b.fx=t;let s=n.actx.currentTime,i=e||r;b.filtre.frequency.cancelScheduledValues(s),b.filtre.frequency.setTargetAtTime(i?900:18e3,s,i?.04:.25),b.bus.gain.cancelScheduledValues(s),b.bus.gain.setTargetAtTime(a?1e-4:o?b.volume*.35:b.volume,s,a?.01:.15)}function qa(){let e=b.voix;if(!n.actx)return{contexte:!1};let r=e?Ea(e):null;return{contexte:n.actx.state,chargee:Object.keys(b.meta).sort().join("+"),decodes:Object.keys(b.dec).sort().join(" "),etat:b.etat,piste:b.piste,position:r&&Math.round(r*100)/100,niveau:b.bus&&Math.round(b.bus.gain.value*100)/100,filtre:b.filtre&&Math.round(b.filtre.frequency.value)}}var le={},me={},ue=e=>!!(le[e]||me[e]);n.appuis=new Set;var ze=["up","up","down","down","left","right","left","right","fort","sabre"],ce=[],ja=()=>ce.length>=8&&ze.slice(0,ce.length).join()===ce.join();function he(e){if(We(),n.pause){n.pause=!1;return}n.appuis.add(e),ze.includes(e)&&(ce.push(e),ce.length>ze.length&&ce.shift(),ce.join()===ze.join()&&(ce=[],n.appuis.add("konami")));let r=performance.now();(e==="left"||e==="right")&&(r-(It[e]||-1e9)<260||r-(jt[e]||-1e9)<340?(n.appuis.add("dash-"+e),It[e]=-1e9,jt[e]=-1e9):It[e]=r)}function Ca(e){jt[e]=performance.now()}var It={},jt={},Ze=matchMedia("(pointer: coarse)").matches;function pe(e){if(Ze&&navigator.vibrate)try{navigator.vibrate(e)}catch{}}var sn={KeyX:"sabre",Space:"sabre",Enter:"sabre",NumpadEnter:"sabre",KeyJ:"sabre",KeyC:"fort",KeyK:"fort",KeyV:"fort",KeyL:"fort",ArrowLeft:"left",ArrowRight:"right",ArrowUp:"up",ArrowDown:"down"},cn={z:"up",q:"left",s:"down",d:"right",w:"up",a:"left"},Oa=e=>sn[e.code]||cn[(e.key||"").toLowerCase()],we=new Map;addEventListener("keydown",e=>{let r=(e.key||"").toLowerCase();if(e.code==="KeyM"||r==="m"){e.repeat||La();return}if((e.code==="KeyP"||r==="p"||e.key==="Escape")&&!e.repeat){n.pause=!n.pause&&n.etat==="jeu";return}if((e.code==="KeyW"||r==="w")&&!e.repeat){he("boss");return}if((e.code==="KeyO"||r==="o")&&!e.repeat){n.compteur=!n.compteur;return}if(e.metaKey||e.ctrlKey)return;let a=Oa(e);a&&(e.preventDefault(),!e.repeat&&!we.has(e.code)&&he(a),we.set(e.code,a),le[a]=!0)});addEventListener("keyup",e=>{let r=we.get(e.code)||Oa(e);we.delete(e.code),r&&![...we.values()].includes(r)&&(le[r]=!1,Ca(r))});function Ct(){we.clear();for(let e in le)le[e]=!1;for(let e in me)me[e]=0;ln.fin(),un.fin()}addEventListener("blur",Ct);function La(){n.muet=!n.muet,wa();try{localStorage.setItem("lady-snowblood-muet",n.muet?"1":"0")}catch{}}var Pa=()=>Pe.classList.toggle("tactile",Ze);Pa();var qt=["left","right","up","down"],ln=(()=>{let e=document.getElementById("croix"),r=e.querySelector(".croix-dessin"),a={};qt.forEach(w=>{a[w]=e.querySelector(`[data-dir="${w}"]`)});let o=!1,t=!1,s=12,i=42,c={left:.383,right:.383,up:.5,down:.5},l={left:.25,right:.25,up:.3,down:.3},f={px:40,ms:160},m=null,h=new Set,g=0,v=0,d=null,x=null,y=(w,j)=>{for(let P of qt){let F=h.has(P),G=w.has(P);G&&!F&&(he(P),(P==="left"||P==="right")&&j&&(x={k:P,t:performance.now(),x:j.clientX,fait:!1})),F&&!G&&(Ca(P),x&&x.k===P&&(x=null)),me[P]=G?1:0,a[P].classList.toggle("on",G)}h=w},T=()=>{let w=e.getBoundingClientRect(),j=d.width/2,P=d.height/2,F=Math.max(w.left+j-d.cx,Math.min(w.right-j-d.cx,g-d.cx)),G=Math.max(w.top+P-d.cy,Math.min(w.bottom-P-d.cy,v-d.cy));r.style.transform=`translate(${Math.round(F)}px, ${Math.round(G)}px)`},R=w=>{let j=w.clientX-g,P=w.clientY-v,F=Math.hypot(j,P);t&&F>i&&(g+=j*(1-i/F),v+=P*(1-i/F),j=w.clientX-g,P=w.clientY-v,F=i,T());let G=new Set;if(F>s){let q=j/F,z=P/F,Me={left:-q,right:q,up:-z,down:z};for(let J of qt)Me[J]>(h.has(J)?l[J]:c[J])&&G.add(J)}y(G,w),x&&!x.fait&&performance.now()-x.t<f.ms&&(w.clientX-x.x)*(x.k==="right"?1:-1)>f.px&&(x.fait=!0,n.appuis.add("dash-"+x.k))};e.addEventListener("pointerdown",w=>{if(w.preventDefault(),m===null){if(m=w.pointerId,e.setPointerCapture(w.pointerId),!d){let j=r.getBoundingClientRect();d={cx:j.left+j.width/2,cy:j.top+j.height/2,width:j.width,height:j.height}}o?(g=w.clientX,v=w.clientY,r.classList.remove("retour"),T()):(g=d.cx,v=d.cy),y(new Set,w),o||R(w)}}),e.addEventListener("pointermove",w=>{w.pointerId===m&&R(w)});let M=w=>{w.pointerId===m&&L.fin()};["pointerup","pointercancel","lostpointercapture"].forEach(w=>e.addEventListener(w,M)),addEventListener("resize",()=>{d=null});let L={fin(){m=null,y(new Set),x=null,r.classList.add("retour"),r.style.transform=""}};return L})(),un=(()=>{let e=document.getElementById("actions"),r=[...e.querySelectorAll("[data-k]")],a=new Map,o=[],t=()=>{for(let l of r){let f=0;for(let m of a.values())m===l&&f++;me[l.dataset.k]=f,l.classList.toggle("on",f>0)}},s=l=>{let f=null,m=1/0;for(let{b:h,x:g,y:v}of o){let d=Math.hypot(l.clientX-g,l.clientY-v);d<m&&(m=d,f=h)}return f},i=l=>{let f=s(l),m=a.get(l.pointerId);f!==m&&(a.set(l.pointerId,f),f&&(he(f.dataset.k),pe(8)),t())};e.addEventListener("pointerdown",l=>{l.preventDefault(),e.setPointerCapture(l.pointerId),o=r.map(f=>{let m=f.getBoundingClientRect();return{b:f,x:m.left+m.width/2,y:m.top+m.height/2,rayon:m.width*.8}}),a.set(l.pointerId,null),i(l)}),e.addEventListener("pointermove",l=>{a.has(l.pointerId)&&i(l)});let c=l=>{a.delete(l.pointerId)&&t()};return["pointerup","pointercancel","lostpointercapture"].forEach(l=>e.addEventListener(l,c)),e.addEventListener("contextmenu",l=>l.preventDefault()),{fin(){a.clear(),t()}}})();Pe.addEventListener("touchstart",e=>{e.cancelable&&e.preventDefault()},{passive:!1});Pe.addEventListener("touchmove",e=>{e.cancelable&&e.preventDefault()},{passive:!1});document.addEventListener("gesturestart",e=>e.preventDefault());Pe.addEventListener("contextmenu",e=>e.preventDefault());addEventListener("pointerup",We,!0);addEventListener("touchend",We,!0);addEventListener("pointerdown",e=>{e.pointerType==="touch"&&!Ze&&(Ze=!0,Pa())},!0);document.getElementById("ecran").addEventListener("pointerdown",e=>{We();let r=e.currentTarget.getBoundingClientRect(),a=(e.clientX-r.left)/r.width*n.W,o=(e.clientY-r.top)/r.height*n.HAUT;a>n.W-20&&o<20?La():n.pause?n.pause=!1:n.etat!=="jeu"&&he("sabre")});n.pause=!1;var pn=matchMedia("(display-mode: fullscreen), (display-mode: standalone)").matches||navigator.standalone===!0,Ua=matchMedia("(orientation: portrait) and (pointer: coarse)");if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol)){let e=!!navigator.serviceWorker.controller,r=!1;navigator.serviceWorker.addEventListener("controllerchange",()=>{e&&(r=!0)}),setInterval(()=>{r&&n.etat==="titre"&&location.reload()},1e3),addEventListener("load",()=>navigator.serviceWorker.register("sw.js").then(a=>{document.addEventListener("visibilitychange",()=>{document.visibilityState==="visible"&&a.update().catch(()=>{})})}).catch(()=>{}))}var He=null;async function Wa(){if(!(!("wakeLock"in navigator)||He||document.visibilityState!=="visible"))try{He=await navigator.wakeLock.request("screen"),He.addEventListener("release",()=>{He=null})}catch{}}function Ot(){n.etat==="jeu"&&(n.pause=!0),Ct()}document.addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"?(Ot(),n.actx?.suspend?.().catch(()=>{})):Wa()});addEventListener("pagehide",Ot);Ua.addEventListener?.("change",e=>{e.matches&&Ot()});var Na=!1;addEventListener("pointerup",e=>{if(Wa(),Na||pn||e.pointerType!=="touch")return;Na=!0;let r=document.documentElement;!document.fullscreenElement&&r.requestFullscreen&&r.requestFullscreen({navigationUI:"hide"}).then(()=>screen.orientation?.lock?.("landscape")).catch(()=>{})},!0);var Lt=()=>n.pause||Ua.matches;var Da={"decor/scene":{taille:[704,396],decalage:[0,0],hauteurAvantRognage:396,raccord:!1,src:"images/decor/scene.png"},"decor/banniere":{taille:[3456,172],decalage:[0,0],hauteurAvantRognage:172,raccord:!1,cellule:[54,172],images:64,pieds:[0,172],decor:{x:650,y:104,ips:10},src:"images/decor/banniere.png"},"decor/cascades":{taille:[21456,50],decalage:[0,0],hauteurAvantRognage:50,raccord:!1,cellule:[447,50],images:48,pieds:[0,50],decor:{x:145,y:250,ips:12},src:"images/decor/cascades.png"},"decor/lune":{taille:[9200,95],decalage:[0,0],hauteurAvantRognage:95,raccord:!1,cellule:[115,95],images:80,pieds:[0,95],decor:{x:453,y:20,ips:10},src:"images/decor/lune.png"},"decor/lanterne":{taille:[1408,22],decalage:[0,0],hauteurAvantRognage:22,raccord:!1,cellule:[22,22],images:64,pieds:[0,22],decor:{x:22,y:224,ips:10},src:"images/decor/lanterne.png"},"decor/fenetres":{taille:[4096,38],decalage:[0,0],hauteurAvantRognage:38,raccord:!1,cellule:[64,38],images:64,pieds:[0,38],decor:{x:538,y:94,ips:10},src:"images/decor/fenetres.png"},"effets/e-k-coupes":{taille:[512,106],decalage:[0,0],hauteurAvantRognage:106,raccord:!1,cellule:[64,106],images:8,ancres:[[-31,121],[-31,121],[-31,121],[-31,121],[-31,121],[-31,121],[-31,121],[-31,121]],pieds:[-31,121],src:"images/effets/e-k-coupes.png"},"effets/e-k-combo2":{taille:[343,38],decalage:[0,0],hauteurAvantRognage:38,raccord:!1,cellule:[49,38],images:7,ancres:[[-45,55],[-45,55],[-45,55],[-45,55],[-45,55],[-45,55],[-45,55]],pieds:[-45,55],src:"images/effets/e-k-combo2.png"},"effets/e-k-final":{taille:[522,107],decalage:[0,0],hauteurAvantRognage:107,raccord:!1,cellule:[87,107],images:6,ancres:[[-4,120],[-4,120],[-4,120],[-4,120],[-4,120],[-4,120]],pieds:[-4,120],src:"images/effets/e-k-final.png"},"effets/e-k-estoc":{taille:[749,62],decalage:[0,0],hauteurAvantRognage:62,raccord:!1,cellule:[107,62],images:7,ancres:[[3,90],[3,90],[3,90],[3,90],[3,90],[3,90],[3,90]],pieds:[3,90],src:"images/effets/e-k-estoc.png"},"effets/e-k-balayage":{taille:[774,43],decalage:[0,0],hauteurAvantRognage:43,raccord:!1,cellule:[129,43],images:6,ancres:[[78,72],[78,72],[78,72],[78,72],[78,72],[78,72]],pieds:[78,72],src:"images/effets/e-k-balayage.png"},"gundam/g-r-garde":{taille:[188,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[94,97],images:2,pieds:[39,96],ancres:[[39,96],[39,96]],gundam:!0,src:"images/gundam/g-r-garde.png"},"gundam/g-r-garde-titre":{taille:[188,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[94,97],images:2,pieds:[39,96],ancres:[[39,96],[39,96]],gundam:!0,src:"images/gundam/g-r-garde-titre.png"},"gundam/g-r-marche":{taille:[744,103],decalage:[0,0],hauteurAvantRognage:103,raccord:!1,cellule:[93,103],images:8,pieds:[39,102],ancres:[[39,102],[39,102],[39,102],[39,102],[39,102],[39,102],[39,102],[39,102]],gundam:!0,src:"images/gundam/g-r-marche.png"},"gundam/g-r-course":{taille:[744,103],decalage:[0,0],hauteurAvantRognage:103,raccord:!1,cellule:[93,103],images:8,pieds:[39,102],ancres:[[39,102],[39,102],[39,102],[39,102],[39,102],[39,102],[39,102],[39,102]],gundam:!0,src:"images/gundam/g-r-course.png"},"gundam/g-r-coup-leger":{taille:[944,99],decalage:[0,0],hauteurAvantRognage:99,raccord:!1,cellule:[118,99],images:8,pieds:[59,98],ancres:[[59,98],[59,98],[59,98],[59,98],[59,98],[59,98],[59,98],[59,98]],gundam:!0,src:"images/gundam/g-r-coup-leger.png"},"gundam/g-r-k-combo2":{taille:[714,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[102,97],images:7,pieds:[58,96],ancres:[[58,96],[58,96],[58,96],[58,96],[58,96],[58,96],[58,96]],gundam:!0,src:"images/gundam/g-r-k-combo2.png"},"gundam/g-r-k-coupe-epaule":{taille:[590,99],decalage:[0,0],hauteurAvantRognage:99,raccord:!1,cellule:[118,99],images:5,pieds:[59,98],ancres:[[59,98],[59,98],[59,98],[59,98],[59,98]],gundam:!0,src:"images/gundam/g-r-k-coupe-epaule.png"},"gundam/g-r-revers":{taille:[704,92],decalage:[0,0],hauteurAvantRognage:92,raccord:!1,cellule:[88,92],images:8,pieds:[33,91],ancres:[[33,91],[33,91],[33,91],[33,91],[33,91],[33,91],[33,91],[33,91]],gundam:!0,src:"images/gundam/g-r-revers.png"},"gundam/g-r-estoc":{taille:[854,89],decalage:[0,0],hauteurAvantRognage:89,raccord:!1,cellule:[122,89],images:7,pieds:[44,88],ancres:[[44,88],[44,88],[44,88],[44,88],[44,88],[44,88],[44,88]],gundam:!0,src:"images/gundam/g-r-estoc.png"},"gundam/g-r-estoc-fort":{taille:[854,89],decalage:[0,0],hauteurAvantRognage:89,raccord:!1,cellule:[122,89],images:7,pieds:[44,88],ancres:[[44,88],[44,88],[44,88],[44,88],[44,88],[44,88],[44,88]],gundam:!0,src:"images/gundam/g-r-estoc-fort.png"},"gundam/g-r-k-balayage":{taille:[612,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[102,97],images:6,pieds:[58,96],ancres:[[58,96],[58,96],[58,96],[58,96],[58,96],[58,96]],gundam:!0,src:"images/gundam/g-r-k-balayage.png"},"gundam/g-r-k-final":{taille:[846,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[141,109],images:6,pieds:[54,108],ancres:[[54,108],[54,108],[54,108],[54,108],[54,108],[54,108]],gundam:!0,src:"images/gundam/g-r-k-final.png"},"gundam/g-r-coup-fort":{taille:[846,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[141,109],images:6,pieds:[54,108],ancres:[[54,108],[54,108],[54,108],[54,108],[54,108],[54,108]],gundam:!0,src:"images/gundam/g-r-coup-fort.png"},"gundam/g-r-plonge-fin":{taille:[846,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[141,109],images:6,pieds:[54,108],ancres:[[54,108],[54,108],[54,108],[54,108],[54,108],[54,108]],gundam:!0,src:"images/gundam/g-r-plonge-fin.png"},"gundam/g-r-k-fort":{taille:[539,111],decalage:[0,0],hauteurAvantRognage:111,raccord:!1,cellule:[77,111],images:7,pieds:[37,110],ancres:[[37,110],[37,110],[37,110],[37,110],[37,110],[37,110],[37,110]],gundam:!0,src:"images/gundam/g-r-k-fort.png"},"gundam/g-r-bond-coupe":{taille:[539,111],decalage:[0,0],hauteurAvantRognage:111,raccord:!1,cellule:[77,111],images:7,pieds:[37,110],ancres:[[37,110],[37,110],[37,110],[37,110],[37,110],[37,110],[37,110]],gundam:!0,src:"images/gundam/g-r-bond-coupe.png"},"gundam/g-r-k-montante":{taille:[539,111],decalage:[0,0],hauteurAvantRognage:111,raccord:!1,cellule:[77,111],images:7,pieds:[37,110],ancres:[[37,110],[37,110],[37,110],[37,110],[37,110],[37,110],[37,110]],gundam:!0,src:"images/gundam/g-r-k-montante.png"},"gundam/g-r-k-pied-tournant":{taille:[616,111],decalage:[0,0],hauteurAvantRognage:111,raccord:!1,cellule:[77,111],images:8,pieds:[37,110],ancres:[[37,110],[37,110],[37,110],[37,110],[37,110],[37,110],[37,110],[37,110]],gundam:!0,src:"images/gundam/g-r-k-pied-tournant.png"},"gundam/g-r-k-dash-coupe":{taille:[705,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[141,109],images:5,pieds:[54,108],ancres:[[54,108],[54,108],[54,108],[54,108],[54,108]],gundam:!0,src:"images/gundam/g-r-k-dash-coupe.png"},"gundam/g-r-k-haute":{taille:[1128,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[141,109],images:8,pieds:[54,108],ancres:[[54,108],[54,108],[54,108],[54,108],[54,108],[54,108],[54,108],[54,108]],gundam:!0,src:"images/gundam/g-r-k-haute.png"},"gundam/g-r-moulinet":{taille:[1128,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[141,109],images:8,pieds:[54,108],ancres:[[54,108],[54,108],[54,108],[54,108],[54,108],[54,108],[54,108],[54,108]],gundam:!0,src:"images/gundam/g-r-moulinet.png"},"gundam/g-r-k-pied":{taille:[704,92],decalage:[0,0],hauteurAvantRognage:92,raccord:!1,cellule:[88,92],images:8,pieds:[33,91],ancres:[[33,91],[33,91],[33,91],[33,91],[33,91],[33,91],[33,91],[33,91]],gundam:!0,src:"images/gundam/g-r-k-pied.png"},"gundam/g-r-k-coup-poing":{taille:[1045,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[95,97],images:11,pieds:[39,96],ancres:[[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96]],gundam:!0,src:"images/gundam/g-r-k-coup-poing.png"},"gundam/g-r-poing-direct":{taille:[1045,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[95,97],images:11,pieds:[39,96],ancres:[[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96]],gundam:!0,src:"images/gundam/g-r-poing-direct.png"},"gundam/g-r-k-saut":{taille:[1300,104],decalage:[0,0],hauteurAvantRognage:104,raccord:!1,cellule:[100,104],images:13,pieds:[39,103],ancres:[[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103],[39,103]],gundam:!0,src:"images/gundam/g-r-k-saut.png"},"gundam/g-r-k-salto":{taille:[1740,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[145,109],images:12,pieds:[33,108],ancres:[[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108]],gundam:!0,src:"images/gundam/g-r-k-salto.png"},"gundam/g-r-k-saute-coupe":{taille:[1305,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[145,109],images:9,pieds:[33,108],ancres:[[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108],[33,108]],gundam:!0,src:"images/gundam/g-r-k-saute-coupe.png"},"gundam/g-r-k-pied-saute":{taille:[940,104],decalage:[0,0],hauteurAvantRognage:104,raccord:!1,cellule:[94,104],images:10,pieds:[33,103],ancres:[[33,103],[33,103],[33,103],[33,103],[33,103],[33,103],[33,103],[33,103],[33,103],[33,103]],gundam:!0,src:"images/gundam/g-r-k-pied-saute.png"},"gundam/g-r-k-chute":{taille:[1272,105],decalage:[0,0],hauteurAvantRognage:105,raccord:!1,cellule:[159,105],images:8,pieds:[64,104],ancres:[[64,104],[64,104],[64,104],[64,104],[64,104],[64,104],[64,104],[64,104]],gundam:!0,src:"images/gundam/g-r-k-chute.png"},"gundam/g-r-mort":{taille:[1272,105],decalage:[0,0],hauteurAvantRognage:105,raccord:!1,cellule:[159,105],images:8,pieds:[64,104],ancres:[[64,104],[64,104],[64,104],[64,104],[64,104],[64,104],[64,104],[64,104]],gundam:!0,src:"images/gundam/g-r-mort.png"},"gundam/g-r-touche":{taille:[288,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[96,97],images:3,pieds:[55,96],ancres:[[55,96],[55,96],[55,96]],gundam:!0,src:"images/gundam/g-r-touche.png"},"gundam/g-r-k-releve":{taille:[285,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[95,97],images:3,pieds:[39,96],ancres:[[39,96],[39,96],[39,96]],gundam:!0,src:"images/gundam/g-r-k-releve.png"},"gundam/g-r-k-releve-final":{taille:[760,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[95,97],images:8,pieds:[39,96],ancres:[[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96],[39,96]],gundam:!0,src:"images/gundam/g-r-k-releve-final.png"},"gundam/g-r-k-charge":{taille:[1260,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[105,97],images:12,pieds:[49,96],ancres:[[49,96],[49,96],[49,96],[49,96],[49,96],[49,96],[49,96],[49,96],[49,96],[49,96],[49,96],[49,96]],gundam:!0,src:"images/gundam/g-r-k-charge.png"},"gundam/g-r-parade":{taille:[128,81],decalage:[0,0],hauteurAvantRognage:81,raccord:!1,cellule:[64,81],images:2,pieds:[31,80],ancres:[[31,80],[31,80]],gundam:!0,src:"images/gundam/g-r-parade.png"},"interface/portrait-boss":{taille:[32,32],decalage:[0,0],hauteurAvantRognage:32,raccord:!1,src:"images/interface/portrait-boss.png"},"logo/logo":{taille:[441,127],decalage:[6,12],hauteurAvantRognage:150,raccord:!1,src:"images/logo/logo.png"},"proto/r-w-garde":{taille:[889,116],decalage:[0,0],hauteurAvantRognage:116,raccord:!1,cellule:[127,116],images:7,pieds:[23,101],ancres:[[23,101],[23,101],[23,101],[23,101],[23,101],[23,101],[23,101]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:77,corps:102,haut:82,bas:65,cx:40},{avant:79,corps:93,haut:98,bas:75,cx:41},{avant:79,corps:97,haut:86,bas:70,cx:43},{avant:77,corps:97,haut:91,bas:73,cx:43},{avant:76,corps:97,haut:89,bas:73,cx:43},{avant:60,corps:97,haut:79,bas:68,cx:43},{avant:64,corps:97,haut:80,bas:63,cx:43}],lames:null,src:"images/proto/r-w-garde.png"},"proto/r-w-pret":{taille:[944,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[118,109],images:8,pieds:[12,92],ancres:[[12,92],[12,92],[12,92],[12,92],[12,92],[12,92],[12,92],[12,92]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:91,corps:91,haut:81,bas:7,cx:40},{avant:102,corps:101,haut:38,bas:15,cx:45},{avant:103,corps:96,haut:55,bas:14,cx:42},{avant:103,corps:96,haut:55,bas:15,cx:42},{avant:102,corps:96,haut:55,bas:15,cx:42},{avant:103,corps:96,haut:55,bas:12,cx:42},{avant:95,corps:91,haut:75,bas:22,cx:40},{avant:97,corps:79,haut:81,bas:17,cx:34}],lames:null,src:"images/proto/r-w-pret.png"},"proto/r-w-marche":{taille:[444,120],decalage:[0,0],hauteurAvantRognage:120,raccord:!1,cellule:[74,120],images:6,pieds:[43,114],ancres:[[43,114],[43,114],[43,114],[43,114],[43,114],[43,114]],depot:!0,regarde:"droite",proto:!0,ancre:"torse",allonge:[{avant:27,corps:28,haut:91,bas:11,cx:-7},{avant:25,corps:28,haut:96,bas:17,cx:-5},{avant:24,corps:28,haut:98,bas:11,cx:-2},{avant:24,corps:29,haut:97,bas:10,cx:-6},{avant:25,corps:28,haut:101,bas:10,cx:-1},{avant:26,corps:28,haut:96,bas:11,cx:-1}],lames:null,src:"images/proto/r-w-marche.png"},"proto/r-w-ruee":{taille:[900,120],decalage:[0,0],hauteurAvantRognage:120,raccord:!1,cellule:[150,120],images:6,pieds:[74,118],ancres:[[74,118],[74,118],[74,118],[74,118],[74,118],[74,118]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:73,corps:73,haut:105,bas:49,cx:0},{avant:62,corps:47,haut:75,bas:39,cx:0},{avant:56,corps:61,haut:100,bas:70,cx:0},{avant:71,corps:70,haut:96,bas:55,cx:0},{avant:58,corps:56,haut:76,bas:41,cx:0},{avant:57,corps:66,haut:116,bas:65,cx:0}],lames:[[97.9,50.6,147,41],[84.9,65.1,134.9,62.7],[82.4,48.2,130,33],[96.4,54.3,145,42.5],[82.5,66.6,132,59.5],[85.6,42.6,130,19.6]],src:"images/proto/r-w-ruee.png"},"proto/r-w-lourd":{taille:[1421,124],decalage:[0,0],hauteurAvantRognage:124,raccord:!1,cellule:[203,124],images:7,pieds:[18,107],ancres:[[18,107],[18,107],[18,107],[18,107],[18,107],[18,107],[18,107]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:114,corps:113,haut:77,bas:32,cx:51},{avant:77,corps:121,haut:89,bas:48,cx:55},{avant:182,corps:181,haut:105,bas:64,cx:85},{avant:166,corps:148,haut:87,bas:47,cx:65},{avant:100,corps:111,haut:87,bas:48,cx:50},{avant:79,corps:109,haut:89,bas:48,cx:49},{avant:117,corps:116,haut:90,bas:36,cx:52}],lames:[[81.4,60.3,131.2,65.2],[54,67.1,95,38.5],[151.2,33.4,200,22.5],[133.7,45,182.8,35.7],[70.1,54,118,39.5],[52.5,61.3,97,38.5],[85.3,49.3,135,44]],src:"images/proto/r-w-lourd.png"},"proto/r-w-fente":{taille:[609,105],decalage:[0,0],hauteurAvantRognage:105,raccord:!1,cellule:[203,105],images:3,pieds:[12,91],ancres:[[12,91],[12,91],[12,91]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:133,corps:133,haut:84,bas:62,cx:61},{avant:102,corps:109,haut:87,bas:49,cx:49},{avant:188,corps:187,haut:77,bas:25,cx:88}],lames:[[96.3,29.8,143.6,13.5],[56.3,76.7,62.4,27],[150,40,200,40]],src:"images/proto/r-w-fente.png"},"proto/r-w-droit":{taille:[875,127],decalage:[0,0],hauteurAvantRognage:127,raccord:!1,cellule:[175,127],images:5,pieds:[14,112],ancres:[[14,112],[14,112],[14,112],[14,112],[14,112]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:157,corps:154,haut:109,bas:80,cx:71},{avant:143,corps:139,haut:102,bas:79,cx:64},{avant:149,corps:145,haut:105,bas:81,cx:66},{avant:124,corps:124,haut:100,bas:66,cx:57},{avant:101,corps:101,haut:97,bas:47,cx:45}],lames:[[123.6,33.4,171,17.5],[110,38.5,157,21.5],[115.9,35.8,163,19],[90.8,45.4,138,29],[66,50,115,40]],src:"images/proto/r-w-droit.png"},"proto/r-w-pied":{taille:[1218,137],decalage:[0,0],hauteurAvantRognage:137,raccord:!1,cellule:[174,137],images:7,pieds:[52,121],ancres:[[52,121],[52,121],[52,121],[52,121],[52,121],[52,121],[52,121]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:81,corps:96,haut:101,bas:84,cx:42},{avant:105,corps:101,haut:97,bas:52,cx:45},{avant:59,corps:118,haut:118,bas:65,cx:35},{avant:63,corps:113,haut:118,bas:65,cx:31},{avant:31,corps:39,haut:107,bas:31,cx:-2},{avant:105,corps:101,haut:97,bas:52,cx:45},{avant:81,corps:96,haut:101,bas:84,cx:42}],lames:null,src:"images/proto/r-w-pied.png"},"proto/r-w-accroupie":{taille:[632,135],decalage:[0,0],hauteurAvantRognage:135,raccord:!1,cellule:[158,135],images:4,pieds:[57,119],ancres:[[57,119],[57,119],[57,119],[57,119]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:42,corps:93,haut:116,bas:36,cx:28},{avant:23,corps:59,haut:112,bas:30,cx:4},{avant:25,corps:64,haut:113,bas:32,cx:4},{avant:100,corps:98,haut:108,bas:91,cx:44}],lames:[[53.8,64.4,99,43],[52,65,79.1,23.1],[55,61.2,80.4,18.1],[112.7,42.7,157,19.5]],src:"images/proto/r-w-accroupie.png"},"proto/r-w-tornade":{taille:[1200,119],decalage:[0,0],hauteurAvantRognage:119,raccord:!1,cellule:[120,119],images:10,pieds:[28,105],ancres:[[28,105],[28,105],[28,105],[28,105],[28,105],[28,105],[28,105],[28,105],[28,105],[28,105]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:68,corps:75,haut:68,bas:14,cx:31},{avant:68,corps:75,haut:68,bas:14,cx:31},{avant:80,corps:90,haut:55,bas:12,cx:39},{avant:80,corps:90,haut:55,bas:12,cx:39},{avant:80,corps:90,haut:58,bas:15,cx:39},{avant:80,corps:90,haut:58,bas:15,cx:39},{avant:78,corps:44,haut:82,bas:29,cx:9},{avant:88,corps:52,haut:71,bas:28,cx:18},{avant:34,corps:46,haut:77,bas:34,cx:14},{avant:38,corps:46,haut:74,bas:16,cx:15}],lames:[null,null,null,null,null,null,[58.4,51.3,105.6,68],[66,54.7,115.8,50.8],null,null],src:"images/proto/r-w-tornade.png"},"proto/r-w-saut":{taille:[775,233],decalage:[0,0],hauteurAvantRognage:233,raccord:!1,cellule:[155,233],images:5,pieds:[84,146],ancres:[[84,146],[84,146],[84,146],[84,146],[84,146]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:-38,corps:50,haut:43,bas:34,cx:0},{avant:-4,corps:54,haut:84,bas:25,cx:0},{avant:67,corps:68,haut:137,bas:91,cx:0},{avant:67,corps:68,haut:137,bas:91,cx:0},{avant:65,corps:66,haut:144,bas:96,cx:0}],lames:null,src:"images/proto/r-w-saut.png"},"proto/r-w-retombee":{taille:[1206,195],decalage:[0,0],hauteurAvantRognage:195,raccord:!1,cellule:[201,195],images:6,pieds:[86,139],ancres:[[86,139],[86,139],[86,139],[86,139],[86,139],[86,139]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:27,corps:53,haut:135,bas:91,cx:0},{avant:30,corps:60,haut:91,bas:71,cx:0},{avant:69,corps:84,haut:59,bas:31,cx:0},{avant:23,corps:50,haut:58,bas:7,cx:0},{avant:17,corps:46,haut:59,bas:0,cx:0},{avant:0,corps:48,haut:27,bas:0,cx:0}],lames:[[80.2,63.7,113,26],[85.6,100.4,86.6,50.4],[107.5,78.3,155,94],[77.8,67.5,109,106.5],[85.3,74.3,87.8,124.2],[86,75.5,86,125.5]],src:"images/proto/r-w-retombee.png"},"proto/r-w-intro":{taille:[1204,113],decalage:[0,0],hauteurAvantRognage:113,raccord:!1,cellule:[86,113],images:14,pieds:[12,106],ancres:[[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106],[12,106]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:53,corps:55,haut:92,bas:12,cx:22},{avant:52,corps:63,haut:91,bas:10,cx:26},{avant:52,corps:63,haut:91,bas:10,cx:26},{avant:41,corps:71,haut:87,bas:10,cx:30},{avant:41,corps:71,haut:87,bas:10,cx:30},{avant:52,corps:71,haut:93,bas:10,cx:30},{avant:52,corps:71,haut:93,bas:10,cx:30},{avant:53,corps:71,haut:87,bas:10,cx:30},{avant:53,corps:71,haut:87,bas:10,cx:30},{avant:53,corps:71,haut:90,bas:10,cx:30},{avant:53,corps:71,haut:90,bas:10,cx:30},{avant:43,corps:71,haut:90,bas:10,cx:30},{avant:43,corps:71,haut:90,bas:10,cx:30},{avant:52,corps:71,haut:93,bas:10,cx:30}],lames:null,src:"images/proto/r-w-intro.png"},"proto/r-w-bloc":{taille:[994,126],decalage:[0,0],hauteurAvantRognage:126,raccord:!1,cellule:[142,126],images:7,pieds:[39,111],ancres:[[39,111],[39,111],[39,111],[39,111],[39,111],[39,111],[39,111]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:92,corps:101,haut:107,bas:58,cx:38},{avant:76,corps:92,haut:89,bas:60,cx:40},{avant:82,corps:91,haut:98,bas:60,cx:39},{avant:79,corps:91,haut:96,bas:60,cx:39},{avant:76,corps:91,haut:92,bas:60,cx:39},{avant:75,corps:91,haut:90,bas:60,cx:39},{avant:74,corps:91,haut:89,bas:60,cx:39}],lames:null,src:"images/proto/r-w-bloc.png"},"proto/r-w-touche":{taille:[572,89],decalage:[0,0],hauteurAvantRognage:89,raccord:!1,cellule:[143,89],images:4,pieds:[48,73],ancres:[[48,73],[48,73],[48,73],[48,73]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:39,corps:74,haut:64,bas:6,cx:14},{avant:39,corps:76,haut:63,bas:12,cx:17},{avant:34,corps:73,haut:70,bas:15,cx:16},{avant:93,corps:90,haut:38,bas:12,cx:37}],lames:null,src:"images/proto/r-w-touche.png"},"proto/r-w-souleve":{taille:[1038,171],decalage:[0,0],hauteurAvantRognage:171,raccord:!1,cellule:[173,171],images:6,pieds:[58,156],ancres:[[58,156],[58,156],[58,156],[58,156],[58,156],[58,156]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:60,corps:53,haut:122,bas:105,cx:-2},{avant:47,corps:57,haut:109,bas:81,cx:8},{avant:80,corps:113,haut:103,bas:52,cx:38},{avant:85,corps:87,haut:101,bas:48,cx:23},{avant:39,corps:63,haut:105,bas:80,cx:12},{avant:62,corps:58,haut:79,bas:47,cx:7}],lames:null,src:"images/proto/r-w-souleve.png"},"proto/r-w-chute":{taille:[1288,104],decalage:[0,0],hauteurAvantRognage:104,raccord:!1,cellule:[184,104],images:7,pieds:[95,94],ancres:[[95,94],[95,94],[95,94],[95,94],[95,94],[95,94],[95,94]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:62,corps:62,haut:75,bas:1,cx:0},{avant:39,corps:40,haut:84,bas:4,cx:0},{avant:-10,corps:87,haut:79,bas:0,cx:0},{avant:-11,corps:60,haut:89,bas:0,cx:0},{avant:22,corps:46,haut:73,bas:0,cx:0},{avant:56,corps:52,haut:62,bas:-7,cx:0},{avant:56,corps:56,haut:62,bas:31,cx:0}],lames:null,src:"images/proto/r-w-chute.png"},"proto/r-w-mort1":{taille:[1015,113],decalage:[0,0],hauteurAvantRognage:113,raccord:!1,cellule:[145,113],images:7,pieds:[72,111],ancres:[[72,111],[72,111],[72,111],[72,111],[72,111],[72,111],[72,111]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:34,corps:63,haut:79,bas:54,cx:0},{avant:16,corps:64,haut:87,bas:54,cx:0},{avant:41,corps:71,haut:98,bas:69,cx:0},{avant:41,corps:71,haut:98,bas:69,cx:0},{avant:41,corps:67,haut:97,bas:70,cx:0},{avant:41,corps:71,haut:98,bas:69,cx:0},{avant:41,corps:67,haut:97,bas:70,cx:0}],lames:null,src:"images/proto/r-w-mort1.png"},"proto/r-w-mort2":{taille:[966,114],decalage:[0,0],hauteurAvantRognage:114,raccord:!1,cellule:[161,114],images:6,pieds:[80,111],ancres:[[80,111],[80,111],[80,111],[80,111],[80,111],[80,111]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:41,corps:71,haut:98,bas:69,cx:0},{avant:17,corps:74,haut:89,bas:66,cx:0},{avant:7,corps:79,haut:23,bas:11,cx:0},{avant:4,corps:69,haut:38,bas:22,cx:0},{avant:2,corps:60,haut:82,bas:18,cx:0},{avant:2,corps:61,haut:85,bas:20,cx:0}],lames:null,src:"images/proto/r-w-mort2.png"},"proto/r-w-gisant":{taille:[525,66],decalage:[0,0],hauteurAvantRognage:66,raccord:!1,cellule:[175,66],images:3,pieds:[87,60],ancres:[[87,60],[87,60],[87,60]],depot:!0,regarde:"droite",proto:!0,ancre:"centre",allonge:[{avant:-5,corps:86,haut:26,bas:1,cx:0},{avant:7,corps:79,haut:23,bas:11,cx:0},{avant:32,corps:82,haut:17,bas:-2,cx:0}],lames:null,src:"images/proto/r-w-gisant.png"},"proto/r-w-victoire":{taille:[1079,151],decalage:[0,0],hauteurAvantRognage:151,raccord:!1,cellule:[83,151],images:13,pieds:[18,144],ancres:[[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144],[18,144]],depot:!0,regarde:"droite",proto:!0,ancre:"arriere",allonge:[{avant:33,corps:49,haut:130,bas:10,cx:17},{avant:34,corps:49,haut:129,bas:10,cx:17},{avant:54,corps:59,haut:102,bas:10,cx:22},{avant:42,corps:53,haut:103,bas:10,cx:18},{avant:41,corps:53,haut:105,bas:10,cx:18},{avant:43,corps:53,haut:105,bas:10,cx:18},{avant:54,corps:58,haut:86,bas:9,cx:23},{avant:57,corps:63,haut:81,bas:9,cx:26},{avant:55,corps:63,haut:97,bas:10,cx:26},{avant:52,corps:59,haut:137,bas:9,cx:24},{avant:48,corps:57,haut:140,bas:9,cx:23},{avant:55,corps:57,haut:90,bas:10,cx:23},{avant:47,corps:62,haut:66,bas:9,cx:25}],lames:null,src:"images/proto/r-w-victoire.png"},"roto/r-coup-leger":{taille:[1390,105],decalage:[0,0],hauteurAvantRognage:105,raccord:!1,cellule:[139,105],images:10,pieds:[54,98],lames:[[39.7,29.1,26.2,8.9],null,[38.6,37.9,19.6,28.1],[38.9,38.3,20.1,28.2],[58,67.4,79.1,60.2],[52.3,64.3,33.9,56.1],[89.5,47.8,136.4,51.4],[88.4,48.1,113,49.3],null,[27.9,28,12.1,23.3]],indices:[0,1,2,3,4,5,6,7,8,9],src:"images/roto/r-coup-leger.png"},"roto/r-garde":{taille:[1053,108],decalage:[0,0],hauteurAvantRognage:108,raccord:!1,cellule:[117,108],images:9,pieds:[72,107],bustes:[67,67.8,68.6,68.3,68.2,67.5,66.4,66.7,66.2],lames:[[67.5,36.2,106.7,10.1],[68.6,35.8,101.7,2.3],[68.4,36.5,106.8,9.3],[69,36,112.3,17.7],[79.3,35.2,113.5,28.7],[93.1,42.4,111.4,44.1],[95.6,45.7,108,47.4],[67.5,41,114.5,41.3],[66.9,36.4,109.1,15.6]],indices:[0,1,2,3,4,5,6,7,8],ancres:[[67,107],[68,107],[69,107],[68,107],[68,107],[68,107],[66,107],[67,107],[66,107]],src:"images/roto/r-garde.png"},"roto/r-marche":{taille:[992,106],decalage:[0,0],hauteurAvantRognage:106,raccord:!1,cellule:[124,106],images:8,pieds:[66,98],bustes:[57.8,56.4,57.7,58,59.2,62.6,63.9,58.5],lames:[[70.7,29.4,117.4,23.9],[68.8,28.2,115.4,22.2],[69.7,25.7,116.1,17.6],[69.3,24.4,115.5,15.8],[71.4,24.4,117.5,14.6],[75.2,24.5,121.4,15.5],[73.1,27.4,119.6,20.5],[70.2,29.2,116.8,23.1]],indices:[0,1,2,3,4,5,6,7],ancres:[[58,98],[56,98],[58,98],[58,98],[59,98],[63,98],[64,98],[58,98]],src:"images/roto/r-marche.png"},"roto/r-estoc":{taille:[1660,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[166,97],images:10,pieds:[64,94],lames:[[60.9,33.5,107.1,42.5],[80.4,39.4,127.4,38.7],[98.5,41.8,145.5,41.1],[106.3,42,143.2,42],[118.3,43,165.3,40.1],[146.5,39.9,164.5,40.7],[144.1,40.3,164.5,40.6],null,null,[96.9,41.8,143.9,41.1]],indices:[0,1,2,3,4,5,6,7,8,9],src:"images/roto/r-estoc.png"},"roto/r-parade":{taille:[625,103],decalage:[0,0],hauteurAvantRognage:103,raccord:!1,cellule:[125,103],images:5,pieds:[69,101],lames:[[75.2,24.4,97.7,9.6],[88.5,51.9,77.7,34.8],[75.3,38.7,83,71.3],[74.2,37.6,78.2,84.5],[65.3,42.6,85.7,84.9]],indices:[0,1,2,3,4],src:"images/roto/r-parade.png"},"roto/r-saut":{taille:[984,163],decalage:[0,0],hauteurAvantRognage:163,raccord:!1,cellule:[123,163],images:8,pieds:[50,154],indices:[0,1,2,3,4,5,6,7],src:"images/roto/r-saut.png"},"roto/r-coup-fort":{taille:[3196,112],decalage:[0,0],hauteurAvantRognage:112,raccord:!1,cellule:[188,112],images:17,pieds:[87,106],lames:[null,[101.8,33.9,147.9,43.4],[99.9,32.2,135.2,37.2],null,[86.5,22.7,41.2,10.2],[119.5,32.2,83.3,2.1],[115.4,29.9,95.5,10.8],[143,66.2,185,44.8],null,[64.9,84.3,44.1,90.7],[64.3,84.7,44.1,90.7],null,null,[68.6,81.3,49.2,86.8],null,[119.3,68.8,139.9,69.6],[102,56.1,148.9,59.6]],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],src:"images/roto/r-coup-fort.png"},"roto/r-touche":{taille:[804,118],decalage:[0,0],hauteurAvantRognage:118,raccord:!1,cellule:[134,118],images:6,pieds:[82,111],lames:[[30.7,68.3,2.3,82.9],[30.7,68.3,2.3,82.9],null,[36.1,52.9,12.8,36.1],[53.8,45.5,60.5,16.7],[63.9,42.1,94.2,6]],indices:[0,1,2,3,4,5],src:"images/roto/r-touche.png"},"roto/r-mort":{taille:[1456,96],decalage:[0,0],hauteurAvantRognage:96,raccord:!1,cellule:[182,96],images:8,pieds:[91,85],lames:[[62.9,19.2,109.6,13.9],[53.1,33.8,26.3,25.3],[62.5,52.5,30.1,65.9],null,[90.7,78.1,71.8,56.9],[115.9,68.3,131.3,23.8],[123.2,71,141.2,40.7],[95.1,78.1,139.8,63.3]],indices:[0,1,2,3,4,10,11,12],src:"images/roto/r-mort.png"},"roto/r-sa-garde":{taille:[1060,101],decalage:[0,0],hauteurAvantRognage:101,raccord:!1,cellule:[106,101],images:10,pieds:[49,99],indices:[0,1,2,3,4,5,6,7,8,9],ancres:[[51,97],[50,97],[49,96],[48,97],[47,97],[46,98],[47,99],[50,99],[51,98],[51,96]],src:"images/roto/r-sa-garde.png"},"roto/r-sa-attaque":{taille:[1720,141],decalage:[0,0],hauteurAvantRognage:141,raccord:!1,cellule:[215,141],images:8,pieds:[92,133],indices:[0,1,2,3,4,5,6,7],src:"images/roto/r-sa-attaque.png"},"roto/r-ni-garde":{taille:[1250,90],decalage:[0,0],hauteurAvantRognage:90,raccord:!1,cellule:[125,90],images:10,pieds:[71,89],indices:[0,1,2,3,4,5,6,7,8,9],ancres:[[73,85],[72,86],[70,86],[70,87],[71,88],[71,89],[71,89],[71,88],[71,87],[72,86]],src:"images/roto/r-ni-garde.png"},"roto/r-ni-course":{taille:[750,90],decalage:[0,0],hauteurAvantRognage:90,raccord:!1,cellule:[150,90],images:5,pieds:[69,86],indices:[0,1,2,3,4],ancres:[[73,88],[82,88],[72,86],[62,87],[57,87]],src:"images/roto/r-ni-course.png"},"roto/r-ni-lancer":{taille:[1376,120],decalage:[0,0],hauteurAvantRognage:120,raccord:!1,cellule:[172,120],images:8,pieds:[66,113],indices:[0,1,2,3,4,5,6,7],src:"images/roto/r-ni-lancer.png"},"roto/r-ni-bond":{taille:[1155,135],decalage:[0,0],hauteurAvantRognage:135,raccord:!1,cellule:[165,135],images:7,pieds:[86,130],indices:[0,1,2,3,4,5,6],src:"images/roto/r-ni-bond.png"},"roto/r-ni-touche":{taille:[938,87],decalage:[0,0],hauteurAvantRognage:87,raccord:!1,cellule:[134,87],images:7,pieds:[76,82],indices:[0,1,2,3,4,5,6],src:"images/roto/r-ni-touche.png"},"roto/r-ni-mort":{taille:[1539,142],decalage:[0,0],hauteurAvantRognage:142,raccord:!1,cellule:[171,142],images:9,pieds:[88,133],indices:[0,1,2,3,4,5,6,7,8],src:"images/roto/r-ni-mort.png"},"roto/r-sa-marche":{taille:[1240,121],decalage:[0,0],hauteurAvantRognage:121,raccord:!1,cellule:[124,121],images:10,pieds:[54,120],indices:[0,1,2,3,4,5,6,7,8,9],ancres:[[54,118],[54,116],[52,115],[50,119],[53,120],[58,116],[61,116],[56,118],[51,115],[51,120]],src:"images/roto/r-sa-marche.png"},"roto/r-sa-touche":{taille:[1001,113],decalage:[0,0],hauteurAvantRognage:113,raccord:!1,cellule:[143,113],images:7,pieds:[68,106],indices:[0,1,2,3,4,5,6],src:"images/roto/r-sa-touche.png"},"roto/r-sa-mort":{taille:[1710,126],decalage:[0,0],hauteurAvantRognage:126,raccord:!1,cellule:[190,126],images:9,pieds:[102,120],indices:[0,1,2,3,4,5,6,7,8],src:"images/roto/r-sa-mort.png"},"roto/r-k-garde":{taille:[1188,100],decalage:[0,0],hauteurAvantRognage:100,raccord:!1,cellule:[132,100],images:9,pieds:[75,99],lames:[null,null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7,8],ancres:[[79,95],[75,97],[71,94],[75,98],[76,94],[73,96],[75,95],[75,96],[76,96]],src:"images/roto/r-k-garde.png"},"roto/r-k-marche":{taille:[840,109],decalage:[0,0],hauteurAvantRognage:109,raccord:!1,cellule:[105,109],images:8,pieds:[46,108],bustes:[41.9,47.1,43.3,40.2,42.9,48.6,43.3,41],lames:[null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7],ancres:[[42,108],[47,108],[43,108],[40,108],[43,108],[49,108],[43,108],[41,108]],src:"images/roto/r-k-marche.png"},"roto/r-k-course":{taille:[890,91],decalage:[0,0],hauteurAvantRognage:91,raccord:!1,cellule:[178,91],images:5,pieds:[85,89],bustes:[101.4,106.1,105.3,103.1,95.9],lames:[null,null,null,null,null],indices:[0,1,2,3,4],ancres:[[109,89],[83,89],[94,89],[115,89],[96,89]],src:"images/roto/r-k-course.png"},"roto/r-k-coupes":{taille:[1496,113],decalage:[0,0],hauteurAvantRognage:113,raccord:!1,cellule:[187,113],images:8,pieds:[95,111],bustes:[97,94.8,102.1,97,116.8,125.9,112,132.2],lames:[null,null,null,null,[169.6,56.6,190.2,29.7],null,[159.6,93.1,169.7,91.9],null],indices:[0,1,2,3,4,5,6,7],depot:!0,src:"images/roto/r-k-coupes.png"},"roto/r-k-chute":{taille:[1400,116],decalage:[0,0],hauteurAvantRognage:116,raccord:!1,cellule:[175,116],images:8,pieds:[89,103],bustes:[94.8,78.8,94.6,49.8,87.8,128.2,89.4,89.3],lames:[null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7],src:"images/roto/r-k-chute.png"},"roto/r-k-releve":{taille:[399,80],decalage:[0,0],hauteurAvantRognage:80,raccord:!1,cellule:[133,80],images:3,pieds:[74,78],bustes:[69.7,78.3,69.2],lames:[null,null,null],indices:[0,1,2],src:"images/roto/r-k-releve.png"},"roto/r-k-saut":{taille:[962,108],decalage:[0,0],hauteurAvantRognage:108,raccord:!1,cellule:[74,108],images:13,pieds:[38,107],bustes:[41.6,44.9,44.4,44.7,45,41.3,42,40.6,50.3,49.4,41.4,43.7,43.3],lames:[null,null,null,null,null,null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12],src:"images/roto/r-k-saut.png"},"roto/r-k-salto":{taille:[1440,123],decalage:[0,0],hauteurAvantRognage:123,raccord:!1,cellule:[120,123],images:12,pieds:[61,118],bustes:[93.2,75.2,73.8,50.1,54.3,55.4,68.5,38.1,44.5,46.1,64.3,67.9],lames:[null,null,null,null,null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7,8,9,10,11],src:"images/roto/r-k-salto.png"},"roto/r-k-pied":{taille:[1112,103],decalage:[0,0],hauteurAvantRognage:103,raccord:!1,cellule:[139,103],images:8,pieds:[72,101],bustes:[78.2,64.4,59.5,69.7,69.2,68.5,61.1,59.9],lames:[null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7],src:"images/roto/r-k-pied.png"},"roto/r-k-pied-saute":{taille:[1300,115],decalage:[0,0],hauteurAvantRognage:115,raccord:!1,cellule:[130,115],images:10,pieds:[51,112],bustes:[50.2,55.3,42.2,41.8,46.8,46.7,60.8,61.3,63.7,61.7],lames:[null,null,null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7,8,9],src:"images/roto/r-k-pied-saute.png"},"roto/r-k-combo2":{taille:[882,100],decalage:[0,0],hauteurAvantRognage:100,raccord:!1,cellule:[126,100],images:7,pieds:[32,98],bustes:[47,52.2,48.6,48.9,49.3,46.8,49.1],lames:[[94.8,80.9,104.2,79.8],[68.2,81.9,82.2,81.9],[68.2,81.2,96.8,81.2],[96.1,80.9,105.5,79.8],[96.1,80.9,105.5,79.8],[108.3,74.8,122.9,70.2],[101.3,42.7,114,29.6]],indices:[0,1,2,3,4,5,6],src:"images/roto/r-k-combo2.png"},"roto/r-k-final":{taille:[822,113],decalage:[0,0],hauteurAvantRognage:113,raccord:!1,cellule:[137,113],images:6,pieds:[48,111],bustes:[66.4,64.8,90.4,61.4,75.1,61.3],lames:[[97,48.9,117.7,26.7],[97.8,49.6,133.2,6.1],null,[96.4,95.6,107.5,95.6],null,[73.6,93.6,97.1,93.6]],indices:[0,1,2,3,4,5],depot:!0,src:"images/roto/r-k-final.png"},"roto/r-k-montante":{taille:[959,140],decalage:[0,0],hauteurAvantRognage:140,raccord:!1,cellule:[137,140],images:7,pieds:[60,139],bustes:[76.9,69.9,76.9,75.5,75.3,71.8,101.3],lames:[[30.8,47.7,-2.8,18.6],[36.8,47.1,32.1,-8.7],[42.5,49.9,79.1,7.5],[40.4,53.2,96.2,48.5],null,[37.5,107.2,33.3,65.4],[51.4,66.6,-4.5,69]],indices:[0,1,2,3,4,5,6],depot:!0,src:"images/roto/r-k-montante.png"},"roto/r-k-haute":{taille:[1128,152],decalage:[0,0],hauteurAvantRognage:152,raccord:!1,cellule:[141,152],images:8,pieds:[84,150],bustes:[94.6,95.4,93.5,87.5,93.2,93.5,92.4,87.6],lames:[[45.9,64.9,16.6,98.7],[45.6,58,-10.2,62.8],[48.2,51.4,14.7,22.3],[56.4,45.2,51.6,-10.6],[62.2,46.6,91.4,12.8],[62.1,55.4,117.9,50.5],null,null],indices:[0,1,2,3,4,5,6,7],src:"images/roto/r-k-haute.png"},"roto/r-k-charge":{taille:[948,142],decalage:[0,0],hauteurAvantRognage:142,raccord:!1,cellule:[79,142],images:12,pieds:[44,140],bustes:[40.9,40.9,41.5,41,40.9,40.4,40.9,30.1,40.9,29.5,40.9,46.2],lames:[[19.9,54.3,25.8,-1.3],[19.9,54.3,25.8,-1.3],[19.9,50.3,25.8,-5.4],[19.9,54.3,25.8,-1.3],[19.9,54.3,25.8,-1.3],[19.9,54.3,25.8,-1.3],[19.9,54.3,25.8,-1.3],null,[19.9,54.3,25.8,-1.3],[20.9,56.3,24.7,.4],[19.9,54.3,25.8,-1.3],[28.2,32.1,4.8,37.7]],indices:[0,1,2,3,4,5,6,7,8,9,10,11],src:"images/roto/r-k-charge.png"},"roto/r-k-saute-coupe":{taille:[1188,139],decalage:[0,0],hauteurAvantRognage:139,raccord:!1,cellule:[132,139],images:9,pieds:[75,137],bustes:[62.9,71.4,64.5,71.5,71,85.2,83.8,85.5,99.9],lames:[[51.5,53.6,55.1,-2.2],[50.3,51.8,56.2,-3.9],[51.5,53.6,55.2,-2.3],[50.3,51.8,56.2,-3.9],[50.6,51.3,56,-4.4],[51.1,38.2,13.6,79.9],[36,87.7,48.6,33.1],[40.2,87.9,48.3,32.5],[43.7,36.9,-9.1,55.3]],indices:[0,1,2,3,4,5,6,7,8],src:"images/roto/r-k-saute-coupe.png"},"roto/r-k-balayage":{taille:[966,85],decalage:[0,0],hauteurAvantRognage:85,raccord:!1,cellule:[161,85],images:6,pieds:[80,83],bustes:[86.2,102.6,85.9,102.6,119.3,120.4],lames:[null,null,null,null,null,[33,12.8,25.2,14]],indices:[0,1,2,3,4,5],depot:!0,src:"images/roto/r-k-balayage.png"},"roto/r-k-dash-coupe":{taille:[795,114],decalage:[0,0],hauteurAvantRognage:114,raccord:!1,cellule:[159,114],images:5,pieds:[50,111],bustes:[77.1,64.7,62.7,62.7,62.8],lames:[[126.1,24.6,77.5,-3.3],[99.3,49.6,134.5,6.1],[71.8,97.3,127.6,93.1],[71.8,97.3,127.6,93.1],[71.8,97.8,127.6,93.1]],indices:[0,1,2,3,4],src:"images/roto/r-k-dash-coupe.png"},"roto/r-k-fort":{taille:[1099,125],decalage:[0,0],hauteurAvantRognage:125,raccord:!1,cellule:[157,125],images:7,pieds:[82,123],bustes:[128.2,85.9,92.2,90.8,89.1,90.3,105.6],lames:[null,null,[71.7,15.5,15.9,20.6],[59.1,25,31.1,53.7],[44.1,72.8,56.6,18.2],[48,72.9,55.9,17.5],[51,23.2,-1.9,41.6]],indices:[0,1,2,3,4,5,6],depot:!0,src:"images/roto/r-k-fort.png"},"roto/r-k-estoc":{taille:[1057,97],decalage:[0,0],hauteurAvantRognage:97,raccord:!1,cellule:[151,97],images:7,pieds:[47,95],bustes:[54.1,57.9,65,64.8,78.5,85.3,68.1],lames:[[13.8,6.4,5.9,8.3],[29.1,16.6,18,16.6],null,[88,15.9,77.9,8.6],[129.1,42.3,137.8,42.3],null,null],indices:[0,1,2,3,4,5,6],depot:!0,src:"images/roto/r-k-estoc.png"},"roto/r-k-coupe-epaule":{taille:[585,98],decalage:[0,0],hauteurAvantRognage:98,raccord:!1,cellule:[117,98],images:5,pieds:[42,98],bustes:[56.8,57.1,57.1,57.1,46],lames:[[90.3,36.1,117.1,6.1],[90.5,36.3,114.8,9.7],[90.8,36.6,118.8,4.9],[90.8,36.6,118.8,4.9],null],indices:[0,1,2,3,4],depot:!0,src:"images/roto/r-k-coupe-epaule.png"},"roto/r-k-pied-tournant":{taille:[1056,106],decalage:[0,0],hauteurAvantRognage:106,raccord:!1,cellule:[132,106],images:8,pieds:[53,104],bustes:[58.8,46.3,40.5,46.3,58.5,57.6,65,46.3],lames:[[46.6,13,42.3,4.3],null,null,null,null,null,[38.5,60.7,32.7,67.4],null],indices:[0,1,2,3,4,5,6,7],depot:!0,src:"images/roto/r-k-pied-tournant.png"},"roto/r-k-releve-final":{taille:[1192,115],decalage:[0,0],hauteurAvantRognage:115,raccord:!1,cellule:[149,115],images:8,pieds:[62,113],bustes:[73.3,73.8,75.6,69.7,67.7,108.3,66,64.6],lames:[[87.4,96.5,143.1,91.5],[87.4,97.1,143.1,91.9],[111,51.7,146.1,8.1],[79.7,10.8,25.2,-1.8],null,null,null,[46,10.4,-9.8,15.5]],indices:[0,1,2,3,4,5,6,7],depot:!0,src:"images/roto/r-k-releve-final.png"},"roto/r-k-coup-poing":{taille:[1386,107],decalage:[0,0],hauteurAvantRognage:107,raccord:!1,cellule:[126,107],images:11,pieds:[40,104],bustes:[43.7,44.9,44.9,45.5,45.6,43.8,44.9,45.9,45.2,44.9,44.7],lames:[null,null,null,null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7,8,9,10],depot:!0,src:"images/roto/r-k-coup-poing.png"},"roto/r-f-marche":{taille:[1168,129],decalage:[0,0],hauteurAvantRognage:129,raccord:!1,cellule:[146,129],images:8,pieds:[55,127],bustes:[55.4,60.5,60.4,56.2,55.2,61.8,59,55.2],lames:[null,null,null,null,[46.4,71.9,24.1,71.9],null,null,null],indices:[0,1,2,3,4,5,6,7],ancres:[[96,127],[60,127],[56,127],[56,127],[54,127],[74,127],[56,127],[61,127]],depot:!0,src:"images/roto/r-f-marche.png"},"roto/r-f-course":{taille:[775,102],decalage:[0,0],hauteurAvantRognage:102,raccord:!1,cellule:[155,102],images:5,pieds:[74,100],bustes:[96.9,89.3,90.3,86.9,90.2],lames:[[73,20,53,11.9],null,[39.1,6.3,17.1,1.5],[77.1,16.4,40.1,12],[56,13.9,41,11.8]],indices:[0,1,2,3,4],ancres:[[97,100],[62,100],[71,100],[94,100],[91,100]],depot:!0,src:"images/roto/r-f-course.png"},"roto/r-f-garde":{taille:[768,122],decalage:[0,0],hauteurAvantRognage:122,raccord:!1,cellule:[96,122],images:8,pieds:[27,121],bustes:[44.9,43,41.9,41.9,43.2,44.5,44.8,45],lames:[null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7],ancres:[[45,121],[43,121],[42,121],[42,121],[43,121],[44,121],[45,121],[45,121]],depot:!0,src:"images/roto/r-f-garde.png"},"roto/r-f-coupe1":{taille:[1820,121],decalage:[0,0],hauteurAvantRognage:121,raccord:!1,cellule:[130,121],images:14,pieds:[25,117],bustes:[44.8,44.2,47.6,47.4,44.2,46.5,45.8,50.5,41.8,55.4,41.7,45.8,41.1,40.8],lames:[null,null,null,null,null,[44.3,52.3,69.8,62.5],null,[84.6,52.9,126.6,70],[39,44.1,79.7,60.8],[33,44.9,71.9,61.2],[38.8,42.6,81.9,57.3],[38.8,42.5,81.7,56.8],[39.9,43.4,81,56.9],[40,43.9,81,57.1]],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12,13],depot:!0,src:"images/roto/r-f-coupe1.png"},"roto/r-f-coupe3":{taille:[1422,133],decalage:[0,0],hauteurAvantRognage:133,raccord:!1,cellule:[158,133],images:9,pieds:[58,126],bustes:[100.9,67.6,84.9,67.6,77.7,67.4,68.1,68.8,98.5],lames:[[133.5,71.5,149.4,56.5],[67,104.9,106,106.9],[141.6,92.6,153.7,50.1],[62.7,103.9,108,107.8],[66,105.1,107,107.9],[68,105.8,107,108.1],[70,104.2,107,106.3],[70,101.9,112,104.6],[132.7,73.3,147.6,54.4]],indices:[0,1,2,3,4,5,6,7,8],depot:!0,src:"images/roto/r-f-coupe3.png"},"roto/r-f-chute":{taille:[1584,120],decalage:[0,0],hauteurAvantRognage:120,raccord:!1,cellule:[176,120],images:9,pieds:[86,115],bustes:[98.4,85.2,87.3,98.4,65.4,80.7,125.3,88.9,83.6],lames:[null,null,null,null,null,[77.1,85.9,86.9,115.2],[122.7,88.1,144.7,99],[93.3,104.1,119.5,112.7],null],indices:[0,1,2,3,4,5,6,7,8],depot:!0,src:"images/roto/r-f-chute.png"},"roto/r-f-releve":{taille:[396,105],decalage:[0,0],hauteurAvantRognage:105,raccord:!1,cellule:[132,105],images:3,pieds:[59,101],bustes:[57.4,65.4,73.3],lames:[null,null,null],indices:[0,1,2],depot:!0,src:"images/roto/r-f-releve.png"},"roto/r-b-marche":{taille:[952,118],decalage:[0,0],hauteurAvantRognage:118,raccord:!1,cellule:[119,118],images:8,pieds:[48,115],bustes:[48.1,48.9,48.7,44.3,46,46.5,48.7,48],lames:[null,null,null,null,null,null,null,null],indices:[0,1,2,3,4,5,6,7],ancres:[[49,115],[49,115],[47,115],[42,115],[83,115],[47,115],[49,115],[48,115]],depot:!0,src:"images/roto/r-b-marche.png"},"roto/r-b-course":{taille:[1395,100],decalage:[0,0],hauteurAvantRognage:100,raccord:!1,cellule:[155,100],images:9,pieds:[81,95],bustes:[90.1,77.7,76.8,79,76.9,74.2,77.4,73.7,75.5],lames:[[85.2,56,65.4,58.8],[89,50.3,48.1,51.4],[90,50.3,49.1,51.9],[89.4,51.2,55.5,52.9],[87.5,54.5,53.7,51.8],[86.1,53.4,52.4,51.6],[89.4,53.2,55.5,54.2],[85,51.6,52.1,52.9],null],indices:[0,1,2,3,4,5,6,7,8],ancres:[[77,95],[79,95],[77,95],[75,95],[77,95],[55,95],[78,95],[43,95],[93,95]],depot:!0,src:"images/roto/r-b-course.png"},"roto/r-b-garde":{taille:[600,116],decalage:[0,0],hauteurAvantRognage:116,raccord:!1,cellule:[60,116],images:10,pieds:[38,109],bustes:[34,33.9,33.9,34,34,34,34,34.1,34.1,34.1],lames:[[40.5,51.6,40.5,103.1],[40.5,51.6,40.8,103.1],[40.2,51.6,41,92.1],[40.3,51.6,41.3,103.1],[40.6,51.6,40.4,103.1],[40.6,51.6,40.7,103.1],[40.5,51.6,40.5,103.1],[40.5,51.6,40.5,103.1],[40.5,51.6,40.5,103.1],[40.5,51.6,40.5,103.1]],indices:[0,1,2,3,4,5,6,7,8,9],ancres:[[34,109],[34,109],[34,109],[34,109],[34,109],[34,109],[34,109],[34,109],[34,109],[34,109]],depot:!0,src:"images/roto/r-b-garde.png"},"roto/r-b-lancer":{taille:[792,121],decalage:[0,0],hauteurAvantRognage:121,raccord:!1,cellule:[132,121],images:6,pieds:[43,113],bustes:[56.3,54.2,55.7,57.7,42.2,42.8],lames:[[50.8,64.4,49.4,115.9],[49.9,64.4,48.4,115.9],[50.8,64.4,49.4,115.9],[44.2,62.7,48.4,95.1],[29.6,77.1,23.9,99.5],[39.2,71.3,32.5,98.8]],indices:[0,1,2,3,4,5],depot:!0,src:"images/roto/r-b-lancer.png"},"roto/r-b-coup":{taille:[1672,131],decalage:[0,0],hauteurAvantRognage:131,raccord:!1,cellule:[152,131],images:11,pieds:[58,124],bustes:[62.7,66.7,81.8,69.4,63.6,57.3,51,63.3,62.3,58,63.1],lames:[[54.7,85.5,40.6,111.8],null,null,[69.4,75.6,39.9,87.7],null,null,null,null,[73.2,68.6,59.9,104.3],[73.6,67.2,76.8,105.7],null],indices:[0,1,2,3,4,5,6,7,8,9,10],depot:!0,src:"images/roto/r-b-coup.png"},"roto/r-b-chute":{taille:[1107,98],decalage:[0,0],hauteurAvantRognage:98,raccord:!1,cellule:[123,98],images:9,pieds:[58,94],bustes:[72.7,58.1,56.4,52,48.1,46.9,53.9,54,57.8],lames:[null,[52,81.9,86.1,72],null,null,[47.4,68.8,22,78.2],null,null,null,[56.5,60,48,80.7]],indices:[0,1,2,3,4,5,6,7,8],depot:!0,src:"images/roto/r-b-chute.png"},"roto/r-b-mort":{taille:[1469,137],decalage:[0,0],hauteurAvantRognage:137,raccord:!1,cellule:[113,137],images:13,pieds:[65,127],bustes:[63.4,65.7,71.1,61.9,64.7,65.4,63.1,71.8,71.5,56.6,55.2,62.3,62],lames:[null,null,null,null,null,null,null,null,null,[53.9,103.4,22.5,111.1],null,null,null],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12],depot:!0,src:"images/roto/r-b-mort.png"},"roto/r-f-coupe2":{taille:[2262,141],decalage:[0,0],hauteurAvantRognage:141,raccord:!1,cellule:[174,141],images:13,pieds:[51,136],bustes:[67.4,74,72.8,70.8,68.6,73.9,66.7,68.8,72.6,56.3,80.2,80.2,89.5],lames:[[77.9,66.9,119.8,85.5],null,null,null,[78,44.3,96,46.3],[90,61.2,104.1,63.3],null,[8.4,68.6,27.3,36.2],[36.3,14.5,4.1,35.2],[24,11.8,6,15.2],[133.5,26,104.8,11.5],[109.9,11.3,133,22.9],[141.7,77.8,172.9,51]],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12],depot:!0,src:"images/roto/r-f-coupe2.png"},"roto/r-f-envol":{taille:[2210,160],decalage:[0,0],hauteurAvantRognage:160,raccord:!1,cellule:[170,160],images:13,pieds:[55,152],bustes:[62.2,62.2,60,63,50.3,52.9,51,65.4,53.4,41.8,45,56.2,53.2],lames:[[89.7,76.6,116.5,90],[77.9,6.4,96.2,10.3],[59.1,12.5,78.1,15.5],null,[11.5,33.8,20.3,12.7],[4.1,67.1,3.4,51],[23.8,82.1,5.6,59.4],null,[56.8,110.4,22.6,94.8],[102,103,99.2,143.2],null,[126.1,86.9,148.9,84.3],[126.9,100.9,167.8,69]],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12],depot:!0,src:"images/roto/r-f-envol.png"},"roto/r-f-grande-coupe":{taille:[1880,146],decalage:[0,0],hauteurAvantRognage:146,raccord:!1,cellule:[188,146],images:10,pieds:[70,138],bustes:[86.3,88.3,92.8,75.2,99.4,113.4,98.8,90.7,81.7,108.4],lames:[null,[37.2,65.6,49.4,42.2],[43.8,14.7,9.4,37],[32.9,16.7,3.8,24.3],[81.1,9.7,110.1,20.7],[161.2,87.2,185.6,66.7],[115.4,100.3,156.6,117.9],[119.7,103.6,146.8,115.4],[123.4,97.9,178.3,116],[117.9,94.1,79,96.4]],indices:[0,1,2,3,4,5,6,7,8,9],depot:!0,src:"images/roto/r-f-grande-coupe.png"},"roto/r-f-parade":{taille:[1650,121],decalage:[0,0],hauteurAvantRognage:121,raccord:!1,cellule:[150,121],images:11,pieds:[41,118],bustes:[63.8,61.7,69.7,62.6,64.9,63.3,64.7,61.8,68.2,85.8,68.1],lames:[null,null,[79.3,79.3,105.6,52.6],null,[58.2,64.8,31.4,37.6],[52.2,72.4,14.4,56.4],[55,79.9,15,76.4],[78.5,85.8,96.2,75.3],[133.8,22.4,148,28],null,[60.9,7,106,2.1]],indices:[0,1,2,3,4,5,6,7,8,9,10],depot:!0,src:"images/roto/r-f-parade.png"},"roto/r-f-pied":{taille:[695,119],decalage:[0,0],hauteurAvantRognage:119,raccord:!1,cellule:[139,119],images:5,pieds:[63,113],bustes:[50.7,60.9,63.4,68.6,81.4],lames:[[52,68.4,84.3,78.8],[75.9,61.4,107.7,80.8],[57.3,61.7,28.4,80.9],[61.7,54.9,36,54.8],null],indices:[0,1,2,3,4],depot:!0,src:"images/roto/r-f-pied.png"},"roto/r-f-poings":{taille:[1547,119],decalage:[0,0],hauteurAvantRognage:119,raccord:!1,cellule:[119,119],images:13,pieds:[28,115],bustes:[45.1,45.3,45.2,45.6,45.1,47.3,45.1,47,47.1,45.9,53.5,54,53.4],lames:[null,null,null,null,null,null,null,null,null,null,[40.6,80.7,12.2,108.3],[40.8,81.5,11.9,108.6],[40.8,81.5,11.9,108.6]],indices:[0,1,2,3,4,5,6,7,8,9,10,11,12],depot:!0,src:"images/roto/r-f-poings.png"},"roto/r-f-revers":{taille:[1573,130],decalage:[0,0],hauteurAvantRognage:130,raccord:!1,cellule:[143,130],images:11,pieds:[32,125],bustes:[66.5,59.3,66.6,59.3,59.3,59.4,59.6,58.7,50.2,53.9,52.3],lames:[null,[53,7.9,81.9,1.7],[34.1,10.3,55.9,5.5],[40,9.1,77.9,2.6],[50,14.5,97,18.5],null,[87.2,18.1,119.1,24.7],null,[119.1,30.6,132.3,5.2],null,null],indices:[0,1,2,3,4,5,6,7,8,9,10],depot:!0,src:"images/roto/r-f-revers.png"},"roto/r-x-arc":{taille:[890,183],decalage:[0,0],hauteurAvantRognage:183,raccord:!1,cellule:[178,183],images:5,pieds:[42,169],indices:[0,1,2,3,4],depot:!0,ancres:[[42,175],[42,173],[42,179],[42,179],[42,179]],src:"images/roto/r-x-arc.png"},"roto/r-x-garde":{taille:[1092,142],decalage:[0,0],hauteurAvantRognage:142,raccord:!1,cellule:[156,142],images:7,pieds:[66,136],indices:[0,1,2,3,4,5,6],ancres:[[66,136],[66,136],[66,136],[66,136],[66,136],[66,136],[66,136]],depot:!0,src:"images/roto/r-x-garde.png"},"roto/r-x-course":{taille:[1932,135],decalage:[0,0],hauteurAvantRognage:135,raccord:!1,cellule:[322,135],images:6,pieds:[179,128],indices:[0,1,2,3,4,5],ancres:[[179,128],[179,128],[179,128],[179,129],[179,128],[179,128]],depot:!0,src:"images/roto/r-x-course.png"},"roto/r-x-grande-griffe":{taille:[1456,123],decalage:[0,0],hauteurAvantRognage:123,raccord:!1,cellule:[208,123],images:7,pieds:[19,114],indices:[0,1,2,3,4,5,6],depot:!0,ancres:[[19,119],[19,116],[19,119],[19,118],[19,120],[19,119],[19,115]],src:"images/roto/r-x-grande-griffe.png"},"roto/r-x-foreuse":{taille:[1392,186],decalage:[0,0],hauteurAvantRognage:186,raccord:!1,cellule:[232,186],images:6,pieds:[71,162],indices:[0,1,2,3,4,5],depot:!0,ancres:[[71,162],[71,183],[71,167],[71,167],[71,157],[71,168]],src:"images/roto/r-x-foreuse.png"},"roto/r-x-chute":{taille:[1491,119],decalage:[0,0],hauteurAvantRognage:119,raccord:!1,cellule:[213,119],images:7,pieds:[83,103],indices:[0,1,2,3,4,5,6],depot:!0,ancres:[[83,106],[83,109],[83,115],[83,111],[83,112],[83,108],[83,103]],src:"images/roto/r-x-chute.png"},"roto/r-x-marche":{taille:[1880,131],decalage:[0,0],hauteurAvantRognage:131,raccord:!1,cellule:[235,131],images:8,pieds:[67,122],indices:[0,1,2,3,4,5,6,7],ancres:[[67,122],[67,122],[67,122],[67,122],[67,123],[67,122],[67,122],[67,122]],depot:!0,src:"images/roto/r-x-marche.png"},"roto/r-x-griffe":{taille:[1208,119],decalage:[0,0],hauteurAvantRognage:119,raccord:!1,cellule:[151,119],images:8,pieds:[16,115],indices:[0,1,2,3,4,5,6,7],depot:!0,ancres:[[16,116],[16,115],[16,115],[16,117],[16,115],[16,116],[16,114],[16,114]],src:"images/roto/r-x-griffe.png"},"roto/r-x-tourbillon":{taille:[1004,210],decalage:[0,0],hauteurAvantRognage:210,raccord:!1,cellule:[251,210],images:4,pieds:[67,197],indices:[0,1,2,3],depot:!0,ancres:[[67,208],[67,202],[67,198],[67,192]],src:"images/roto/r-x-tourbillon.png"},"roto/r-x-rafale":{taille:[876,175],decalage:[0,0],hauteurAvantRognage:175,raccord:!1,cellule:[219,175],images:4,pieds:[83,164],indices:[0,1,2,3],depot:!0,ancres:[[83,160],[83,172],[83,167],[83,164]],src:"images/roto/r-x-rafale.png"},"roto/r-x-pied":{taille:[1656,254],decalage:[0,0],hauteurAvantRognage:254,raccord:!1,cellule:[207,254],images:8,pieds:[111,233],indices:[0,1,2,3,4,5,6,7],depot:!0,ancres:[[111,242],[111,228],[111,244],[111,249],[111,240],[111,245],[111,238],[111,239]],src:"images/roto/r-x-pied.png"},"roto/r-x-plongeon":{taille:[1056,154],decalage:[0,0],hauteurAvantRognage:154,raccord:!1,cellule:[176,154],images:6,pieds:[73,144],indices:[0,1,2,3,4,5],depot:!0,ancres:[[73,140],[73,150],[73,151],[73,149],[73,151],[73,145]],src:"images/roto/r-x-plongeon.png"},"roto/r-x-touche":{taille:[1572,167],decalage:[0,0],hauteurAvantRognage:167,raccord:!1,cellule:[262,167],images:6,pieds:[72,157],indices:[0,1,2,3,4,5],depot:!0,ancres:[[72,149],[72,151],[72,150],[72,160],[72,158],[72,162]],src:"images/roto/r-x-touche.png"},"roto/r-x-releve":{taille:[840,142],decalage:[0,0],hauteurAvantRognage:142,raccord:!1,cellule:[120,142],images:7,pieds:[20,135],indices:[0,1,2,3,4,5,6],depot:!0,ancres:[[20,138],[20,138],[20,139],[20,137],[20,140],[20,136],[20,137]],src:"images/roto/r-x-releve.png"},"roto/r-x-intro":{taille:[1365,131],decalage:[0,0],hauteurAvantRognage:131,raccord:!1,cellule:[195,131],images:7,pieds:[20,122],indices:[0,1,2,3,4,5,6],depot:!0,ancres:[[20,123],[20,127],[20,127],[20,128],[20,126],[20,128],[20,129]],src:"images/roto/r-x-intro.png"},"roto/r-x-marche2":{taille:[2499,179],decalage:[0,0],hauteurAvantRognage:179,raccord:!1,cellule:[357,179],images:7,pieds:[185,168],indices:[0,1,2,3,4,5,6],depot:!0,ancres:[[185,168],[185,169],[185,168],[185,168],[185,168],[185,168],[185,168]],src:"images/roto/r-x-marche2.png"}};var tt=(e,r,a)=>Math.max(r,Math.min(a,e));var S=(e,r)=>e+Math.random()*(r-e),fn=e=>e-Math.floor(e),De=e=>fn(Math.sin(e*127.1+311.7)*43758.5453),et={toiles:0,octets:0},V=(e,r)=>{let a=document.createElement("canvas");return a.width=e,a.height=r,et.toiles++,et.octets+=e*r*4,a};var u={},Pt=new Map;function gn(e){return Pt.has(e)||Pt.set(e,new Promise(r=>{let a=new Image;a.onload=()=>r(a),a.onerror=()=>r(null),a.src=e})),Pt.get(e)}async function _a(){await Promise.all(Object.entries(Da).map(async([e,r])=>{let a=await gn(r.src);if(!a)return;let o=e.split("/")[1];if(!r.cellule){u[o]={img:a,w:a.width,h:a.height,decalage:r.decalage||[0,0]};return}let[t,s]=r.cellule,i=r.images,c=V(a.width,a.height),l=c.getContext("2d",{willReadFrequently:!0});l.drawImage(a,0,0);let f=l.getImageData(0,0,c.width,c.height),m=a,h=[],g=[];for(let v=0;v<i;v++){let d=-1;for(let R=s-1;R>=0&&d<0;R--)for(let M=0;M<t;M++)if(f.data[(R*m.width+v*t+M)*4+3]>0){d=R;break}let x=0,y=0,T=s;for(let R=Math.max(0,d-4);R<=d;R++)for(let M=0;M<t;M++)f.data[(R*m.width+v*t+M)*4+3]>0&&(x+=M,y++);for(let R=0;R<s&&T===s;R++)for(let M=0;M<t;M++)if(f.data[(R*m.width+v*t+M)*4+3]>0){T=R;break}h.push(r.ancres?r.ancres[v]:r.pieds?r.pieds:[y?Math.round(x/y):t>>1,d<0?s:d+1]),g.push(d+1-T)}u[o]={img:m,px:f,cw:t,ch:s,n:i,ancres:h,hauts:g,decor:r.decor||null,lames:r.lames||null,regarde:r.regarde||"droite",depot:!!r.depot,blanc:null,souillures:[],allonge:r.allonge||null,ancre:r.ancre||"pieds"}}))}function ge(e,r,a,o,t,s,i,c=0,l=a.ch){if(!t){e.drawImage(r,o*a.cw,c,a.cw,l,s,i+c,a.cw,l);return}e.scale(-1,1),e.drawImage(r,o*a.cw,c,a.cw,l,-(s+a.cw),i+c,a.cw,l),e.scale(-1,1)}var fe=V(256,256),xe=fe.getContext("2d");var Be=12,dn=[[70,6,12],[112,10,20],[150,16,26],[178,30,34]];function mn(e,r){let a=(o,t,s)=>{let i=Math.floor(o/s),c=Math.floor(t/s),l=o/s-i,f=t/s-c,m=(v,d)=>De(v*57+d*131),h=l*l*(3-2*l),g=f*f*(3-2*f);return(m(i,c)*(1-h)+m(i+1,c)*h)*(1-g)+(m(i,c+1)*(1-h)+m(i+1,c+1)*h)*g};return a(e,r,7)*.55+a(e+40,r,3)*.3+De(e*13+r*7)*.15}function hn(e,r){let a=.14+r/Be*.48,o=V(e.img.width,e.img.height),t=o.getContext("2d"),s=new ImageData(new Uint8ClampedArray(e.px.data),e.img.width,e.img.height),i=s.data;for(let c=0;c<e.n;c++){let[l,f]=e.ancres[c];for(let m=0;m<e.ch;m++)for(let h=0;h<e.cw;h++){let g=(m*e.img.width+c*e.cw+h)*4;if(i[g+3]===0)continue;let v=i[g];if(v<120)continue;let d=(f-m)/80,x=mn(h-l,m-f)+(d<.35?-.08:0)+(d>.75?.1:0);if(x<a){let y=dn[Math.min(3,Math.floor(v/256*4+(a-x)*3))];i[g]=y[0],i[g+1]=y[1],i[g+2]=y[2]}}}return t.putImageData(s,0,0),{img:o}}function se(e,r,a,o,t,s={}){let i=u[e];if(!i)return!1;r=Math.max(0,Math.min(i.n-1,r|0));let c=i;if(s.blanc){r=Math.max(0,Math.min(i.n-1,r|0));let[g,v]=i.ancres[r],d=t<0==(i.regarde==="droite");(fe.width<i.cw||fe.height<i.ch)&&(fe.width=Math.max(fe.width,i.cw),fe.height=Math.max(fe.height,i.ch)),xe.globalCompositeOperation="source-over",xe.clearRect(0,0,i.cw,i.ch),ge(xe,i.img,i,r,d,0,0),xe.globalCompositeOperation="source-in",xe.fillStyle="#f2f1ec",xe.fillRect(0,0,i.cw,i.ch),xe.globalCompositeOperation="source-over";let x=d?Math.round(a)-(i.cw-g):Math.round(a)-g;return s.alpha!=null&&(p.globalAlpha=s.alpha),p.drawImage(fe,0,0,i.cw,i.ch,x,Math.round(o)-v,i.cw,i.ch),s.alpha!=null&&(p.globalAlpha=1),!0}else if(s.souillure>.02){let g=Math.min(Be,Math.ceil(s.souillure*Be));for(;g>0&&!i.souillures[g];)g--;g>0&&(c=i.souillures[g])}let[l,f]=i.ancres[r],m=t<0==(i.regarde==="droite"),h=m?Math.round(a)-(i.cw-l):Math.round(a)-l;return s.alpha!=null&&(p.globalAlpha=s.alpha),ge(p,c.img,i,r,m,h,Math.round(o)-f),s.alpha!=null&&(p.globalAlpha=1),!0}var xn=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],Nt={};function vn(e,r="#000"){let a=e+r;if(Nt[a])return Nt[a];let o=V(4,4),t=o.getContext("2d");t.fillStyle=r;for(let s=0;s<16;s++)xn[s]<e&&t.fillRect(s%4,s>>2,1,1);return Nt[a]=o}var Ba={};function Fa(e,r,a="#000"){let o=r+a;return Ba[o]||(Ba[o]=e.createPattern(vn(r,a),"repeat"))}var at=V(400,260),H=at.getContext("2d");function nt(e,r,a,o,t,s,i={}){let c=u[e];if(!c||s<=0)return;r=Math.max(0,Math.min(c.n-1,r|0));let l=Math.max(1,Math.min(15,Math.round(s*16))),f=Math.min(c.cw,at.width),m=Math.min(c.ch,at.height);H.clearRect(0,0,f,m),H.globalCompositeOperation="source-over";let[h,g]=c.ancres[r],v=t<0==(c.regarde==="droite");ge(H,c.img,c,r,v,0,0),H.globalCompositeOperation="destination-in";let d=v?Math.round(a)-(c.cw-h):Math.round(a)-h,x=Math.round(o)-g;H.fillStyle=Fa(H,l),H.save(),H.translate(-(d%4+4)%4,-(x%4+4)%4),H.fillRect(0,0,f+4,m+4),H.restore(),H.globalCompositeOperation="source-over",p.drawImage(at,0,0,c.cw,c.ch,d,x,c.cw,c.ch)}function ie(e,r,a,o,t){let s=u[e],i=s?.lames?.[r];if(!i)return null;let[c,l]=s.ancres[r],f=t<0==(s.regarde==="droite")?-1:1;return[[a+f*(i[0]-c),o+(i[1]-l)],[a+f*(i[2]-c),o+(i[3]-l)]]}function ot(e,r,a,o){if(e.length<2)return;let t=6,s=([f,m])=>[f,Math.atan2(m[1]-f[1],m[0]-f[0]),Math.hypot(m[0]-f[0],m[1]-f[1])],i=[];for(let f=1;f<e.length;f++){let[m,h,g]=s(e[f-1].seg),[v,d,x]=s(e[f].seg),y=d-h;y>Math.PI&&(y-=2*Math.PI),y<-Math.PI&&(y+=2*Math.PI);let T=Math.max(0,1-(a-e[f].t)/o);p.fillStyle=Fa(p,Math.max(2,Math.round(10*T)),"#f2f1ec");let R=null;for(let M=0;M<=t;M++){let L=M/t,w=h+y*L,j=g+(x-g)*L,P=m[0]+(v[0]-m[0])*L,F=m[1]+(v[1]-m[1])*L,G=[P+Math.cos(w)*j,F+Math.sin(w)*j],q=[P+Math.cos(w)*j*.6,F+Math.sin(w)*j*.6];R&&(p.beginPath(),p.moveTo(Math.round(R[0][0]-r),Math.round(R[0][1])),p.lineTo(Math.round(G[0]-r),Math.round(G[1])),p.lineTo(Math.round(q[0]-r),Math.round(q[1])),p.lineTo(Math.round(R[1][0]-r),Math.round(R[1][1])),p.closePath(),p.fill()),R=[G,q],i.push([G,T])}}p.save(),p.lineCap="round",p.strokeStyle="#ffffff",p.lineWidth=2;for(let f=1;f<i.length;f++)p.globalAlpha=i[f][1],p.beginPath(),p.moveTo(Math.round(i[f-1][0][0]-r),Math.round(i[f-1][0][1])),p.lineTo(Math.round(i[f][0][0]-r),Math.round(i[f][0][1])),p.stroke();p.restore();let[c,l]=e[e.length-1].seg;p.strokeStyle="#ffffff",p.lineWidth=1,p.beginPath(),p.moveTo(Math.round(c[0]-r)+.5,Math.round(c[1])+.5),p.lineTo(Math.round(l[0]-r)+.5,Math.round(l[1])+.5),p.stroke()}function Va(e,r){let a=[];for(let t of r)for(let s of e)u[s]&&a.push([s,t]);let o=()=>{let t=performance.now();for(;a.length&&performance.now()-t<6;){let[s,i]=a.shift(),c=u[s];c.souillures[i]||(c.souillures[i]=hn(c,i))}a.length||(rt.souillures=!0,Ga()),a.length&&setTimeout(o,16)};setTimeout(o,500)}function $a(e){let r=[];for(let o of e)if(u[o]&&u[o].n)for(let t=0;t<u[o].n;t++)r.push([o,t]);let a=()=>{let o=performance.now();for(;r.length&&performance.now()-o<5;){let[t,s]=r.shift();_e(u[t],s)}r.length||(rt.signatures=!0,Ga()),r.length&&setTimeout(a,16)};setTimeout(a,900)}function bn(e){let r=u[e];if(!r)return 0;if(r.centrale!=null)return r.centrale;let a=0,o=1/0;for(let t=0;t<r.n;t++){let s=_e(r,t),i=0;for(let c=0;c<r.n;c++){let l=_e(r,c);for(let f=0;f<s.length;f++)i+=Math.abs(s[f]-l[f])}i<o&&(o=i,a=t)}return r.centrale=a}function st(e,r,a,o,t,s={}){let i=u[e];if(!i)return!1;let c=bn(e),[l,f]=i.ancres[c],m=i.hauts[c],h=Math.sin(t*Math.PI*2/2.6)>.35?1:0,g=Math.round(f-m*.55);if(!h)return se(e,c,r,a,o,s);let v=o<0==(i.regarde==="droite"),d=i;if(s.souillure>.02){let T=Math.min(Be,Math.ceil(s.souillure*Be));for(;T>0&&!i.souillures[T];)T--;T>0&&(d=i.souillures[T])}let x=v?Math.round(r)-(i.cw-l):Math.round(r)-l,y=Math.round(a)-f;return ge(p,d.img,i,c,v,x,y,g,i.ch-g),ge(p,d.img,i,c,v,x,y+1,0,g),!0}var B=e=>u[e]?.n||1,Fe=(e,r=0)=>u[e]?.hauts[Math.min(r,u[e].n-1)]||70,rt={souillures:!1,signatures:!1};function Ga(){if(!(!rt.souillures||!rt.signatures))for(let e of Object.values(u))e&&e.px&&e.sigs&&e.sigs.length>=e.n&&(e.px=null)}function _e(e,r){if(e.sigs=e.sigs||[],e.sigs[r])return e.sigs[r];let[a,o]=e.ancres[r],t=new Float32Array(192);for(let s=0;s<e.ch;s++)for(let i=0;i<e.cw;i++){if(e.px.data[(s*e.img.width+r*e.cw+i)*4+3]===0)continue;let c=Math.floor((i-a+90)/15),l=Math.floor((o-s)/10);c>=0&&c<12&&l>=0&&l<16&&t[l*12+c]++}return e.sigs[r]=t}function Ve(e,r,a){let o=u[e],t=u[a];if(!o||!t)return 0;let s=_e(o,r),i=0,c=1/0;for(let l=0;l<t.n;l++){let f=_e(t,l),m=0;for(let h=0;h<s.length;h++)m+=Math.abs(s[h]-f[h]);m<c&&(c=m,i=l)}return i}function Xa(){for(let r of Object.keys(u))r.startsWith("e-k-")&&u["r-k-"+r.slice(4)]&&(u["r-k-"+r.slice(4)].effet=r);if(u["r-coup-fort"]&&(u["r-coup-air"]=u["r-coup-fort"]),!/#ancien/.test(location.hash))for(let[r,a]of[["r-k-marche","r-marche"],["r-k-coupes","r-coup-leger"]])u[r]&&(u[a]=u[r]);let e=(r,a,o)=>{let t=u[r];if(!t)return null;let s=document.createElement("canvas");s.width=t.cw*o,s.height=t.ch,s.getContext("2d").drawImage(t.img,a*t.cw,0,t.cw*o,t.ch,0,0,t.cw*o,t.ch);let i=s.getContext("2d").getImageData(0,0,s.width,s.height);return{...t,img:s,px:i,n:o,ancres:t.ancres.slice(a,a+o),hauts:t.hauts.slice(a,a+o),lames:t.lames?.slice(a,a+o)||null,sigs:null,centrale:null,souillures:[]}};/#ancien/.test(location.hash)||(u["r-k-coupes"]&&(u["r-garde-titre"]=e("r-k-coupes",0,2)),u["r-k-garde"]?.depot&&u["r-k-garde"].n===9?(u["r-garde"]=u["r-k-garde"],u["r-garde"].vivante=!0,$["r-garde"]=$["r-k-garde"]):u["r-k-coupes"]&&(u["r-garde"]=e("r-k-coupes",0,2)),u["r-k-course"]&&(u["r-course"]=u["r-k-course"]),u["r-k-estoc"]?u["r-estoc"]=u["r-k-estoc"]:u["r-k-combo2"]&&(u["r-estoc"]=u["r-k-combo2"]),u["r-k-final"]&&(u["r-coup-fort"]=u["r-k-final"],u["r-plonge-fin"]=u["r-k-final"]),u["r-k-haute"]&&(u["r-moulinet"]=u["r-k-haute"]),u["r-k-fort"]&&(u["r-bond-coupe"]=u["r-k-fort"]),u["r-k-haute"]&&(u["r-revers"]=u["r-k-haute"]),u["r-k-coup-poing"]&&(u["r-poing-direct"]=u["r-k-coup-poing"]),u["r-estoc"]&&(u["r-estoc-fort"]=u["r-estoc"]),u["r-k-fort"]?u["r-parade"]=e("r-k-fort",0,2):u["r-k-charge"]&&(u["r-parade"]=e("r-k-charge",0,2)),u["r-k-chute"]&&(u["r-touche"]=e("r-k-chute",0,3),u["r-mort"]=u["r-k-chute"]))}var it={};function Ut(){n.gundam=!n.gundam;for(let e of Object.keys(u)){if(!e.startsWith("g-"))continue;let r=e.slice(2);n.gundam?(r in it||(it[r]=u[r]),u[r]=u[e]):r in it&&(u[r]=it[r])}return n.gundam}var ct=A+6;n.vent=0;var Mn=["lune","fenetres","cascades","lanterne","banniere"];function Ja(e){let r=u.scene;if(r?p.drawImage(r.img,Math.round(-e),-ke):(p.fillStyle="#2a2a28",p.fillRect(0,0,n.W,n.HAUT)),!!r)for(let a of Mn){let o=u[a];if(!o||!o.decor)continue;let t=Math.round(o.decor.x-e);if(t>n.W||t+o.cw<0)continue;let s=Math.floor(n.temps*(o.decor.ips||10))%o.n;p.drawImage(o.img,s*o.cw,0,o.cw,o.ch,t,o.decor.y-ke,o.cw,o.ch)}}function Ka(e){let r=u.scene;r&&p.drawImage(r.img,0,ct+ke,r.w,r.h-ct-ke,Math.round(-e),ct,r.w,r.h-ct-ke)}function Ya(e,r,a,{cinemascope:o=0}={}){let t={W:e,H:r,sol:a,t:0,vent:0,flocons:[],rafales:[],souffles:[],cinemascope:o},s=(d,x)=>{for(let y=0;y<d;y++)t.flocons.push(i(x,!0))};function i(d,x){return{x:S(-40,e+40),y:x?S(-10,r):S(-30,-4),z:d,v:[10,26,55][d]*S(.7,1.3),ph:S(0,6.28),g:d===2?Math.random()<.35?3:2:1,a:[.45,.75,.9][d]*S(.6,1)}}s(140,0),s(90,1),s(28,2);let c=V(e*2,60),l=c.getContext("2d"),f=l.createImageData(e*2,60),m=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];for(let d=0;d<60;d++)for(let x=0;x<e*2;x++)if((.5+.5*Math.sin(x*.021+Math.sin(x*.007)*3)*Math.sin(d*.09+x*.004))*Math.sin(Math.PI*d/60)*.55*16>m[(d&3)*4+(x&3)]+1){let R=(d*e*2+x)*4;f.data[R]=f.data[R+1]=f.data[R+2]=200,f.data[R+3]=70}l.putImageData(f,0,0),t.brume=c;let h=V(e,r),g=h.getContext("2d"),v=g.createImageData(e,r);for(let d=0;d<r;d++)for(let x=0;x<e;x++){let y=(x-e/2)/(e/2),T=(d-r*.45)/(r/2),R=Math.sqrt(y*y*.8+T*T),M=Math.max(0,R-.72)*1.9;if(M*16>m[(d&3)*4+(x&3)]){let L=(d*e+x)*4;v.data[L+3]=Math.min(200,110+M*90)}}return g.putImageData(v,0,0),t.vignette=h,t}function Qa(e,r){e.t+=r;let a=e.t,o=Math.max(0,Math.sin(a*.13)-.55)*90;e.vent=Math.sin(a*.31)*12+Math.sin(a*1.1)*5+o;for(let t of e.flocons){let s=[.5,.8,1.3][t.z];t.y+=t.v*r,t.x+=(e.vent*s+Math.sin(a*1.4+t.ph)*9*s)*r,(t.y>(t.z===0?e.sol-4:e.H+4)||t.x>e.W+50||t.x<-50)&&Object.assign(t,{x:S(-40,e.W+40),y:S(-30,-4)})}Math.random()<r*(.6+o/25)&&e.rafales.push({x:e.vent>0?-60:e.W+60,y:e.sol+S(-6,4),l:S(40,140),v:0,t:0,vie:S(1.5,3)});for(let t=e.rafales.length-1;t>=0;t--){let s=e.rafales[t];s.t+=r,s.x+=(e.vent*3+Math.sign(e.vent||1)*60)*r,s.t>s.vie&&e.rafales.splice(t,1)}for(let t=e.souffles.length-1;t>=0;t--){let s=e.souffles[t];s.t+=r,s.x+=(s.dir*10+e.vent*.5)*r,s.y-=6*r,s.t>1.4&&e.souffles.splice(t,1)}}function za(e,r,a,o){for(let t=0;t<6;t++)e.souffles.push({x:r+o*t*1.5,y:a+S(-1,1),dir:o,t:-t*.04,r:S(1,2.5)})}function Wt(e,r,a,o){let t=a===0?.1:a===1?.3:.8,s=[[],[],[],[]],i=[];for(let c of r.flocons)if(c.z===a){let l=Math.round(c.x-o*t),f=Math.round(c.y),m=Math.min(3,c.a*4|0);c.g===3?(s[m].push(l,f+1,3,1,l+1,f,1,3),i.push(l,f,3,3)):s[m].push(l,f,c.g,c.g)}e.fillStyle="#f2f1ec";for(let c=0;c<4;c++){let l=s[c];if(l.length){e.globalAlpha=(c+.5)/4,e.beginPath();for(let f=0;f<l.length;f+=4)e.rect(l[f],l[f+1],l[f+2],l[f+3]);e.fill()}}if(i.length){e.globalAlpha=.4,e.beginPath();for(let c=0;c<i.length;c+=4)e.rect(i[c],i[c+1],i[c+2],i[c+3]);e.fill()}e.globalAlpha=1}function Za(e,r,a=0){Wt(e,r,0,a),Wt(e,r,1,a);let o=-((r.t*7+a*.6)%r.W);e.globalAlpha=.9,e.drawImage(r.brume,Math.round(o),r.sol-44),e.globalAlpha=1}function Ha(e,r,a=0){e.fillStyle="#e8e7e2";for(let o of r.rafales){let t=Math.sin(Math.PI*o.t/o.vie);for(let s=0;s<o.l;s+=2){let i=De(s*7+Math.floor(o.x));i<.45*t&&(e.globalAlpha=.5*t*(1-s/o.l),e.fillRect(Math.round(o.x-s*Math.sign(r.vent||1)),Math.round(o.y-i*6+Math.sin(s*.3+r.t*8)*2),1,1))}}for(let o of r.souffles)if(o.t>0){e.globalAlpha=Math.max(0,.55*(1-o.t/1.4)),e.fillStyle="#dcdbd6";let t=Math.round(o.r+o.t*3);e.fillRect(Math.round(o.x-t/2),Math.round(o.y-t/2),t,t)}if(e.globalAlpha=1,Wt(e,r,2,a),e.drawImage(r.vignette,0,0),!r.grains){r.grains=[];for(let o=0;o<3;o++){let t=document.createElement("canvas");t.width=r.W,t.height=r.H;let s=t.getContext("2d");s.fillStyle="rgba(0,0,0,0.18)";for(let i=0;i<260;i++)s.fillRect(Math.random()*r.W|0,Math.random()*r.H|0,1,1);s.fillStyle="rgba(255,255,255,0.07)";for(let i=0;i<120;i++)s.fillRect(Math.random()*r.W|0,Math.random()*r.H|0,1,1);r.grains.push(t)}}e.drawImage(r.grains[Math.random()*r.grains.length|0],0,0),r.cinemascope&&(e.fillStyle="#000",e.fillRect(0,0,r.W,r.cinemascope),e.fillRect(0,r.H-r.cinemascope,r.W,r.cinemascope))}var kn=44,yn=A-12;n.taches=null;n.gouttes=[];n.morceaux=[];n.jets=[];function er(){n.taches=V(D,kn),n.gouttes.length=0,n.morceaux.forEach(ut),n.morceaux.length=0,n.jets.length=0}function Y(e,r,a,o=40,t=1,s=.6,i=.35){for(let c=0;c<o;c++){let l=Math.random()<i,f=S(60,320)*t*(l?.55:1),m=S(-s,.35);n.gouttes.push({x:e,y:r,vx:Math.cos(m)*f*(l?-a:a)+S(-30,30),vy:Math.sin(m)*f-S(20,140)*t,t:0,c:U[1+(Math.random()*4|0)],g:Math.random()<.18?2:1,prof:S(-4,12)})}n.gouttes.length>500&&n.gouttes.splice(0,n.gouttes.length-500)}function lt(e,r,a,o=1.1,t=-1.35){n.jets.push({x:e,y:r,dir:a,t:0,duree:o,angle:t,suit:null})}function Rn(e,r,a,o){let t=n.taches.getContext("2d");t.fillStyle=a;let s=Math.round(12+r),i=o+(Math.random()*4|0);t.fillRect(Math.round(e-i/2),s,i,o>1&&Math.random()<.5?2:1),Math.random()<.25&&(t.fillStyle=U[1],t.fillRect(Math.round(e+S(-4,4)),s+(Math.random()<.5?1:-1),1,1))}var Dt=new Map;function tr(e,r){let a=Dt.get(e+"x"+r);if(n.evt&&(n.evt.toile=!0),a&&a.length){let o=a.pop(),t=o.getContext("2d");return t.setTransform(1,0,0,1,0,0),t.globalCompositeOperation="source-over",t.globalAlpha=1,t.clearRect(0,0,e,r),o}return V(e,r)}function ut(e){if(!e||!e.img||!e.img.width)return;let r=e.img.width+"x"+e.img.height,a=Dt.get(r);a||Dt.set(r,a=[]),a.length<24&&a.push(e.img)}function pt(e,r,a,o,t,s,i){let c=u[e];if(!c)return[];let l=o<0==(c.regarde==="droite"),[f,m]=c.ancres[r],h=l?c.cw-f:f,g=c.hauts[r],v=m-g*t,d=T=>{let R=tr(c.cw,c.ch),M=R.getContext("2d");M.save(),M.beginPath();let L=v-s*c.cw/2,w=v+s*c.cw/2;T?(M.moveTo(0,0),M.lineTo(c.cw,0),M.lineTo(c.cw,w),M.lineTo(0,L)):(M.moveTo(0,L),M.lineTo(c.cw,w),M.lineTo(c.cw,c.ch),M.lineTo(0,c.ch)),M.closePath(),M.clip(),ge(M,c.img,c,r,l,0,0),M.restore(),M.globalCompositeOperation="source-atop",M.fillStyle=U[2];for(let j=0;j<c.cw;j++){let P=Math.round(L+(w-L)*j/c.cw);M.fillRect(j,T?P-2:P,1,2)}return R},x={img:d(!0),x:a,y:A,ox:h,oy:v,pivot:[h,v],rot:0,vx:i[0],vy:i[1],vr:i[2],t:0,pose:!1,dessus:!0},y={img:d(!1),x:a,y:A,ox:h,oy:m,pivot:[h,m],rot:0,vx:0,vy:0,vr:0,t:0,pose:!1,debout:.55+Math.random()*.4,dessus:!1};return x.y=A-g*t,n.morceaux.push(x,y),n.morceaux.length>60&&n.morceaux.splice(0,2).forEach(ut),[x,y]}function _t(e,r,a,o){let t=u[e];if(!t)return;let s=o<0==(t.regarde==="droite"),i=tr(t.cw,t.ch);ge(i.getContext("2d"),t.img,t,r,s,0,0);let[c,l]=t.ancres[r];n.morceaux.push({img:i,x:a,y:A,ox:s?t.cw-c:c,oy:l,pivot:[0,0],rot:0,vx:0,vy:0,vr:0,t:0,pose:!0,dessus:!1}),n.morceaux.length>60&&n.morceaux.splice(0,1).forEach(ut)}function ar(e){let r=n.H;for(let a=n.gouttes.length-1;a>=0;a--){let o=n.gouttes[a];if(o.t+=e,o.vy+=te*.8*e,o.x+=o.vx*e,o.y+=o.vy*e,o.vx*=1-.8*e,r&&r.pv>0&&Math.abs(o.x-r.x)<16&&o.y>A-110&&o.y<A-8&&o.vy>-50&&Math.random()<.35){r.souillure=Math.min(.4,r.souillure+.005),n.gouttes.splice(a,1);continue}o.y>=A+o.prof&&o.vy>0&&(o.x>0&&o.x<D&&Rn(o.x,o.prof,o.c,o.g),n.gouttes.splice(a,1))}for(let a=n.jets.length-1;a>=0;a--){let o=n.jets[a];o.t+=e,o.suit&&(o.x=o.suit.x+o.dx,o.y=o.suit.y+o.dy);let t=1-o.t/o.duree;if(t<=0){n.jets.splice(a,1);continue}let s=.6+.4*Math.sin(o.t*22);for(let i=0;i<3;i++){let c=o.angle+S(-.25,.25),l=S(180,360)*t*s;n.gouttes.push({x:o.x,y:o.y,vx:Math.cos(c)*l*o.dir*.5,vy:Math.sin(c)*l,t:0,c:U[2+(Math.random()*3|0)],g:Math.random()<.3?2:1,prof:S(-4,12)})}}for(let a=n.morceaux.length-1;a>=0;a--)n.morceaux[a].t>Bt+nr&&ut(n.morceaux.splice(a,1)[0]);for(let a of n.morceaux)if(a.t+=e,!a.pose){if(a.debout!=null){a.t>a.debout&&(a.vr=a.vr||(Math.random()<.5?-1:1)*2.2,a.rot+=a.vr*e,a.vr*=1+3*e,Math.abs(a.rot)>1.45&&(a.rot=Math.sign(a.rot)*1.52,a.pose=!0,n.secousse=.05));continue}a.vy+=te*e,a.x+=a.vx*e,a.y+=a.vy*e,a.rot+=a.vr*e,a.y>=A-4&&a.vy>0&&(Math.abs(a.vy)>160?(a.vy*=-.3,a.vx*=.5,a.vr*=.5,Y(a.x,A-4,Math.sign(a.vx)||1,8,.5)):(a.y=A-4,a.pose=!0,a.rot=Math.round(a.rot/(Math.PI/2))*(Math.PI/2)+S(-.2,.2)))}}function rr(e){n.taches&&p.drawImage(n.taches,Math.round(-e),yn)}var Bt=4,nr=.8;function or(e){for(let r of n.morceaux){let a=r.t<Bt?1:1-(r.t-Bt)/nr;if(a<=0)continue;a<1&&(p.globalAlpha=a);let o=Math.round(r.x-e),t=Math.round(r.y);r.rot?(p.translate(o,t),p.rotate(r.rot),p.drawImage(r.img,-r.ox,-r.oy),p.rotate(-r.rot),p.translate(-o,-t)):p.drawImage(r.img,o-r.ox,t-r.oy),a<1&&(p.globalAlpha=1)}}function sr(e){let r=new Map;for(let a of n.gouttes){let o=r.get(a.c);o||r.set(a.c,o=[]),o.push(a)}for(let[a,o]of r){p.fillStyle=a,p.beginPath();for(let t of o)p.rect(Math.round(t.x-e),Math.round(t.y),t.g,t.g);p.fill()}}n.etincelles=[];n.projectiles=[];function ve(e,r,a=10){for(let o=0;o<a;o++){let t=S(0,6.28),s=S(80,300);n.etincelles.push({x:e,y:r,vx:Math.cos(t)*s,vy:Math.sin(t)*s-60,t:0,vie:S(.12,.3)})}}function ir(e){for(let r=n.etincelles.length-1;r>=0;r--){let a=n.etincelles[r];a.t+=e,a.vy+=te*.5*e,a.x+=a.vx*e,a.y+=a.vy*e,a.t>a.vie&&n.etincelles.splice(r,1)}}function cr(e){for(let r of n.etincelles)p.fillStyle=r.t<r.vie*.5?"#ffffff":"#bdbdb6",p.fillRect(Math.round(r.x-e),Math.round(r.y),1,1),p.fillRect(Math.round(r.x-e-r.vx*.012),Math.round(r.y-r.vy*.012),1,1)}function $e(e,r,a){let o=Math.round(2+a*7);p.fillStyle="#ffffff",p.fillRect(Math.round(e)-o,Math.round(r),2*o+1,1),p.fillRect(Math.round(e),Math.round(r)-o,1,2*o+1),p.fillRect(Math.round(e)-1,Math.round(r)-1,3,3)}function Ft(e,r,a,o,t){if(p.fillStyle=t,o)p.fillRect(e-a,r-1,2*a+1,3),p.fillRect(e-1,r-a,3,2*a+1);else for(let s=-a;s<=a;s++){let i=Math.abs(s)<2?1:0;p.fillRect(e+s-i,r+s,2*i+1,1),p.fillRect(e+s-i,r-s,2*i+1,1)}}function lr(e,r,a){let o=Math.round(e.x-r),t=Math.round(e.y),s=Math.floor(e.t*20)%2,i=Math.sign(e.vx)||1;for(let c=4;c>=1;c--)p.globalAlpha=.55-c*.11,Ft(o-i*c*8,t,5,(s+c)%2,"#f2f1ec");p.globalAlpha=1,a!=null&&(p.fillStyle="rgba(0, 0, 0, .45)",p.fillRect(o-6,a-1,13,2)),Ft(o,t,7,s,"#111"),Ft(o,t,5,s,"#f2f1ec"),p.fillStyle="#111",p.fillRect(o-1,t-1,3,3),p.fillStyle="#ffffff",p.fillRect(o+i*3,t-3,1,1)}function Kt(){n.H={x:D/2,y:0,vx:0,vy:0,dir:1,etat:"garde",t:0,anim:"r-garde",k:0,combo:0,touches:new Set,pv:de,fureur:0,souillure:0,invul:0,tampon:null,paradeDepuis:9,bloque:0,marques:[],trainee:[],fantomes:[],court:!1,presse:{},enchaine:0,combo:0}}var An=.3,wn=.12,gr=.16,Tn=.26,Jt=.05,Vt=2/60,Sn=2*Z.saut/te,Te={appel:.05,vx:340,vy:430},ee=e=>ye(e,B(e)).length/$[e].ips;function C(e,r,a){let o=e.anim,t=e.k;if(o&&a&&a!==o&&(e.fondu={anim:o,k:t,x:e.x,y:e.y,dir:e.dir,t:0}),e.etat=r,e.t=0,a&&(e.anim=a),$[a]?.boucle&&o&&o!==a){let s=Ve(o,t,a),i=ye(a,B(a));e.t=Math.max(0,i.indexOf(s))/$[a].ips}}var ur=e=>e.y<=0,En={3:0,4:2,5:0,6:2,7:1,8:1,9:2,10:4,11:4,12:1,13:0,14:0,15:8,16:5,17:0},dr=e=>u[Re[e]]?e:En[e]??0;function Ge(e,r,a){r=dr(r),e.enchaine||(e.legers=0,e.lourds=0),X.sabre.includes(r)?e.legers++:e.lourds++,X.fort.includes(r)&&(e.rangFort=X.fort.indexOf(r),e.fortT=n.temps),X.sabre.includes(r)&&(e.rangLeger=X.sabre.indexOf(r),e.legerT=n.temps),X.corps.includes(r)&&(e.rangCorps=X.corps.indexOf(r),e.corpsT=n.temps),a.L&&!a.R?e.dir=-1:a.R&&!a.L&&(e.dir=1),e.combo=r,e.touches.clear(),e.relache=!1,C(e,"coup",Re[r]),E($[Re[r]].tranche?"lourd":"lame")}function In(e,r){if(r==="sabre")return e.legers>=X.sabre.length||e.lourds?-1:mr(e)?hr(e):X.sabre[(e.departLeger+e.legers)%X.sabre.length];if(e.lourds>=2)return-1;let a=X.fort,o=a[Math.min(a.length-1,e.legers+e.lourds)];return dr(o)===e.combo?a[(a.indexOf(o)+1)%a.length]:o}var mr=e=>n.ennemis.some(r=>r.etat!=="mort"&&!r.retirer&&(r.x-e.x)*e.dir>-8&&(r.x-e.x)*e.dir<ma);function hr(e){let r=X.corps.filter(t=>u[Re[t]]);if(!r.length)return-1;let a=n.temps-(e.corpsT??-99)<wt,o=a?(r.indexOf(e.rangCorps==null?-1:X.corps[e.rangCorps])+1)%r.length:0;return r[o]}function pr(e,r,a){if(a==="sabre"){if(mr(e))return hr(e);let s=X.sabre,i=n.temps-(e.legerT??-99)<wt;return e.departLeger=i?(e.rangLeger+1)%s.length:e.etat==="marche"?2:0,s[e.departLeger]}if(e.court)return 7;let o=X.fort;return n.temps-(e.fortT??-99)<ha?o[(e.rangFort+1)%o.length]:o[0]}function gt(e,r){let a=n.H;a.fondu&&(a.fondu.t+=e)>wn&&(a.fondu=null),a.t+=e,a.invul=Math.max(0,a.invul-e),a.paradeDepuis+=e;let o=r.appuis;for(let g of["sabre","fort","up"])o.has(g)&&(a.tampon={k:g,t:0},a.presse[g]=n.temps);(o.has("sabre")||o.has("fort"))&&Math.abs((a.presse.sabre??-9)-(a.presse.fort??-9))<.15&&a.fureur>=1&&(a.tampon={k:"fureur",t:0}),a.tampon&&(a.tampon.t+=e)>va&&(a.tampon=null);let t=g=>a.tampon&&a.tampon.k===g,s=()=>{a.tampon=null};o.has("down")&&(a.paradeDepuis=0);let i=a.fortTenu&&!r.fort;a.fortTenu=!!r.fort,(r.sabre&&r.fort||t("fureur"))&&a.fureur>=1&&!["fureur","mort","touche"].includes(a.etat)&&(s(),Xt(a,r));let c=a.etat==="garde"||a.etat==="marche";switch((!ur(a)||a.vy<0)&&(a.vy+=te*e,a.y-=a.vy*e,a.y<=0&&(a.y=0,a.vy=0,a.etat==="plonge"?(a.vx=0,a.combo=4,a.enchaine=1,a.legers=0,a.lourds=1,a.touches.clear(),C(a,"coup","r-plonge-fin"),E("lourd"),n.gel=Math.max(n.gel,.08),n.secousse=Math.max(n.secousse,.14)):(a.etat==="saut"||a.etat==="coup-air")&&(ft(a,["r-k-saut",11,12]),E("chute")))),a.etat){case"garde":case"marche":{if(t("fureur")&&a.fureur>=1){s(),Xt(a,r);break}if(i&&$t(a,r)){Gt(a);break}for(let v of["sabre","fort"])if(t(v)){s(),a.enchaine=0,Ge(a,pr(a,r,v),r);break}if(a.etat==="coup")break;if(t("up")){s(),fr(a,r);break}if(r.parade&&!t("sabre")&&!t("fort")){C(a,"parade","r-parade");break}if(o.has("dash-left")||o.has("dash-right")){jn(a,o.has("dash-left")?-1:1);break}let g=(r.R?1:0)-(r.L?1:0);g&&a.court&&g===a.dir?(a.vx=g*Z.vitesse*1.9,a.etat!=="marche"&&C(a,"marche","r-marche")):g?(a.court=!1,a.dir=g,a.vx=g*Z.vitesse,a.etat!=="marche"&&C(a,"marche","r-marche")):a.court&&u["r-course"]?(a.court=!1,a.vx=0,ft(a,["r-marche",0,1])):(a.court=!1,a.vx=0,a.etat!=="garde"&&C(a,"garde","r-garde"));break}case"iai":{if(a.vx=0,a.charge+=e,Math.floor(a.charge*3)!==Math.floor((a.charge-e)*3)&&E("choix"),!r.sabre||a.charge>1.8){if(a.charge<.35){C(a,"garde","r-garde");break}qn(a)}break}case"iai-coupe":{a.t>=(a.anim==="r-coup-fort"?8/16:ee(a.anim))&&C(a,"garde","r-garde");break}case"dash":{let g=a.t/Tn;if(a.vx=a.dir*Z.vitesse*7*(1-g*.7),Math.floor(a.t/.035)!==a.fantomesN&&(a.fantomesN=Math.floor(a.t/.035),a.fantomes.push({anim:a.anim,k:a.k,x:a.x,y:a.y,dir:a.dir,t:0})),t("sabre")&&g>.3){s(),Ge(a,1,r);break}if(t("fort")&&g>.3){s(),Ge(a,7,r);break}g>=1&&(a.court=r.L&&a.dir<0||r.R&&a.dir>0,C(a,a.court?"marche":"garde",a.court?"r-marche":"r-garde"));break}case"coup":{let g=$[a.anim],v=a.t/ee(a.anim);if(g.esquive){let d=a.k-(g.de||0);d>=g.esquive[0]&&d<=g.esquive[1]&&(a.invul=Math.max(a.invul,.03))}if(a.vx=v>g.frappe[0]*.7&&v<g.frappe[1]?a.dir*g.pas/(ee(a.anim)*(g.frappe[1]-g.frappe[0]*.7)):0,v>g.frappe[1]){if(v>g.suite){let d=["sabre","fort"].find(x=>t(x));if(d){let x=In(a,d);if(x>=0){s(),a.enchaine++,Ge(a,x,r);break}}}if(r.parade&&a.paradeDepuis<a.t){C(a,"parade","r-parade");break}if(t("up")){s(),fr(a,r);break}if(t("fureur")&&a.fureur>=1){s(),Xt(a,r);break}}if(r.sabre||(a.relache=!0),r.sabre&&!a.relache&&a.combo===0&&!a.enchaine&&a.t>.2&&v<g.frappe[0]){C(a,"iai",u["r-k-charge"]?"r-k-charge":"r-coup-fort"),a.charge=0,E("fer");break}if(v>=1){if(g.puis&&u[g.puis]){a.combo=Re.indexOf(g.puis),C(a,"coup",g.puis);break}if(a.combo=0,a.enchaine=0,$t(a,r)){Gt(a);break}g.retour&&u[g.retour[0]]?ft(a,g.retour):g.retour?ft(a,["r-k-saut",11,12]):C(a,"garde","r-garde")}break}case"saut":{if(a.t<Jt){a.vx=0;break}a.envol||(a.envol=!0,a.vy=-Z.saut,a.y=.01,a.vx=a.elan,a.salto&&(a.anim="r-k-salto"));let g=(r.R?1:0)-(r.L?1:0);g&&(a.dir=g,a.vx=g*Z.vitesse*1.1),t("fort")&&u["r-k-pied-saute"]?(s(),a.touches.clear(),C(a,"coup-air","r-k-pied-saute"),E("lame")):(t("sabre")||t("fort"))&&u["r-k-saute-coupe"]?(s(),a.touches.clear(),C(a,"plonge","r-k-saute-coupe"),a.fantomesN=-1,E("lourd")):(t("sabre")||t("fort"))&&(s(),a.touches.clear(),C(a,"coup-air","r-coup-air"),E("lourd"));break}case"coup-air":{a.anim==="r-k-pied-saute"&&a.k>=6&&(a.vx=a.dir*250),a.t>=ee(a.anim)&&ur(a)&&C(a,"garde","r-garde");break}case"plonge":{if(a.t<Te.appel){a.vx*=.5;break}a.vx=a.dir*Te.vx,a.vy=Math.max(a.vy,Te.vy),Math.floor(a.t/.035)!==a.fantomesN&&(a.fantomesN=Math.floor(a.t/.035),a.fantomes.push({anim:a.anim,k:a.k,x:a.x,y:a.y,dir:a.dir,t:0}));break}case"moulinet":{a.vx=0,a.t>=ee(a.anim)&&C(a,"garde","r-garde");break}case"retour":{a.vx*=.5;let g=(r.R?1:0)-(r.L?1:0),v=t("sabre")||t("fort")||t("up");(a.t>=Vt*a.retourImages.length||a.t>=Vt&&(g||v))&&(a.combo=0,a.enchaine=0,$t(a,r)&&!g&&!v?Gt(a):C(a,"garde","r-garde"));break}case"parade":{if(a.vx=0,r.L&&!r.R?a.dir=-1:r.R&&!r.L&&(a.dir=1),a.bloque>0){a.bloque-=e;break}if(!r.parade){C(a,"garde","r-garde");break}for(let g of["sabre","fort"])if(t(g)){s(),Ge(a,pr(a,r,g),r);break}break}case"touche":{a.vx*=1-6*e,a.t>=ee("r-touche")&&C(a,"garde","r-garde");break}case"fureur":On(a,e);break;case"chute":{a.vx*=1-4*e,a.t>=ee("r-k-chute")+.35&&C(a,"releve",u["r-k-releve"]?"r-k-releve":"r-garde");break}case"releve":{a.vx=0,a.t>=ee(a.anim)&&C(a,"garde","r-garde");break}case"mort":a.vx*=1-5*e;break}a.x=Math.max(24,Math.min(D-24,a.x+a.vx*e));let l=$[a.anim],f=B(a.anim),m=ye(a.anim,f),h=Math.floor(a.t*l.ips);a.etat==="saut"&&a.anim==="r-k-salto"?a.k=Math.min(f-1,Math.floor((a.t-Jt)/Sn*f)):a.etat==="saut"&&a.anim==="r-k-saut"?a.k=Cn(a):a.etat==="saut"?a.k=Math.min(f-1,Math.floor((a.vy<0?.1+.4*(1+a.vy/Z.saut):.5+Math.min(.5,a.vy/900))*f)):a.etat==="retour"?a.k=a.retourImages[Math.min(a.retourImages.length-1,Math.floor(a.t/Vt))]:a.etat==="plonge"?a.k=a.t<Te.appel?5:8:a.etat==="parade"?a.k=a.bloque>0?Math.min(f-1,2+Math.floor((.3-a.bloque)/.3*(f-2))):Math.min(1,h):a.etat==="fureur"&&a.phase==="ruee"?a.k=Math.min(f-1,4):a.etat==="fureur"?a.k=m[Math.min(m.length-1,Math.floor(a.tp*l.ips))]:a.etat==="chute"||a.etat==="releve"?a.k=Math.min(f-1,Math.floor(a.t*l.ips)):a.etat==="dash"?a.k=u["r-course"]?1:Math.min(f-1,5):a.etat==="iai"?a.k=a.anim==="r-coup-fort"?4:m[Math.floor(a.charge*l.ips)%m.length]:a.etat==="iai-coupe"?a.k=a.anim==="r-coup-fort"?Math.min(f-1,9+Math.floor(a.t*16)):Math.min(f-1,Math.floor(a.t*l.ips)):a.etat==="marche"&&a.court?a.k=u["r-course"]?Math.floor(a.t*14)%B("r-course"):m[Math.floor(a.t*l.ips*2)%m.length]:a.k=l.boucle?m[h%m.length]:m[Math.min(m.length-1,h)];for(let g=a.fantomes.length-1;g>=0;g--)(a.fantomes[g].t+=e)>.22&&a.fantomes.splice(g,1);a.traineeT=(a.traineeT||0)+e;for(let g=a.trainee.length-1;g>=0;g--)a.traineeT-a.trainee[g].t>gr&&a.trainee.splice(g,1);if((a.etat==="coup"||a.etat==="coup-air")&&l.frappe){let g=a.t/ee(a.anim);if(g>l.frappe[0]-.18&&g<l.frappe[1]+.08){let v=ie(a.anim,a.k,a.x,A-a.y,a.dir);v&&(!a.trainee.length||a.trainee[a.trainee.length-1].k!==a.k)&&a.trainee.push({seg:v,t:a.traineeT,k:a.k})}}else if(a.etat==="moulinet"){let g=ie(a.anim,a.k,a.x,A-a.y,a.dir);g&&(!a.trainee.length||a.trainee[a.trainee.length-1].k!==a.k)&&a.trainee.push({seg:g,t:a.traineeT,k:a.k})}else if(a.etat==="plonge"&&a.t>=Te.appel){let g=ie(a.anim,a.k,a.x,A-a.y,a.dir);g&&a.trainee.push({seg:g,t:a.traineeT,k:a.k})}}function qn(e){let r=e.charge>.85&&e.charge<1.2,a=r?230:70+110*Math.min(1,e.charge),o=e.x,t=Math.max(24,Math.min(D-24,e.x+e.dir*a)),s=n.ennemis.filter(i=>i.etat!=="mort"&&!i.retirer&&i.x-Math.min(o,t)>=-20&&i.x-Math.max(o,t)<=20);s.forEach(i=>{i.fige=9,i.jeton=!1}),e.x=t,e.invul=Math.max(e.invul,.5),n.coupe=.07,n.coupeX0=o,n.coupeX1=t,C(e,"iai-coupe",u["r-k-dash-coupe"]?"r-k-dash-coupe":"r-coup-fort"),E("lourd"),E("parade",.05),n.gel=.12,n.lent=r?1.1:.45,r&&(n.eclair=.15),setTimeout(()=>n.coupFureur(s),r?450:260)}function jn(e,r){e.dir=r,C(e,"dash","r-marche"),e.fantomesN=-1,e.invul=Math.max(e.invul,.12),E("lame")}function ft(e,[r,...a]){e.retourImages=a,C(e,"retour",r)}function $t(e,r){return!u["r-moulinet"]||n.serie<Ae.morts||e.moulinetSerie===n.serie||r.sabre||r.fort||n.temps-(e.moulinetT??-99)<Ae.repos?!1:!n.ennemis.some(a=>a.etat!=="mort"&&(Math.abs(a.x-e.x)<Ae.libre||a.etat==="armer"||a.etat==="frappe"))}function Gt(e){e.moulinetSerie=n.serie,e.moulinetT=n.temps,e.vx=0,e.touches.clear(),e.souillure=Math.max(0,e.souillure-Ae.sang),e.fureur=Math.min(1,e.fureur+Ae.fureur),C(e,"moulinet","r-moulinet"),E("lame"),E("lame",.25)}function fr(e,r){let a=(r.R?1:0)-(r.L?1:0);e.envol=!1,e.elan=a*Z.vitesse*1.1,e.vx=0,e.vy=0,e.salto=!!(a&&u["r-k-salto"]),C(e,"saut",u["r-k-saut"]?"r-k-saut":"r-saut"),E("lame")}function Cn(e){if(e.t<Jt)return 2;let r=e.vy/Z.saut;return r<-.55?6:r<-.2?7:r<0?8:r<.25?9:10}function Xt(e){e.fureur=0,e.marques=[],e.phase="ruee",e.tp=0,e.invul=1.6,C(e,"fureur","r-estoc"),E("fureur"),n.lent=.5,n.eclair=.12}function On(e,r){if(e.tp+=r,e.phase==="ruee"){e.vx=e.dir*720;for(let a of n.ennemis)!e.marques.includes(a)&&a.etat!=="mort"&&Math.abs(a.x-e.x)<30&&(e.marques.push(a),a.fige=9);(e.tp>.36||e.x<=30||e.x>=D-30)&&(e.phase="coupe",e.tp=0,e.anim="r-coup-fort",e.vx=0)}else{e.vx=0;let a=ee("r-coup-fort");e.tp>a*.55&&e.marques.length&&(n.coupFureur(e.marques),e.marques=[]),e.tp>=a&&C(e,"garde","r-garde")}}function Se(e,r){let a=n.H;if(a.pv<=0||a.invul>0)return"rien";let o=Math.sign(e.x-a.x)===a.dir||e.x===a.x;return a.etat==="parade"&&o?(ve(a.x+a.dir*22,A-a.y-62,14),a.paradeDepuis<xa?(a.fureur=Math.min(1,a.fureur+da),n.parfaites++,E("parade"),n.lent=.45,n.gel=.12,a.bloque=.3,pe(30),"parfait"):(E("fer"),a.bloque=.3,a.x-=a.dir*Z.reculParade*.4,n.gel=.06,"pare")):(a.pv-=e.degats||1,a.invul=e.enchaine?.5:1.1,a.souillure=Math.min(An,a.souillure+.06),Y(a.x,A-a.y-70,r,30,.8),E("aie"),E("chair"),pe(60),n.gel=.12,n.secousse=.2,n.rouge=.25,a.vx=r*160,a.vy=0,a.pv<=0?(C(a,"mort","r-mort"),n.lent=1.6,n.grandMoment=2.4,E("glas",.3),a.vx=r*60,a.y=0):u["r-k-chute"]&&(a.y>0||a.pv<=2||e.coupe==="pied")?(C(a,"chute","r-k-chute"),a.invul=2.2,a.vx=r*120):C(a,"touche","r-touche"),"touche")}function xr(){let e=n.H;if(e.etat==="plonge"){if(e.t<Te.appel)return null;let s=ie(e.anim,e.k,e.x,A-e.y,e.dir),i=s?Math.max(Math.abs(s[0][0]-e.x),Math.abs(s[1][0]-e.x)):0;return{portee:Math.max(70,i+22),degats:2,tranche:!0,coupe:"vertical",anim:e.anim,air:!0}}if(e.etat!=="coup"&&e.etat!=="coup-air")return null;let r=$[e.anim],a=e.t/ee(e.anim);if(a<r.frappe[0]-.06||a>r.frappe[1]+.06)return null;let o=ie(e.anim,e.k,e.x,A-e.y,e.dir),t=o?Math.max(Math.abs(o[0][0]-e.x),Math.abs(o[1][0]-e.x)):0;return{...r,portee:Math.max(r.portee,t+22),anim:e.anim,air:e.etat==="coup-air"}}function Yt(e){let r=n.H,a=r.invul>1&&r.etat==="touche";for(let l of r.fantomes)nt(l.anim,l.k,l.x-e,A-l.y,l.dir,.55*(1-l.t/.22));let o=r.fondu,t=r.etat==="coup"||r.etat==="coup-air"||r.etat==="plonge",s=a?{blanc:!0}:{souillure:r.souillure},i=(r.etat==="dash"||r.etat==="marche"&&r.court)&&u["r-course"]?"r-course":r.anim;if((r.anim==="r-garde"&&r.etat==="garde"&&!a&&!(u["r-garde"].vivante&&n.etat!=="titre"&&n.etat!=="prologue")?st((n.etat==="titre"||n.etat==="prologue")&&u["r-garde-titre"]?"r-garde-titre":"r-garde",r.x-e,A-r.y,r.dir,n.temps,s):se(i,r.k,r.x-e,A-r.y,r.dir,s))||(n.ctx.fillStyle="#eee",n.ctx.fillRect(Math.round(r.x-e-10),Math.round(A-r.y-120),20,120)),t&&u[i]?.effet&&se(u[i].effet,r.k,r.x-e,A-r.y,r.dir),r.trainee.length&&ot(r.trainee,e,r.traineeT,gr),r.etat==="iai"){let l=ie(r.anim,r.k,r.x,A-r.y,r.dir),f=Math.min(1,r.charge/1);if(l){let m=r.charge*1.7%1;$e(l[0][0]+(l[1][0]-l[0][0])*m-e,l[0][1]+(l[1][1]-l[0][1])*m,f)}r.charge>.85&&r.charge<1.2&&$e(r.x-e+r.dir*8,A-r.y-70,1)}}var Ln={sabreur:{marche:"marche",attaque:"attaque"},ninja:{marche:"course",attaque:"lancer"}},Qt={marche:"marche",course:"course",garde:"garde",attaque:"coupe1",attaque2:"coupe3",chute:"chute",releve:"releve",mort:"chute",touche:"chute",charge:"grande-coupe",degaine:"coupe1",reversC:"revers",feinte:"garde",revers:"revers",grande:"grande-coupe",envol:"envol",montante:"coupe2",parade:"parade",poings:"poings",crochet:"poings",pied:"pied"},Tr={attaque:{contexte:["debout","relance"],poids:1,suite:["revers","crochet","montante","grande"]},revers:{contexte:["debout","relance"],poids:1,suite:["grande","attaque","pied","envol"]},grande:{contexte:["debout"],poids:.6,tempo:1.2,bond:260,portee:90,suite:["revers","montante","envol"]},charge:{contexte:["course"],poids:1,bond:210,freine:!0,enCourant:!0,portee:92,suite:["revers","montante","crochet"]},degaine:{contexte:["course"],poids:1,bond:200,freine:!0,enCourant:!0,portee:90,suite:["revers","grande","crochet"]},reversC:{contexte:["course"],poids:1,bond:190,freine:!0,enCourant:!0,portee:90,suite:["attaque","montante","pied"]},feinte:{contexte:["course"],poids:.8},envol:{contexte:["air"],poids:1,sautable:220,bond:40,saut:-330,coupe:"vertical",suite:["revers"]},montante:{contexte:["air","debout"],poids:.5,sautable:220,coupe:"vertical",suite:["grande","revers"]},parade:{contexte:["riposte"],poids:1,tempo:.5,suite:["revers","grande"]},poings:{contexte:["contact"],poids:1,portee:40,bond:40,coupe:"poing",tempo:.7,suite:["crochet","pied"]},crochet:{contexte:["contact","relance"],poids:.8,portee:54,bond:110,coupe:"poing",tempo:.8,suite:["pied","revers"]},pied:{contexte:["contact"],poids:.7,portee:48,bond:60,coupe:"pied",tempo:.5,suite:["grande","attaque"]}},Pn={griffe:{contexte:["debout","relance","contact"],poids:1.2,tempo:.7,portee:72,bond:40,suite:["griffe","grande","rafale","pied"]},grande:{contexte:["debout","relance"],poids:1,portee:88,bond:120,suite:["tourbillon","griffe","arc"]},arc:{contexte:["air","debout"],poids:.8,sautable:240,saut:-300,bond:60,coupe:"vertical",suite:["griffe","tourbillon"]},tourbillon:{contexte:["debout","contact","relance"],poids:.8,portee:80,bond:60,suite:["griffe","pied"]},pied:{contexte:["contact","relance"],poids:.9,portee:62,bond:30,coupe:"pied",tempo:.6,suite:["griffe","foreuse"]},plongeon:{contexte:["loin","air"],poids:1,portee:96,bond:250,freine:!0,saut:-360,coupe:"vertical",suite:["griffe","tourbillon"]},foreuse:{contexte:["course","loin"],poids:1.2,portee:84,bond:330,saut:-130,freine:!0,enCourant:!0,suite:["griffe","grande"]},rafale:{contexte:["contact","relance"],poids:.9,portee:68,bond:30,suite:["grande","pied"]}},aa={pression:{distance:48,poids:{griffe:2,rafale:1.6,pied:1.2,grande:.8,tourbillon:.6,arc:.4,plongeon:.2,foreuse:.6},patterns:[["griffe","griffe","rafale"],["griffe","pied","grande"],["rafale","griffe","tourbillon"],["pied","griffe","griffe","grande"]]},contre:{distance:96,poids:{griffe:1,grande:1.2,tourbillon:.8,arc:1.2,pied:.5,rafale:.4,plongeon:.4,foreuse:.8},patterns:[["grande","griffe"],["griffe","tourbillon"],["arc","griffe"]]},voltige:{distance:150,poids:{plongeon:2,foreuse:1.6,arc:1.2,tourbillon:.8,griffe:.6,grande:.5,rafale:.2,pied:.3},patterns:[["plongeon","tourbillon"],["foreuse","griffe","arc"],["arc","plongeon"],["plongeon","griffe","grande"]]}},Nn=Object.keys(aa);function vr(e,r){let a=Nn.filter(o=>o!==e.style);e.style=r||a[Math.floor(Math.random()*a.length)],e.styleT=6+Math.random()*4,e.pattern=null}var re=e=>e.type==="boss"?Pn:Tr,br={marche:"marche",course:"course",garde:"garde",attaque:"lancer",attaque2:"coup",chute:"chute",mort:"mort",touche:"chute",bond:"chute"},Un={sabreur:"sa",ninja:"ni",boss:"sa"},Mr={bloc:"bloc",garde:"garde",marche:"marche2",course:"course",griffe:"griffe",grande:"grande-griffe",arc:"arc",tourbillon:"tourbillon",pied:"pied",plongeon:"plongeon",foreuse:"foreuse",rafale:"rafale",touche:"touche",chute:"chute",releve:"releve",intro:"intro",attaque:"griffe",mort:"chute"},Wn={griffe:"coupe1",grande:"grande-coupe",arc:"envol",tourbillon:"revers",pied:"pied",plongeon:"envol",foreuse:"grande-coupe",rafale:"poings",touche:"chute",intro:"garde",attaque:"coupe1",mort:"chute",chute:"chute",releve:"releve",garde:"garde",marche:"marche",course:"course"},Ee=e=>e.type==="sabreur"||e.type==="boss",Ht={sabreur:{attaque:{armer:[0,1,2,3,4,5,6],frappe:[7,8,9],repos:[10,11,12,13]},revers:{armer:[0,1,2,3],frappe:[4,5,6,7],repos:[9,10]},grande:{armer:[0,1,2,3],frappe:[4,5,6],repos:[7,8]},charge:{armer:[],frappe:[2,3,4,5,6],tranche:2,repos:[7,8]},degaine:{armer:[],frappe:[6,7,8,9],tranche:1,repos:[10,11,12,13]},reversC:{armer:[],frappe:[3,4,5,6,7],tranche:1,repos:[9,10]},envol:{armer:[0,1],frappe:[2,3,4,5,6,7,8],repos:[9,10,11,12]},montante:{armer:[4,5,6],frappe:[7,8,9,10],repos:[11,12]},parade:{bloque:[2,3,4,5,6,7],armer:[7],frappe:[8,9],repos:[10]},poings:{armer:[0],frappe:[1,2],repos:[3,4]},crochet:{armer:[9],frappe:[10,11,12],repos:[]},pied:{armer:[2],frappe:[0,1],repos:[3,4]}},ninja:{attaque:{armer:[0,1,2],frappe:[3],repos:[4,5]},attaque2:{armer:[0,1,2],frappe:[3,4],repos:[5,6,7,8,9,10]}},boss:{griffe:{armer:[0],frappe:[1,2,3],repos:[6,7]},grande:{armer:[0,1],frappe:[2,3],repos:[5,6]},arc:{armer:[0,1],frappe:[2,3,4],repos:[]},tourbillon:{armer:[],frappe:[1,2,3],repos:[]},pied:{armer:[0,1],frappe:[2,3],repos:[6,7]},plongeon:{armer:[0,1],frappe:[2,3],repos:[4,5]},foreuse:{armer:[0,1],frappe:[2,3,4,5],tranche:1,repos:[]},rafale:{armer:[0,1],frappe:[2,3],repos:[]}}},Dn={"r-f-coupe1":"attaque","r-f-revers":"revers","r-f-grande-coupe":"grande","r-f-envol":"envol","r-f-coupe2":"montante","r-f-parade":"parade","r-f-poings":"poings","r-f-pied":"pied"};function Xe(e){let r=Ht[e.type]?.[e.attaque];if(r&&(e.type!=="boss"||e.anim.startsWith("r-x-")))return r;let a=Ht.sabreur[Dn[e.anim]];if(a)return a;let o=B(e.anim),t=Math.max(1,Math.round(o*.4)),s=Math.max(t+1,Math.round(o*.7)),i=(c,l)=>Array.from({length:Math.max(0,l-c)},(f,m)=>c+m);return{armer:i(0,t),frappe:i(t,s),repos:i(s,o)}}function Bn(e,r,a){if(n.forcerAttaque&&u[I(e,n.forcerAttaque)])return n.forcerAttaque;if(e.type==="boss"&&e.pattern&&e.pattern.length&&r.y<=30){let t=e.pattern.shift(),s=re(e)[t]||{},i=s.contexte.includes("relance")||a<60&&s.contexte.includes("contact")||a>=90&&s.contexte.includes("loin")||s.contexte.includes("debout");if(u[I(e,t)]&&i)return t;e.pattern=null}if(r.y>30)return ea(e,"air",e.attaque);let o=((re(e)[e.attaque]||{}).suite||[]).filter(t=>u[I(e,t)]&&(a<44||!["poings","crochet","pied"].includes(t)||t==="crochet"));return o.length?o[Math.floor(Math.random()*o.length)]:ea(e,"relance",e.attaque)}function ea(e,r,a){if(n.forcerAttaque&&u[I(e,n.forcerAttaque)])return n.forcerAttaque;let o=e.type==="boss"?aa[e.style||"pression"]:null;if(o&&r!=="air"&&Math.random()<.6){let c=o.patterns[Math.floor(Math.random()*o.patterns.length)].filter(l=>u[I(e,l)]);if(c.length&&re(e)[c[0]].contexte.includes(r))return e.pattern=c.slice(1),e.chaine=Math.max(e.chaine||0,c.length),c[0]}let t=Object.entries(re(e)).filter(([c,l])=>c!==a&&l.contexte.includes(r)&&u[I(e,c)]);if(!t.length)return"attaque";let s=([c,l])=>l.poids*(o?o.poids[c]??1:1),i=Math.random()*t.reduce((c,l)=>c+s(l),0);for(let c of t)if(i-=s(c),i<=0)return c[0];return t[t.length-1][0]}var Sr=.2,Je={"r-b-chute":[4,8]},_n={"r-b-course":1},Er=()=>!!u["r-f-marche"],ra=()=>!!u["r-b-marche"],kr={touche:"chute",intro:"garde",mort:"chute",releve:"chute",marche:"marche",bloc:"garde"},zt={garde:"pret",pret:"pret",marche:"marche",ruee:"ruee",lourd:"lourd",fente:"fente",droit:"droit",pied:"pied",accroupie:"accroupie",tornade:"tornade",saut:"saut",retombee:"retombee",intro:"intro",bloc:"bloc",touche:"touche",souleve:"souleve",chute:"chute",mort:"mort1",mort1:"mort1",mort2:"mort2",gisant:"gisant",releve:"chute",victoire:"victoire"},I=(e,r)=>e.type==="boss"?zt[r]&&u[`r-w-${zt[r]}`]?`r-w-${zt[r]}`:u[`r-x-${Mr[r]||r}`]?`r-x-${Mr[r]||r}`:u[`r-x-${kr[r]}`]?`r-x-${kr[r]}`:`r-f-${Wn[r]||Qt[r]||r}`:e.type==="sabreur"&&Er()&&Qt[r]?`r-f-${Qt[r]}`:e.type==="ninja"&&ra()&&br[r]?`r-b-${br[r]}`:`r-${Un[e.type]}-${(Ln[e.type]||{})[r]||r}`,Fn=1;n.ennemis=[];function qe(e,r){let a=ba[e];n.ennemis.push({id:Fn++,type:e,cfg:a,x:r<0?Math.max(-50,n.cam-40):Math.min(D+50,n.cam+n.W+40),y:0,vy:0,vx:0,dir:-r,etat:"approche",t:0,recharge:S(.6,1.6),k:0,anim:I({type:e},"marche"),fige:0,rang:0,jeton:!1,eclair:0});let o=n.ennemis[n.ennemis.length-1];if(e==="boss"){o.pvMax=o.pv=Ma+(n.bossN||0),o.etat="entree",o.invul=9,o.anim=I(o,"marche");for(let t of n.ennemis)t!==o&&t.type!=="boss"&&t.etat!=="mort"&&(t.retrait=!0,t.jeton=!1);n.boss=o}return o}function k(e,r,a){let o=e.vu||e.anim,t=e.vu?e.kVu:e.k,s=a?I(e,a):o,i=m=>m===I(e,"garde")||m===I(e,"marche"),c=m=>m===I(e,"course"),l=0;e.type==="boss"?e.fondu=null:o&&a&&s!==o&&r!=="frappe"&&r!=="chute"&&r!=="mort"&&!c(s)&&((r==="garde"||r==="approche")&&!c(o)?l=.12:r==="armer"&&!c(o)?l=.07:r==="bond"||r==="releve"||r==="esquive"?l=.1:r==="bloque"&&i(o)&&(l=.07)),l&&(e.fondu={anim:o,k:Math.min(t,B(o)-1),dir:e.dir,t:0,duree:l});let f=e.etat==="repos"&&o===I(e,"garde")?e.tg:null;if(e.etat=r,e.t=0,e.depuis=0,a&&(e.anim=I(e,a)),e.type==="boss"&&a&&o&&o!==e.anim&&u[o]?.allonge&&u[e.anim]?.allonge&&u[o].ancre!==u[e.anim].ancre){let m=u[o].allonge[Math.min(t,u[o].n-1)].cx,h=u[e.anim].allonge[0].cx;e.x+=e.dir*(m-h)}if(a&&e.anim!==o&&r!=="garde"&&r!=="approche"&&(e.k=0),r==="garde"&&f!=null){e.t=f;return}if((r==="garde"||r==="approche")&&o&&o!==e.anim&&e.type!=="boss"){let m=Ve(o,t,e.anim);e.t=r==="garde"?m/(e.type==="boss"?6:7):0,r==="approche"&&(e.pas=m+.3)}}var yr=e=>e.etat!=="mort",Ir=()=>1+Math.min(.5,n.chrono/300),be={lourd:{armer:[0,1],armerT:.42,frappe:[2,3],frappeT:.22,suite:[4,5],suiteT:.16,retour:[6],retourT:.16,degats:2,bond:40},fente:{armer:[0],armerT:.22,frappe:[1,2],frappeT:.2,retour:[1,0],retourT:.2,degats:1,bond:90},droit:{armer:[4,3],armerT:.3,frappe:[0,1,2],frappeT:.24,retour:[3,4],retourT:.26,degats:2},pied:{armer:[0,1],armerT:.24,frappe:[2,3],frappeT:.2,retour:[4,5,6],retourT:.3,degats:1,coupe:"pied"},accroupie:{armer:[3],armerT:.18,frappe:[0,1,2],frappeT:.24,retour:[3],retourT:.16,degats:1},tornade:{armer:[0,1],armerT:.34,frappe:[2,3,4,5,6,7],frappeT:.46,contact:[6,7],retour:[8,9],retourT:.3,degats:2,bond:230,coupe:"lateral",ouvert:.6},ruee:{armer:[0],armerT:.2,frappe:[1,2,3],frappeT:.5,retour:[4,5],retourT:.3,degats:1,saut:-300,bond:470}},Vn=12,ht=e=>e.pv<=Math.ceil(e.pvMax/2)?2:1,qr=e=>be[e.attaque]||be.lourd;function jr(e,r){let a=u[e],o=a&&a.allonge?a.allonge[Math.max(0,Math.min(r,a.n-1))]:null;return o?{avant:Math.max(o.avant,o.corps),corps:o.corps,haut:o.haut,bas:o.bas}:{avant:80,corps:60,haut:120,bas:0}}var Cr=(e,r)=>{let a=u[e],o=a&&a.allonge?a.allonge[Math.max(0,Math.min(r,a.n-1))]:null;return o?o.cx:0},Rr=e=>e.x+e.dir*Cr(e.anim,e.k),Ie=(e,r)=>{let a=be[r],o=I(e,r);return Math.max(...a.frappe.map(t=>jr(o,t).avant))-Cr(I(e,"pret"),0)},ta=e=>Ie(e,"lourd")-45;function Ar(e,r,a){let o=ht(e),t=Math.random(),s=ta(e);if(n.forcerAttaque&&(be[n.forcerAttaque]||n.forcerAttaque==="plongee"))return n.forcerAttaque;if(r.pv<=0||r.etat==="chute"||r.etat==="releve")return null;if(a<=s+20){let i=t<.2?"pied":"accroupie";return t<.4&&a<=Ie(e,i)+10?i:"lourd"}return a>=130&&a<=Ie(e,"tornade")+be.tornade.bond*be.tornade.frappeT*.8&&t<(o===2?.35:.25)&&(e.tornadeT||0)<=0?"tornade":a>=280&&t<(o===2?.7:.5)?"plongee":a>=170&&a<=300&&t<(o===2?.5:.35)?"ruee":null}function mt(e,r){if(e.touche=!1,e.blocs=0,r==="plongee"){e.attaque="plongee",k(e,"armer","retombee"),e.degats=2,e.coupe="vertical";return}let a=be[r];e.attaque=r,e.degats=a.degats,e.coupe=a.coupe||"lateral",e.enchaine=!!(e.chaine&&e.chaine.length),r==="tornade"&&(e.tornadeT=3),k(e,"armer",r)}function $n(e,r,a){if(!e.chaine||!e.chaine.length||r.pv<=0||r.etat==="chute"||r.etat==="releve"||e.dir!==Math.sign(r.x-e.x))return e.chaine=null,!1;let o=e.chaine[0],t=Math.random()<.5?"pied":"accroupie";return!e.insere&&Math.random()<.6&&a<=Ie(e,t)+10?(e.insere=!0,o=t):e.chaine.shift(),a>Ie(e,o)+40?(e.chaine=null,!1):(mt(e,o),!0)}function wr(e,r,a){if(r.etat!=="coup"||r.t>.1||a>130||(e.lecture||0)>0||e.dir!==-r.dir)return!1;e.lecture=.9;let o=ht(e),t=!!$[r.anim]?.tranche;return Math.random()<(t?o===2?.6:.4:o===2?.85:.65)?(k(e,"bloque","bloc"),e.pare=.5,e.riposte=!1,e.vx=0,!0):!1}function Gn(e,r){let a=jr(e.anim,e.k),o=(r.x-e.x)*e.dir-16;if(o<-8||o>a.avant+6)return!1;let t=e.y+a.bas-6,s=e.y+a.haut+8,i=Fe(r.anim,r.k)||88;return r.y<s&&r.y+i>t}function dt(e,r,a){if(e.touche||a.contact&&!a.contact.includes(e.k)||!Gn(e,r))return;e.touche=!0;let o=Se(e,e.dir);o==="touche"&&(n.gel=Math.max(n.gel,e.degats>=2?.14:.08),n.secousse=Math.max(n.secousse,.3)),o==="parfait"&&(e.chaine=null,k(e,"touche","touche"),e.vx=-e.dir*120,e.eclair=.1,e.long=.7),o==="pare"&&(e.vx=-e.dir*90)}function Xn(e){let r=B(e.anim),a=qr(e),o=e.t,t=(i,c)=>i&&i.length?i[Math.min(i.length-1,Math.floor(o/Math.max(.01,c)*i.length))]:e.k,s;switch(e.etat){case"entree":case"marche":s=Math.floor(e.pas||0)%r;break;case"intro":s=Math.floor(o*8);break;case"garde":s=Math.floor(o*6)%r;break;case"armer":s=e.attaque==="plongee"?Math.min(1,Math.floor(o*6)):t(a.armer,a.armerT);break;case"frappe":s=t(a.frappe,a.frappeT);break;case"suite":s=t(a.suite,a.suiteT);break;case"retour":s=t(a.retour,a.retourT);break;case"saut":s=o<.1?0:o<.2?1:2+Math.min(2,Math.floor((o-.2)*6));break;case"plonge":s=o<.12?2:o<.3?3:4;break;case"atterrit":s=5;break;case"bloque":s=e.anim==="r-w-bloc"?Math.floor(o*8)%r:1;break;case"touche":s=e.souleve?Math.min(5,Math.floor(o*10)):Math.min(3,Math.floor(o*10));break;case"chute":s=Math.floor(o*12);break;case"releve":s=3;break;case"mort":s=e.anim==="r-w-mort1"?Math.min(r-1,Math.floor(o*8)):e.anim==="r-w-mort2"?Math.floor(o*12):Math.floor(o*5);break;case"victoire":s=Math.floor(o*7)%(r+8);break;default:s=e.k}return Math.max(0,Math.min(r-1,s))}function Jn(e,r){let a=n.H,o=e.cfg,t=a.x-Rr(e),s=Math.abs(t),i=()=>{e.dir=Math.sign(t)||e.dir};e.recharge-=r,e.lecture>0&&(e.lecture-=r),e.pare>0&&(e.pare-=r),e.tornadeT>0&&(e.tornadeT-=r),e.ouvert>0&&(e.ouvert-=r);let c=B(e.anim),l=ht(e),f=qr(e),m=o.vitesse*(l===2?1.5:1.25),h=g=>{e.vx=e.dir*g,e.pas=(e.pas||0)+Math.abs(e.vx)*r/Vn};switch(e.etat){case"entree":{i(),h(m*.9),(s<240||e.t>4)&&(k(e,"intro","intro"),e.vx=0);break}case"intro":{e.vx=0,e.t>=5/8&&!e.snikt&&(e.snikt=!0,E("taiko"),n.secousse=Math.max(n.secousse,.2)),e.t>=c/8+.2&&(k(e,"garde","garde"),e.pret=!0,e.invul=0,e.recharge=.9);break}case"garde":{if(i(),e.vx=0,e.anim!==I(e,"garde")&&(e.anim=I(e,"garde")),a.pv<=0&&e.t>.6&&u["r-w-victoire"]){k(e,"victoire","victoire");break}if(wr(e,a,s))break;let g=e.recharge<=0&&e.t>=.15?Ar(e,a,s):null;if(g){g==="lourd"&&(e.chaine=["fente","droit"],e.insere=!1),mt(e,g);break}s>ta(e)+30&&e.t>=.25&&a.pv>0&&(k(e,"marche","marche"),e.pas=0);break}case"marche":{if(i(),h(m),wr(e,a,s))break;let g=e.recharge<=0?Ar(e,a,s):null;if(g){g==="lourd"&&(e.chaine=["fente","droit"],e.insere=!1),mt(e,g);break}(s<=ta(e)||a.pv<=0)&&k(e,"garde","garde");break}case"armer":{if(e.vx=0,e.attaque==="plongee"){e.t>=.3&&(k(e,"saut","saut"),e.vy=-560,e.y=.01,e.vx=e.dir*Math.max(60,Math.min(300,(s-70)/.8)));break}e.t>=f.armerT&&(k(e,"frappe"),E("lame"),f.saut&&e.y===0&&(e.vy=f.saut,e.y=.01),e.attaque==="ruee"&&(e.bond=Math.max(120,Math.min(f.bond,(s-110)/.42))));break}case"frappe":{if(e.vx=e.dir*(e.attaque==="ruee"?e.bond:f.bond||0)*(e.attaque==="ruee"&&e.y===0?.3:1),dt(e,a,f),e.etat!=="frappe")break;e.t>=f.frappeT&&e.y===0?k(e,f.suite?"suite":"retour"):e.attaque==="ruee"&&e.y===0&&e.t>.25&&k(e,"retour");break}case"suite":{e.vx*=1-6*r,dt(e,a,f),e.etat==="suite"&&e.t>=f.suiteT&&k(e,"retour");break}case"retour":{if(e.vx*=1-8*r,e.t>=f.retourT){if($n(e,a,s))break;k(e,"garde","garde"),e.recharge=(f.ouvert||0)+(l===2?S(.4,.8):S(.8,1.3)),e.ouvert=f.ouvert||0}break}case"saut":{(e.vy>=-40||e.t>.6)&&(k(e,"plonge","retombee"),e.vx=e.dir*140);break}case"plonge":{e.t<.12?e.vx=e.dir*160:(e.vx=e.dir*90,e.vy<320&&(e.vy=320)),dt(e,a,f),e.y===0&&e.t>.15&&(k(e,"atterrit","retombee"),e.vx=0,E("taiko"),n.secousse=Math.max(n.secousse,.3));break}case"atterrit":{e.vx=0,e.t<.12&&dt(e,a,f),e.etat==="atterrit"&&e.t>=.3&&(k(e,"garde","garde"),e.recharge=l===2?.5:.9,e.ouvert=.4);break}case"bloque":{i(),e.vx*=1-10*r,e.t>.32&&e.pare<=0&&(e.riposte&&s<Ie(e,"fente")+10&&a.pv>0&&(l===2||Math.random()<.6)?(e.riposte=!1,e.chaine=["droit"],mt(e,"fente")):(e.riposte=!1,k(e,"garde","garde"),e.recharge=Math.min(e.recharge,.3)));break}case"touche":{e.vx*=1-7*r,e.t>(e.long||(e.souleve?.6:.45))&&(e.long=0,e.souleve=!1,k(e,"garde","garde"),e.recharge=.35);break}case"chute":{e.vx*=1-5*r,e.t>=c/12+.6&&(k(e,"releve","chute"),e.invul=.2);break}case"releve":{e.vx=0,e.t>=.35&&(k(e,"garde","garde"),e.recharge=.4);break}case"victoire":{e.vx=0;break}case"mort":{e.anim==="r-w-mort1"?e.y===0&&e.t>.2&&(k(e,"mort","mort2"),e.vx=e.vx*.6):e.anim==="r-w-mort2"?(e.vx*=1-3*r,e.t>=c/12&&(k(e,"mort","gisant"),e.vx=0)):(e.vx=0,e.t>=1.4&&(_t(e.anim,c-1,e.x,e.dir),e.retirer=!0));break}default:k(e,"garde","garde")}if(e.k=Xn(e),e.y===0&&!["frappe","suite","plonge","chute","mort","touche"].includes(e.etat)&&a.pv>0){let g=Rr(e),v=a.x-g;Math.abs(v)<60&&(e.x-=(Math.sign(v)||e.dir)*(60-Math.abs(v)),e.vx*(Math.sign(v)||e.dir)>0&&(e.vx=0))}}function Or(e){let r=n.H;for(let t of[-1,1])n.ennemis.filter(i=>yr(i)&&Math.sign(i.x-r.x)===t&&i.type!=="ninja").sort((i,c)=>Math.abs(i.x-r.x)-Math.abs(c.x-r.x)).forEach((i,c)=>{i.rang=c});let a=n.ennemis.filter(t=>t.jeton).length;for(let t of n.ennemis){if(t.t+=e,t.depuis=(t.depuis||0)+e,t.eclair=Math.max(0,t.eclair-e),t.fondu&&(t.fondu.t+=e)>(t.fondu.duree||.12)&&(t.fondu=null),t.fige>0){t.fige-=e,t.fige<5&&(t.fige=Math.max(0,t.fige));continue}let s=t.cfg,i=r.x-t.x,c=Math.abs(i),l=Ir();if((t.etat==="approche"||t.etat==="garde")&&(t.dir=Math.sign(i)||t.dir),(t.y>0||t.vy<0)&&(t.vy+=te*e,t.y-=t.vy*e,t.y<=0&&(t.y=0,t.vy=0,t.type==="boss"&&(n.secousse=Math.max(n.secousse,.12)),t.etat==="bond"))){let d=Je[I(t,"chute")];d?(k(t,"releve","chute"),t.depart=d[0],t.cadence=14,t.retour=!1,t.vx=0):k(t,"garde","garde")}if(t.invul>0&&(t.invul-=e),t.retrait&&(t.etat==="approche"||t.etat==="garde")){t.dir=Math.sign(i)||t.dir,t.vx=-t.dir*s.vitesse*2.2,t.charge=!1,(t.etat!=="approche"||t.anim!==I(t,"course"))&&k(t,"approche","course"),Math.abs(t.x-(n.cam+n.W/2))>n.W/2+90&&(t.retirer=!0),t.pas=(t.pas||0)+Math.abs(t.vx)*e/22,t.k=Math.floor(t.pas)%B(t.anim),t.x+=t.vx*e,t.vu=t.anim,t.kVu=t.k;continue}if(t.type==="boss")Jn(t,e);else switch(t.etat){case"entree":{t.dir=Math.sign(i)||t.dir,t.vx=t.dir*s.vitesse*.85,(c<230||t.t>4)&&(k(t,"intro","intro"),t.vx=0,E("taiko"),n.secousse=Math.max(n.secousse,.25));break}case"intro":{t.vx=0,t.t>=Math.max(.8,B(t.anim)/9)&&(k(t,"garde","garde"),t.recharge=1.3,t.invul=0,t.pret=!0);break}case"esquive":{t.vx=-t.dir*480,t.invul=Math.max(t.invul||0,.06),t.t>.24&&t.y===0&&(k(t,"garde","garde"),t.recharge=0,t.chaine=3,t.pattern=t.style==="voltige"?["plongeon","griffe"]:["grande","griffe"]);break}case"touche":{t.vx*=1-7*e,t.t>.32&&(k(t,"garde","garde"),t.recharge=.1);break}case"approche":case"garde":{if(t.type==="boss"){if(t.style||vr(t),(t.styleT-=e)<=0&&vr(t),t.esquiveT>0&&(t.esquiveT-=e),r.etat==="coup"&&r.t<.1&&c<110&&(t.lecture||0)<=0){t.lecture=.7;let q=!!$[r.anim]?.tranche,z=t.style==="contre"?.8:t.style==="voltige"?.65:.55;if(Math.random()<z){if(q&&t.style!=="pression"&&(t.esquiveT||0)<=0){t.esquiveT=1.2,k(t,"esquive","arc"),t.y===0&&(t.vy=-190,t.y=.01);break}t.pare=.45}}t.lecture>0&&(t.lecture-=e),t.pare>0&&(t.pare-=e)}t.feinte=t.feinte??S(0,6.28);let d=s.portee+s.bond*s.frappe*.7-4,x=t.rang===1&&n.ennemis.some(q=>q!==t&&q.type!=="ninja"&&q.rang===0&&Math.sign(q.x-r.x)===Math.sign(t.x-r.x)&&["armer","frappe","repos","chute","releve"].includes(q.etat)),y=(t.type==="ninja"?s.distance:t.type==="boss"?aa[t.style].distance:Math.min(s.distance,d-12))+(x?26:t.rang*48)+(t.rang>0?Math.sin(n.temps*1.3+t.feinte)*14:0);if(t.type==="ninja")for(let q of n.ennemis)q.type!=="ninja"&&q.etat!=="mort"&&Math.sign(q.x-r.x)===Math.sign(t.x-r.x)&&(y=Math.max(y,Math.abs(q.x-r.x)+60));let T=t.type!=="ninja"&&n.ennemis.some(q=>q!==t&&q.type!=="ninja"&&q.etat!=="mort"&&Math.sign(q.x-r.x)===Math.sign(t.x-r.x)&&Math.abs(q.x-r.x)<Math.abs(t.x-r.x)&&Math.abs(t.x-r.x)-Math.abs(q.x-r.x)<46);if(t.recharge-=e,t.type==="ninja"&&c<120&&t.y===0&&r.pv>0){if(t.surpris=(t.surpris||0)+e,t.vx=0,t.etat!=="garde"&&k(t,"garde","garde"),t.surpris<.25)break;let q=n.ennemis.filter(z=>z.type==="ninja"&&z.jeton).length<1;if(ra()&&c<70&&t.recharge<=0&&q&&!(n.lent>0)){t.jeton=!0,a++,t.vx=0,t.touche=!1,t.attaque="attaque2",t.tempo=.7,k(t,"armer","attaque2");break}t.surpris=0,Yn(t);break}t.type==="ninja"&&(t.surpris=0);let R=t.depuis>.3;if(c>y+10&&T)t.vx=0,t.etat!=="garde"&&R&&k(t,"garde","garde");else if(c>y+10){let q=u[I(t,"course")]&&I(t,"course")!==I(t,"marche"),z=r.vx*Math.sign(r.x-t.x)>40,Me=t.type==="ninja"?c>y+90:t.type==="boss"?c>170&&t.recharge<=.3:t.rang===0&&t.recharge<=.5&&a<n.jetons&&c<240;q&&(Me||z)&&(t.charge=!0),t.charge&&c>320&&t.type!=="ninja"&&(t.charge=!1);let J=t.charge;t.elan=Math.min(1,Math.max(0,(t.elan||0)+(J?e/.12:-e/.15))),t.vx=t.dir*s.vitesse*l*(1+1.2*t.elan);let Le=J?"course":"marche";(t.etat!=="approche"||t.anim!==I(t,Le))&&(R||t.charge)&&k(t,"approche",Le)}else c<y-14&&t.type!=="boss"?(t.vx=-t.dir*s.vitesse*.7,t.etat!=="approche"&&R&&k(t,"approche","marche")):(R||t.etat==="garde")&&(t.vx=0,t.charge=!1,t.etat!=="garde"&&k(t,"garde","garde"));t.etat==="garde"&&(t.vx=0);let M=t.charge&&t.etat==="approche"&&t.anim===I(t,"course")&&(t.elan||0)>.6,L=Math.max(0,r.vx*Math.sign(t.x-r.x)),w=L>160&&r.y<30,j=t.type==="ninja"?c<330&&t.x>10&&t.x<D-10:c<(M?150:t.type==="boss"?215:d)+L*.2,P=t.type==="ninja"?n.ennemis.filter(q=>q.type==="ninja"&&q.jeton).length<1:t.type==="boss"||a<n.jetons,F=t.type!=="ninja"&&Kn(r),G=t.type==="sabreur"&&t.rang===1&&x;if(j&&(t.recharge<=0||F||t.charge||w&&Ee(t))&&P&&!(t.etat==="garde"&&t.t<.07)&&(t.rang===0||t.type==="ninja"||G)&&r.pv>0&&r.etat!=="fureur"&&!(n.lent>0)){if(t.charge=!1,t.jeton=!0,a++,t.vx=0,t.touche=!1,t.glisse=0,t.lance=!1,Ee(t)&&M&&t.type==="sabreur"){let z=n.ennemis.filter(_=>_!==t&&_.arrivee&&(_.etat==="armer"||_.etat==="frappe")).map(_=>_.attaque),Me=["charge","degaine","reversC","feinte"].filter(_=>u[I(t,_)]&&_!==t.derniereArrivee&&!z.includes(_)),J=Me.length?Me:["charge"],Le=J.map(_=>Tr[_].poids),fa=Math.random()*Le.reduce((_,Hr)=>_+Hr,0),yt=J[J.length-1];for(let _=0;_<J.length;_++)if(fa-=Le[_],fa<=0){yt=J[_];break}t.attaque=yt,t.derniereArrivee=yt,t.arrivee=!0}else Ee(t)?(t.attaque=ea(t,M?"course":r.y>30?"air":c<44?"contact":t.type==="boss"&&c>130?"loin":"debout"),t.arrivee=!1):t.attaque="attaque";if(t.attaque==="feinte"){t.jeton=!1,a--,t.arrivee=!1,k(t,"garde","garde"),t.recharge=S(.45,.85),t.chaine=0;break}k(t,"armer",(re(t)[t.attaque]||{}).enCourant&&M?"course":t.attaque);let q=re(t)[t.attaque]||{};t.tempo=(M&&Ee(t)?.5:F||w?.6:Math.random()<(t.type==="boss"?.2:.1)?1.4:1)*(q.tempo||1),t.lance=M&&Ee(t),(t.type!=="boss"||!t.pattern)&&(t.chaine=t.type==="boss"?3+Math.floor(Math.random()*3):t.type==="sabreur"?2+Math.floor(Math.random()*3):1)}break}case"armer":{let d=Math.min(t.glisse||0,110*e);t.glisse=(t.glisse||0)-d,t.vx=d/e*t.dir,t.type==="sabreur"&&t.attaque==="attaque2"&&t.t<.14&&(t.vx+=t.dir*70,t.y===0&&t.t<e&&(t.vy=-110,t.y=.01)),t.lance&&(t.vx+=t.dir*s.vitesse*l*2.2);let x=!!(re(t)[t.attaque]||{}).enCourant&&t.anim===I(t,"course"),y=Math.max(0,r.vx*Math.sign(t.x-r.x));if(y>160&&(t.tempo||1)>.6&&!x&&(t.tempo=.6),x?Math.abs(r.x-t.x)<=96+.13*y||t.t>=.6:t.t>=s.armer*(t.tempo||1)/l){k(t,"frappe",t.anim===I(t,"course")?t.attaque:void 0),t.type==="ninja"&&t.attaque!=="attaque2"?Qn(t):E("lame");let T=re(t)[t.attaque];T&&T.saut&&t.y===0&&(t.vy=T.saut,t.y=.01)}break}case"frappe":{let d=re(t)[t.attaque]||{},x=Math.floor(t.t*15)>(Xe(t).tranche||0);t.vx=t.dir*(t.type==="ninja"&&t.attaque==="attaque2"?90:(d.bond??s.bond)*(x&&d.freine?.3:1));let y=Xe(t),T=Math.floor(t.t*15)>=(y.tranche||0);if((t.type!=="ninja"||t.attaque==="attaque2")&&!t.touche&&T){let R=(r.x-t.x)*t.dir,M=t.type==="ninja"?64:d.portee??s.portee,L=t.type==="ninja"?60:t.attaque==="attaque2"?30:d.sautable??s.sautable;if(R>-10&&R<M&&r.y<L){t.touche=!0,t.coupe=d.coupe||"lateral";let w=Se(t,t.dir);if(t.type==="boss"&&w==="touche"&&(n.gel=Math.max(n.gel,["grande","foreuse","plongeon","tourbillon"].includes(t.attaque)?.14:.08),n.secousse=Math.max(n.secousse,.3)),w==="parfait"){zn(t);break}w==="pare"&&(t.vx=-t.dir*120,t.x-=t.dir*14)}}t.t>=Math.max(s.frappe,Xe(t).frappe.length/15)&&k(t,"repos");break}case"repos":{if(t.vx*=1-8*e,(t.chaine||0)>1&&t.t>=.04&&Math.abs(r.x-t.x)<Zt(t)+36&&r.pv>0&&r.etat!=="chute"&&r.etat!=="releve"){t.chaine--,t.tempo=.7,t.lance=!1,(r.x-t.x)*t.dir<-16&&(t.dir=-t.dir),t.attaque=Ee(t)?Bn(t,r,Math.abs(r.x-t.x)):"attaque",Math.abs(r.x-t.x)>Zt(t)-10&&(t.glisse=t.type==="boss"?8:18),k(t,"armer",t.attaque),t.touche=!1;break}t.t>=s.repos/l&&(t.jeton=!1,t.chaine=0,t.recharge=(t.type==="boss"?S(.3,.6):S(.15,.5))/l,k(t,"garde","garde"));break}case"brise":{t.vx*=1-6*e,t.t>1.1&&(t.jeton=!1,t.recharge=1,k(t,"garde","garde"));break}case"bloque":{t.vx*=1-10*e,t.t>.35&&(t.riposte&&(t.type==="boss"||a<n.jetons)&&Math.abs(r.x-t.x)<Zt(t)&&r.pv>0?(t.jeton=!0,a++,t.touche=!1,t.attaque=t.type==="boss"?"griffe":"parade",t.tempo=.5,t.lance=!1,t.glisse=0,t.chaine=t.type==="boss"?3:1,k(t,"armer",t.attaque)):k(t,"garde","garde"),t.riposte=!1);break}case"bond":break;case"chute":{t.vx*=1-5*e;let d=Je[t.anim],x=d?d[0]:B(t.anim)-1,y=d?12:15;t.t>=(x+1)/y+.5&&(t.jeton=!1,t.recharge=.6,d?(k(t,"releve","chute"),t.depart=d[1],t.cadence=8):(k(t,"releve",u[I(t,"releve")]?"releve":"chute"),t.depart=0,t.cadence=8,t.retour=!u[I(t,"releve")]));break}case"releve":{t.vx=0,t.t>=(B(t.anim)-(t.depart||0))/(t.cadence||8)&&k(t,"garde","garde");break}case"mort":{t.vx*=1-5*e,t.t*(t.anim===I(t,"chute")?14:10)>=B(t.anim)+3&&(_t(t.anim,B(t.anim)-1,t.x,t.dir),t.retirer=!0);break}}if(t.etat!=="mort"&&t.fige<=0)for(let d of n.ennemis){if(d===t||d.etat==="mort"||d.fige>0||Math.sign(d.x-r.x)!==Math.sign(t.x-r.x)||d.type==="ninja"!=(t.type==="ninja"))continue;let x=Math.abs(d.x-t.x),y=40;x<y&&Math.abs(t.x-r.x)>Math.abs(d.x-r.x)&&(t.x+=Math.sign(t.x-d.x||-t.dir)*Math.min(y-x,120*e),t.vx*t.dir>0&&(t.vx=0))}if(t.x+=t.vx*e,t.etat!=="approche"&&t.etat!=="mort"&&(t.x=Math.max(-30,Math.min(D+30,t.x))),t.type!=="boss"){let d=B(t.anim),x=t.cfg,y=Xe(t);if(t.etat==="armer")if(t.anim===I(t,"course"))t.pas=(t.pas||0)+Math.abs(t.vx)*e/22,t.k=Math.floor(t.pas)%d;else if(!y.armer.length)t.k=y.frappe[0];else{let T=y.armer,R=x.armer*(t.tempo||1)/l,M=Math.min(T.length,Math.max(4,Math.round(R*.78*20))),L=T.length-M,w=Math.min(24,M/(.78*R));t.k=T[Math.max(0,Math.min(T.length-1,L+Math.floor(t.t*w+1e-4)))]}else if(t.etat==="frappe")t.k=y.frappe[Math.min(y.frappe.length-1,Math.floor(t.t*15))];else if(t.etat==="repos"){let T=Math.floor(t.t*12);if(T<y.repos.length&&t.anim===I(t,t.attaque||"attaque"))t.k=y.repos[T];else{if(t.anim!==I(t,"garde")){let R=Math.min(t.k,d-1);t.fondu={anim:t.anim,k:R,dir:t.dir,t:0,duree:.12},t.anim=I(t,"garde"),t.tg=Ve(I(t,t.attaque||"attaque"),R,t.anim)/7}t.tg+=e,t.k=Math.floor(t.tg*7)%B(t.anim)}}else if(t.etat==="touche")t.k=Math.min(1,Math.floor(t.t*10));else if(t.etat==="intro")t.k=Math.min(d-1,Math.floor(t.t*(t.anim===I(t,"garde")?6:9)));else if(t.etat==="esquive")t.k=0;else if(t.etat==="entree")t.pas=(t.pas||0)+Math.abs(t.vx)*e/(12*(t.type==="boss"?1.4:1)),t.k=Math.floor(t.pas)%d;else if(t.etat==="brise")t.k=Math.min(d-1,2,Math.floor(t.t*10));else if(t.etat==="bloque"){let T=Ht.sabreur.parade.bloque;t.k=t.anim===I(t,"parade")?T[Math.min(T.length-1,Math.floor(t.t*16))]:Math.min(d-1,1+Math.floor(t.t*7))}else if(t.etat==="mort")t.type==="sabreur"&&t.anim==="r-f-chute"?t.k=t.t<.05?t.t<.02?0:1:Math.min(d-1,3+Math.floor((t.t-.05)*14)):t.k=Math.min(d-1,Math.floor(t.t*(t.anim===I(t,"chute")?14:10)));else if(t.etat==="chute"){let T=Je[t.anim],R=T?T[0]:d-1,M=T?12:15,L=t.type==="sabreur"&&t.anim==="r-f-chute"&&t.t>=.05,w=L?3+Math.floor((t.t-.05)*M):t.t<.05&&t.type==="sabreur"&&t.anim==="r-f-chute"?1:Math.floor(t.t*M);t.k=w<=R?w:T?R+Math.floor((t.t-(R+1)/M)*5)%(T[1]-R):R}else if(t.etat==="releve"){let T=t.retour?Math.max(0,d-1-Math.floor(t.t*8)):Math.min(d-1,(t.depart||0)+Math.floor(t.t*(t.cadence||8)));T!==t.k&&t.t>0&&(t.fondu={anim:t.anim,k:t.k,dir:t.dir,t:0,duree:.1}),t.k=T}else if(t.etat==="bond")t.k=Je[t.anim]?Math.min(Je[t.anim][0]-1,1+Math.floor(t.t*8)):Math.min(d-1,Math.floor(t.t*16));else if(t.etat==="approche"){let T=(t.anim.endsWith("course")?t.type==="ninja"?18:22:Math.sign(t.vx)===-t.dir?8:12)*(t.type==="boss"?1.4:1);t.pas=(t.pas||0)+Math.abs(t.vx)*e/T;let R=_n[t.anim]||0,M=Math.floor(t.pas),L=M<d?M:R+(M-R)%(d-R);t.k=Math.sign(t.vx)===-t.dir?d-1-L:L}else t.k=Math.floor(t.t*7)%d}t.vu=t.anim,t.kVu=t.k,t.traineeT=(t.traineeT||0)+e,t.trainee=t.trainee||[];for(let d=t.trainee.length-1;d>=0;d--)t.traineeT-t.trainee[d].t>Sr&&t.trainee.splice(d,1);let m=t.type==="boss",h=t.attaque&&!m?Xe(t):null,g=h&&h.armer.length?h.armer[h.armer.length-1]:-1;if((m?t.etat==="frappe"||t.etat==="suite":t.etat==="frappe"||t.etat==="armer"&&t.anim!==I(t,"course")&&t.k===g||t.etat==="repos"&&t.t<.08)&&t.type!=="ninja"&&(m||!["pied","poing"].includes((re(t)[t.attaque]||{}).coupe))){let d=ie(t.anim,t.k,t.x,A-t.y,t.dir);d&&(d=[d[0],[d[0][0]+(d[1][0]-d[0][0])*1.05,d[0][1]+(d[1][1]-d[0][1])*1.05]]),d&&(!t.trainee.length||t.trainee[t.trainee.length-1].k!==t.k||t.trainee[t.trainee.length-1].anim!==t.anim)&&t.trainee.push({seg:d,t:t.traineeT,k:t.k,anim:t.anim})}}for(let t=n.ennemis.length-1;t>=0;t--)n.ennemis[t].retirer&&n.ennemis.splice(t,1);let o=xr();if(o){for(let t of n.ennemis){if(!yr(t)||r.touches.has(t.id)||t.fige>0)continue;let s=(t.x-r.x)*r.dir;s<-14||s>o.portee||t.y>90+r.y||(r.touches.add(t.id),Zn(t,o))}for(let t=n.projectiles.length-1;t>=0;t--){let s=n.projectiles[t],i=(s.x-r.x)*r.dir;i>-10&&i<o.portee&&s.y>A-r.y-120&&(ve(s.x,s.y,8),E("fer"),n.projectiles.splice(t,1))}}for(let t=n.projectiles.length-1;t>=0;t--){let s=n.projectiles[t];s.t+=e,s.x+=s.vx*e;let i=Fe(r.anim,r.k);if(Math.abs(s.x-r.x)<12&&s.y>A-r.y-i&&s.y<A-r.y){let c=Se(s,Math.sign(s.vx));if(c!=="rien"){n.projectiles.splice(t,1),c!=="touche"&&ve(s.x,s.y,8);continue}}(s.x<-40||s.x>D+40)&&n.projectiles.splice(t,1)}}var Zt=e=>e.cfg.portee+e.cfg.bond*e.cfg.frappe*.7-4;function Kn(e){if(e.etat==="retour"||e.etat==="releve")return!0;if(e.etat==="iai")return e.charge>.5;if(e.etat!=="coup")return!1;let r=$[e.anim];if(!r||!r.frappe)return!1;let a=e.t/(ye(e.anim,B(e.anim)).length/r.ips);return!!r.tranche&&a>r.frappe[1]}function Yn(e){let r=e.x<D/2?-1:1;(r<0?e.x<40:e.x>D-40)||(e.dir=-r,e.vy=ra()?-260:-460,e.y=.01,e.vx=r*230,k(e,"bond","bond"))}function Qn(e){let r=Math.random()<.35;n.projectiles.push({x:e.x+e.dir*18,y:A-(r?26:74),vx:e.dir*290,t:0}),E("shuriken")}function zn(e){e.jeton=!1,k(e,"brise","touche"),e.vx=-e.dir*90,e.eclair=.1}function Zn(e,r){let a=n.H;if(e.type==="boss"){if(e.invul>0)return;let s=e.dir===-a.dir,i=["garde","marche","bloque"].includes(e.etat);if(s&&i&&(e.blocs||0)<3&&!(e.ouvert>0)){let c=ht(e),l=e.etat==="bloque"||e.pare>0?1:r.tranche?c===2?.5:.35:c===2?.8:.65;if(Math.random()<l){e.pare=0,e.blocs=(e.blocs||0)+1,k(e,"bloque","bloc"),e.t=0,e.vx=a.dir*(r.tranche?110:50),e.riposte=!r.tranche,ve(e.x-a.dir*16,A-80,18),E("fer"),n.gel=r.tranche?.1:.07,a.x-=a.dir*(r.tranche?6:12);return}}if(e.blocs=0,e.pv--,e.invul=.45,e.eclair=.1,e.jeton=!1,e.chaine=0,e.pattern=null,E("chair"),pe(20),Y(e.x,A-80,a.dir,18,.7),n.gel=r.tranche?.1:.06,e.pv<=0){n.boss=null,n.bossN=(n.bossN||0)+1,n.serie+=2,n.tues+=4,u["r-w-mort1"]?(e.jeton=!1,n.tues++,n.serie++,n.serieT=2.2,a.fureur=Math.min(1,a.fureur+At),E("chair"),E("sang"),pe(25),Y(e.x,A-80,a.dir,30,.9),k(e,"mort","mort1"),e.vx=a.dir*260,e.vy=-430,e.y=.01,e.dir=-a.dir,e.eclair=.1):Ke(e,r.tranche?"fend":Math.random()<.5?"decapite":"tranche",a.dir),n.gel=.3,n.lent=1.4,n.grandMoment=2.2,n.secousse=.6,E("taiko"),E("taiko",.5),a.fureur=1,n.gloire=3.2;return}if(r.tranche&&Math.random()<.35&&u[I(e,"chute")]){e.vx=a.dir*170,k(e,"chute","chute");return}e.vx=a.dir*(r.tranche?140:90),e.souleve=!!r.tranche&&!!u["r-w-souleve"],k(e,"touche",e.souleve?"souleve":"touche");return}if(e.type==="sabreur"&&(e.etat==="garde"||e.etat==="approche")&&e.dir===-a.dir&&!r.tranche&&Math.random()<e.cfg.bloque+Math.min(.25,n.chrono/600)){let s=!!u[I(e,"parade")];k(e,"bloque",s?"parade":"garde"),e.k=s?2:Math.min(B(e.anim)-1,1),e.vx=a.dir*140,e.riposte=s,ve(e.x-a.dir*16,A-70,16),E("fer"),n.gel=.07,a.x-=a.dir*10;return}let o=r.coupe||"lateral";if(o==="pied"&&u[I(e,"chute")]&&(I(e,"chute")!==I(e,"mort")||e.type==="sabreur"&&Er())){e.jeton=!1,e.vx=a.dir*200,e.eclair=.08,E("chair"),n.gel=Math.max(n.gel,.06),k(e,"chute","chute");return}let t=n.temps-(n.derniereMort??-9)<.4;Ke(e,o==="vertical"?"fend":o==="estoc"?"transperce":o==="pied"?"coupe":Math.random()<.4?"decapite":"tranche",a.dir),n.gel=(r.tranche?.11:.06)*(t?.5:1),r.tranche&&(n.secousse=Math.max(n.secousse,.14))}function Ke(e,r,a){n.evt&&(n.evt.mort=!0);let o=n.H,t=Fe(e.anim,e.k);e.jeton=!1,n.tues++,n.serie++,n.serieT=2.2,o.fureur=Math.min(1,o.fureur+At),n.tues%ga===0&&o.pv<de&&(o.pv++,E("soin")),E("chair"),E("sang"),pe(25),n.gel=Math.max(n.gel,n.temps-(n.derniereMort??-9)<.4?.05:.1),n.derniereMort=n.temps;let s=A-e.y-t*.8;if(r==="decapite"){let[i,c]=pt(e.anim,e.k,e.x,e.dir,.8,S(-.12,.12),[a*S(50,150),-S(300,460),S(-14,14)]);lt(e.x,s,a,1,-1.45+S(-.2,.2)),Y(e.x,s,a,50,1,.9),e.retirer=!0}else if(r==="tranche"){let i=S(.42,.58);pt(e.anim,e.k,e.x,e.dir,i,S(-.3,.3)*a,[a*S(80,170),-S(140,240),a*S(2,6)]),Y(e.x,A-t*i,a,90,1.2,.7),lt(e.x,A-t*i,a,.6,-.9),n.secousse=.12,e.retirer=!0}else if(r==="fend"){let i=S(.5,.6);pt(e.anim,e.k,e.x,e.dir,i,a*S(2.2,3.2),[a*S(20,60),-S(60,120),a*S(2,5)]),Y(e.x,A-t*.9,a,60,1,1.4),Y(e.x,A-t*.45,a,50,1,.6),lt(e.x,A-t*.85,a,.5,-1.3),n.secousse=.12,e.retirer=!0}else r==="transperce"?(Y(e.x+a*8,A-t*.55,a,70,1.1,.35),k(e,"mort","mort"),e.vx=a*70,e.eclair=.08):(Y(e.x,A-t*.6,a,60,1,.8),k(e,"mort","mort"),e.vx=a*110,e.eclair=.08)}n.coupFureur=e=>{n.eclair=.2,n.lent=.8,E("parade"),e.forEach((r,a)=>setTimeout(()=>{r.retirer||(r.fige=0,Ke(r,a%2?"tranche":"decapite",n.H.dir))},a*90))};function Lr(e){let r=[...n.ennemis].sort((a,o)=>(o.type==="ninja")-(a.type==="ninja"));for(let a of r){let o=a.eclair>0,t=a.etat==="garde"&&!o&&a.anim===I(a,"garde");if(t&&a.type!=="boss"){let s=B(a.anim),i=n.temps+a.id*.37;if(a.type==="ninja"){let c=Math.max(1,2*s-2),l=Math.floor(i*5)%c;a.k=l<s?l:c-l}else a.k=Math.floor(i*7)%s;a.kVu=a.k}if((t&&a.type==="boss"?st(a.anim,a.x-e,A-a.y,a.dir,n.temps+a.id*.7):se(a.anim,a.k,a.x-e,A-a.y,a.dir,{blanc:o}))||(n.ctx.fillStyle="#111",n.ctx.fillRect(Math.round(a.x-e-12),Math.round(A-a.y-110),24,110)),a.fondu&&!o&&nt(a.fondu.anim,a.fondu.k,a.x-e,A-a.y,a.fondu.dir,1-a.fondu.t/(a.fondu.duree||.12)),a.trainee&&a.trainee.length>1&&!o&&ot(a.trainee,e,a.traineeT,Sr),a.type==="boss"&&u["g"+a.anim.slice(1)]&&!o&&se("g"+a.anim.slice(1),a.k,a.x-e,A-a.y,a.dir),a.etat==="armer"){let s=a.t/(a.cfg.armer*(a.tempo||1)/Ir());s>.55&&$e(a.x-e+a.dir*26,A-a.y-Fe(a.anim,a.k)*.72,(s-.55)/.45)}}for(let a of n.projectiles)lr(a,e,A)}function Nr(){n.chrono=0,n.prochain=1.2,n.vague=45,n.jetons=1,n.respire=0,n.boss=null,n.bossN=0,n.prochainBoss=Tt,n.repit=0,n.cinema=null}function na(e=!0){e&&(n.prochainBoss+=Tt);let r=n.H.x-n.cam<n.W/2?1:-1;qe("boss",r),n.cinema={t:0,fin:null},E("taiko")}function Ur(e){if(n.majDirecteurOff)return;let r=n.chrono+=e;if(n.jetons=r<25?1:r<90?2:3,n.boss&&(n.boss.etat==="mort"||n.boss.retirer||!n.ennemis.includes(n.boss))&&(n.boss=null,n.repit=ka),n.boss)return;if(n.repit>0){n.repit-=e;return}if(n.tues>=n.prochainBoss&&n.H.pv>0){if(n.ennemis.some(c=>c.etat!=="mort"))return;na();return}let a=n.ennemis.filter(c=>c.etat!=="mort").length,o=Math.min(10,3+Math.floor(r/18));if((n.vague-=e)<=0){n.vague=S(40,55),n.respire=7,E("taiko"),E("taiko",.35),E("taiko",.6);for(let c=0;c<4;c++)qe(Pr(r),c%2?1:-1);return}if(n.respire>0){n.respire-=e;return}if((n.prochain-=e)>0||a>=o)return;n.prochain=Math.max(.7,2.4-r/60)*S(.7,1.3);let t=n.ennemis.filter(c=>c.x<n.H.x).length,s=n.ennemis.length-t,i=t===0!=(s===0);qe(Pr(r),i?t===0?-1:1:Math.random()<.7?t<=s?-1:1:Math.random()<.5?-1:1)}function Pr(e){let r=o=>n.ennemis.filter(t=>t.type===o).length,a=Math.random();return e>20&&a<.22&&r("ninja")<2?"ninja":"sabreur"}var Wr={A:[14,17,17,31,17,17,17],B:[30,17,17,30,17,17,30],C:[14,17,16,16,16,17,14],D:[30,17,17,17,17,17,30],E:[31,16,16,30,16,16,31],F:[31,16,16,30,16,16,16],G:[14,17,16,23,17,17,15],H:[17,17,17,31,17,17,17],I:[14,4,4,4,4,4,14],J:[7,2,2,2,2,18,12],K:[17,18,20,24,20,18,17],L:[16,16,16,16,16,16,31],M:[17,27,21,21,17,17,17],N:[17,17,25,21,19,17,17],O:[14,17,17,17,17,17,14],P:[30,17,17,30,16,16,16],Q:[14,17,17,17,21,18,13],R:[30,17,17,30,20,18,17],S:[15,16,16,14,1,1,30],T:[31,4,4,4,4,4,4],U:[17,17,17,17,17,17,14],V:[17,17,17,17,17,10,4],W:[17,17,17,21,21,21,10],X:[17,17,10,4,10,17,17],Y:[17,17,10,4,4,4,4],Z:[31,1,2,4,8,16,31],0:[14,17,19,21,25,17,14],1:[4,12,4,4,4,4,14],2:[14,17,1,2,4,8,31],3:[31,2,4,2,1,17,14],4:[2,6,10,18,31,2,2],5:[31,16,30,1,1,17,14],6:[6,8,16,30,17,17,14],7:[31,1,2,4,8,8,8],8:[14,17,17,14,17,17,14],9:[14,17,17,15,1,2,12]," ":[0,0,0,0,0,0,0],"!":[4,4,4,4,4,0,4],"?":[14,17,1,2,4,0,4],".":[0,0,0,0,0,0,4],",":[0,0,0,0,4,4,8],":":[0,0,4,0,0,4,0],"-":[0,0,0,14,0,0,0],"+":[0,4,4,31,4,4,0],"/":[1,1,2,4,8,16,16],"'":[4,4,8,0,0,0,0],"×":[0,17,10,4,10,17,0],"·":[0,0,0,4,0,0,0],"(":[2,4,8,8,8,4,2],")":[8,4,2,2,2,4,8],"=":[0,0,31,0,31,0,0],"←":[0,4,8,31,8,4,0],"→":[0,4,2,31,2,4,0],"↑":[4,14,21,4,4,4,0],"↓":[0,4,4,4,21,14,4]},Hn={É:["E",[2,4]],È:["E",[8,4]],Ê:["E",[4,10]],À:["A",[8,4]],Â:["A",[4,10]],Ç:["C",null,[4,8]]};function eo(e){let r=Hn[e];return{base:Wr[r?r[0]:e]||Wr["?"],dessus:r&&r[1],dessous:r&&r[2]}}var xt=new Map;function to(e,r,a,o){let t=e+"|"+r+"|"+a+"|"+o,s=xt.get(t);if(s)return s;xt.size>300&&xt.clear();let i=o==="contour"?a:0;s=V(e.length*6*a+2*i+a,12*a+2*i);let c=s.getContext("2d"),l=Array.isArray(r)?r:null,f=(m,h,g)=>{[...e].forEach((v,d)=>{let{base:x,dessus:y,dessous:T}=eo(v),R=m+d*6*a,M=h+2*a,L=(w,j)=>{for(let P=0;P<5;P++)w&16>>P&&(c.fillStyle=g||(l?l[tt(j,0,6)]:r),c.fillRect(R+P*a,M+j*a,a,a))};x.forEach((w,j)=>L(w,j)),y&&(L(y[0],-2),L(y[1],-1)),T&&(L(T[0],7),L(T[1],8))})};if(o==="contour")for(let[m,h]of[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,1],[-1,1],[1,-1],[1,2],[0,2],[-1,2]])f(i+m*a,i+h*a,K);else o==="ombre"&&f(a,a,K);return f(i,i,null),xt.set(t,s),s}function O(e,r,a,o=N,t=1,s="ombre",i="gauche"){let c=to(e,o,t,s),l=i==="centre"?r-Math.floor(c.width/2):i==="droite"?r-c.width:r;p.drawImage(c,Math.round(l),Math.round(a-2*t))}var oa=e=>u[e]||null;function Q(e,r,a,o={}){let t=u[e];if(!t)return!1;let s=o.w||t.w,i=o.h||t.h;if(o.aligne==="centre"?r-=Math.floor(s/2):o.aligne==="droite"&&(r-=s),o.part!=null){let c=Math.round(s*Math.max(0,Math.min(1,o.part)));return c<=0||p.drawImage(t.img,0,0,Math.round(t.w*c/s),t.h,Math.round(r),Math.round(a),c,i),!0}return p.drawImage(t.img,Math.round(r),Math.round(a),s,i),!0}var vt=null,bt=null;function ao(){if(u["portrait-boss"]){let h=V(34,34),g=h.getContext("2d");return g.fillStyle="#1a1a19",g.fillRect(0,0,34,34),g.drawImage(u["portrait-boss"].img,1,1),g.strokeStyle=U[3],g.strokeRect(.5,.5,33,33),h}let e=u["r-x-intro"]||u["r-x-marche"]||u["r-x-garde"];if(!e)return null;let r=0,[a,o]=e.ancres[r],t=e.img.width,s=-1,i=0,c=0;for(let h=0;h<e.ch&&s<0;h++)for(let g=0;g<e.cw;g++)if(e.px.data[(h*t+r*e.cw+g)*4+3]>0){s=h;break}for(let h=s;h<Math.min(e.ch,s+22);h++)for(let g=0;g<e.cw;g++)e.px.data[(h*t+r*e.cw+g)*4+3]>0&&(i+=g,c++);let l=c?Math.round(i/c):a,f=V(34,34),m=f.getContext("2d");return m.fillStyle="#1a1a19",m.fillRect(0,0,34,34),m.drawImage(e.img,r*e.cw+l-17,s+2,34,34,0,0,34,34),m.strokeStyle=U[3],m.strokeRect(.5,.5,33,33),f}function ro(){let e=u["r-garde"];if(!e)return null;let r=V(34,34),a=r.getContext("2d");a.fillStyle="#1a1a19",a.fillRect(0,0,34,34);let[o,t]=e.ancres[0],s=e.hauts[0];return a.drawImage(e.img,o-20,t-s-2,34,34,-2,1,34,34),a.strokeStyle=ne,a.strokeRect(.5,.5,33,33),r}function Dr(){let e=n.H;if(oa("portrait")&&oa("vie-pleine")&&oa("jauge-vide"))return oo(e);vt=vt||ro(),vt&&p.drawImage(vt,10,10);for(let s=0;s<de;s++){let i=52+s*13,c=12;p.fillStyle=K,p.fillRect(i,c,10,10),p.fillStyle="#3a3a38",p.fillRect(i+1,c+1,8,8),s<e.pv&&(p.fillStyle=U[3],p.fillRect(i+1,c+1,8,8),p.fillStyle=U[4],p.fillRect(i+2,c+2,3,2))}let r=150,a=52,o=28,t=e.fureur>=1;p.fillStyle=K,p.fillRect(a,o,r+2,6),p.fillStyle="#3a3a38",p.fillRect(a+1,o+1,r,4),p.fillStyle=t&&Math.floor(n.temps*6)%2?"#ffffff":N,p.fillRect(a+1,o+1,Math.round(r*e.fureur),4),p.fillStyle=K,p.fillRect(a+r+2,o+1,6,4),p.fillRect(a+r+8,o+2,3,2),t&&O("X+C",a+r+16,o-1,N,1,"ombre"),no()}function Br(){let e=n.boss;if(!e||!e.pvMax||!e.pret||e.etat==="mort")return!1;bt=bt||ao();let r=n.W-10-34;bt&&p.drawImage(bt,r,10);for(let a=0;a<e.pvMax;a++){let o=r-8-10-a*13,t=12;p.fillStyle=K,p.fillRect(o,t,10,10),p.fillStyle="#3a3a38",p.fillRect(o+1,t+1,8,8),a<e.pv&&(p.fillStyle=U[3],p.fillRect(o+1,t+1,8,8),p.fillStyle=U[4],p.fillRect(o+2,t+2,3,2))}return!0}function _r(e){let r=o=>o*o*(3-2*o),a=Math.round(46*r(Math.min(1,e.t/.5))*(e.fin==null?1:1-r(Math.min(1,(e.t-e.fin)/.5))));a<=0||(p.fillStyle=K,p.fillRect(0,0,n.W,a),p.fillRect(0,n.HAUT-a,n.W,a),e.t>.9&&e.fin==null&&a>30&&O("LE COLOSSE",Math.floor(n.W/2),n.HAUT-a+Math.floor(a/2)-7,N,2,"plein","centre"))}function Fr(e){let r=Math.min(1,e/.6)*Math.min(1,(3.2-e)*2),a=t=>t*t*(3-2*t),o=Math.round(30*a(Math.min(1,(3.2-e)/.4))*a(Math.min(1,e/.3)));p.fillStyle=K,p.fillRect(0,0,n.W,o),p.fillRect(0,n.HAUT-o,n.W,o),p.globalAlpha=r,O("LE COLOSSE EST TOMBÉ",Math.floor(n.W/2),120,N,3,"ombre","centre"),O("LE CLAN REVIENT",Math.floor(n.W/2),156,U[4],1,"ombre","centre"),p.globalAlpha=1}function no(){let e=Br()?40:0;O(String(n.tues),n.W-14,12+e,N,3,"ombre","droite");let r=Math.floor(n.chrono/60),a=Math.floor(n.chrono%60);O(`${r}:${String(a).padStart(2,"0")}`,n.W-14,38+e,ne,1,"ombre","droite"),n.serie>=3&&n.serieT>0&&O(`${n.serie} D'UN TRAIT`,n.W-14,52+e,U[4],1,"ombre","droite")}function oo(e){let r=u.portrait;Q("portrait",8,8);let a=8+r.w+6,o=e.fureur>=1;for(let h=0;h<de;h++)Q(h<e.pv?"vie-pleine":"vie-perdue",a+h*(u["vie-pleine"].w+2),9);let t=9+u["vie-pleine"].h+4;Q("jauge-vide",a,t);let s=o&&Math.floor(n.temps*6)%2;Q("jauge-pleine",a,t,{part:e.fureur}),o&&s&&(p.globalAlpha=.5,Q("jauge-pleine",a,t-1),p.globalAlpha=1),o&&O("X+C",a+u["jauge-vide"].w+6,t+Math.floor(u["jauge-vide"].h/2)-4,N,1,"ombre");let i=Br()?40:0,c=u.cartouche;c?(Q("cartouche",n.W-8,6+i,{aligne:"droite"}),O(String(n.tues),n.W-8-Math.floor(c.w/2),6+i+Math.floor(c.h/2)-10,N,3,"ombre","centre")):O(String(n.tues),n.W-14,12+i,N,3,"ombre","droite");let l=6+i+(c?c.h:30)+4,f=Math.floor(n.chrono/60),m=Math.floor(n.chrono%60);if(O(`${f}:${String(m).padStart(2,"0")}`,n.W-14,l,ne,1,"ombre","droite"),n.serie>=3&&n.serieT>0){let h=u["bandeau-serie"];h?(Q("bandeau-serie",n.W-8,l+12,{aligne:"droite"}),O(`${n.serie} D'UN TRAIT`,n.W-8-Math.floor(h.w/2),l+12+Math.floor(h.h/2)-4,N,1,"ombre","centre")):O(`${n.serie} D'UN TRAIT`,n.W-14,l+14,U[4],1,"ombre","droite")}}var Ce=0;try{Ce=+localStorage.getItem("lady-snowblood-record")||0}catch{}var so=()=>Ce,sa=null;try{sa=localStorage.getItem("lady-snowblood-erreur"),localStorage.removeItem("lady-snowblood-erreur")}catch{}function Gr(e){if(e>Ce){Ce=e;try{localStorage.setItem("lady-snowblood-record",String(e))}catch{}return!0}return!1}function ia(e){p.fillStyle=`rgba(5,5,5,${e})`,p.fillRect(0,0,n.W,n.HAUT)}function Vr(e,r,a,o=ne){let t=e.replace(/ /g,"").length,s=t*9+(e.split(" ").length-1)*4+12;u.colonne?Q("colonne",r,a-8,{aligne:"centre",h:Math.max(u.colonne.h,s+4),w:u.colonne.w}):(p.fillStyle="rgba(5,5,5,0.5)",p.fillRect(r-8,a-6,16,s));let i=a;for(let c of e){if(c===" "){i+=4;continue}O(c,r,i,o,1,"ombre","centre"),i+=9}}function io(e,r,a){let o=Math.max(24,e.length*6+10),t=24;u.sceau?Q("sceau",r,a,{aligne:"centre",w:Math.max(u.sceau.w,o),h:Math.max(u.sceau.h,t)}):(p.fillStyle=U[3],p.fillRect(r-o/2,a,o,t),p.strokeStyle=U[4],p.strokeRect(r-o/2+1.5,a+1.5,o-3,t-3)),O(e,r,a+(u.sceau?Math.floor(Math.max(u.sceau.h,t)/2)-3:8),N,1,"plein","centre")}function ca(e,r,a=.62){p.fillStyle=`rgba(5,5,5,${a})`,p.fillRect(0,e,n.W,r)}function Xr(){ia(.35);let e=u.logo;e?p.drawImage(e.img,Math.round(n.W/2-e.w/2),Math.max(6,132-e.h)):(O("LADY SNOWBLOOD",n.W/2,70,N,5,"ombre","centre"),p.fillStyle=U[3],p.fillRect(n.W/2-150,116,300,2)),Math.floor(n.temps*1.6)%2===0&&O("APPUYER SUR X",n.W/2,166,N,2,"ombre","centre"),Vr("TENIR LA NUIT",24,150),Ce&&(Vr("RECORD",n.W-26,150),io(String(Ce),n.W-26,214)),ca(n.HAUT-22,22,.45),O("X  LÉGER      C  FORT      ↑  SAUT      ↓  PARADE",n.W/2,n.HAUT-15,ne,1,"ombre","centre"),sa&&O(("ERREUR "+sa).toUpperCase().slice(0,100),6,n.HAUT-32,"#8a8a86",1,"ombre")}var Mt=[["LE CLAN A TUÉ SON MARI.",N],["CETTE NUIT, IL VIENT L'ACHEVER.",N],["ELLE L'ATTEND SUR LA NEIGE, SABRE À LA MAIN.",N],["ELLE MOURRA. MAIS PAS SEULE.",U[4]]],je=2,$r=.3,la=()=>Mt.length*je,Jr=e=>Math.min(la(),(Math.floor(e/je)+1)*je);function Kr(e){let r=Math.min(Mt.length-1,Math.floor(e/je)),a=e-r*je,o=Math.max(0,Math.min(1,a/$r,(je-a)/$r));if(o<=0)return;let[t,s]=Mt[r],i=96;p.globalAlpha=o,ca(i-14,40),O(t,n.W/2,i,s,2,"ombre","centre"),p.globalAlpha=1,r<Mt.length-1&&Math.floor(e*2)%2===0&&O("X : SUITE",n.W-10,n.HAUT-14,ne,1,"ombre","droite")}function Yr(e,r){if(ia(Math.min(.55,e*.2)),e<1.2)return;let a=u.rouleau,o=44;a?Q("rouleau",n.W/2,o,{aligne:"centre"}):ca(o+18,168);let t=n.W/2,s=o+42,i=a?K:N,c=a?"#4a4a47":ne,l=a?U[2]:U[4];O("ELLE EST TOMBÉE.",t,s,i,3,a?"plein":"ombre","centre"),O(`${n.tues} OMBRE${n.tues>1?"S":""} AVANT ELLE.`,t,s+34,l,2,a?"plein":"ombre","centre");let f=Math.floor(n.chrono/60),m=Math.floor(n.chrono%60);O(`TENU ${f}:${String(m).padStart(2,"0")}    PARADES PARFAITES ${n.parfaites}    PLUS LONGUE SÉRIE ${n.meilleureSerie}`,t,s+72,c,1,a?"plein":"ombre","centre"),O(r?"NOUVEAU RECORD":`RECORD : ${so()}`,t,s+92,r?l:c,1,a?"plein":"ombre","centre"),e>2.2&&Math.floor(e*1.6)%2===0&&O("X POUR RECOMMENCER",t,s+130,N,2,"ombre","centre")}function Qr(){ia(.5),u["lune-pause"]?(Q("lune-pause",n.W/2,120,{aligne:"centre"}),O("PAUSE",n.W/2,128+u["lune-pause"].h,N,3,"ombre","centre")):O("PAUSE",n.W/2,160,N,3,"ombre","centre")}var co=1.25;n.ctx=p;n.temps=0;n.gel=0;n.lent=0;n.grandMoment=0;n.secousse=0;n.eclair=0;n.rouge=0;n.cam=(D-n.W)/2;n.etat="titre";n.tues=0;n.serie=0;n.serieT=0;n.meilleureSerie=0;n.parfaites=0;function ua(){Kt(),er(),Nr(),n.ennemis.length=0,n.projectiles.length=0,n.etincelles.length=0,n.tues=0,n.serie=0,n.meilleureSerie=0,n.parfaites=0,n.etat="prologue",n.etatT=0,n.nouveauRecord=!1}var Oe=0;function zr(e){if(requestAnimationFrame(zr),!n.manuel)try{Zr(e)}catch(r){pa(r)}}function pa(e){let r=String(e&&(e.stack||e.message)||e).split(`
-`).slice(0,3).join(" | ").slice(0,240);if(n.derniereErreur!==r){n.derniereErreur=r;try{localStorage.setItem("lady-snowblood-erreur",new Date().toISOString().slice(0,16)+" "+r)}catch{}}}addEventListener("error",e=>pa(e.error||e.message));addEventListener("unhandledrejection",e=>pa(e.reason));function Zr(e){let r=performance.now(),a=Math.min(.05,(e-Oe)/1e3||0);Oe=e,n.temps+=a;let o=n.appuis,t={L:ue("left"),R:ue("right"),U:ue("up"),parade:ue("down"),bas:ue("down"),sabre:ue("sabre"),fort:ue("fort"),appuis:o};if(o.has("konami")){let l=Ut();E("taiko"),E(l?"fureur":"parade",.2),o.delete("sabre"),o.delete("fort")}n.etat==="titre"&&(o.has("sabre")||o.has("fort"))&&!ja()?(ua(),E("taiko")):n.etat==="fin"&&n.etatT>1.5&&(o.has("sabre")||o.has("fort"))&&ua();let s=n.etat==="jeu"&&Lt();if(!s){n.etatT=(n.etatT||0)+a;let l=a*co;n.lent>0&&(n.lent-=a,l*=.3),n.gel>0&&(n.gel-=a,l=0),Qa(kt,a),n.cinema&&(n.cinema.t+=a,n.cinema.fin==null&&(n.boss?.pret||!n.boss||n.boss.etat==="mort")&&(n.cinema.fin=n.cinema.t),n.cinema.fin!=null&&n.cinema.t-n.cinema.fin>.5&&(n.cinema=null)),o.has("boss")&&n.etat==="jeu"&&!n.boss&&!n.cinema&&na(!1),n.gloire>0&&(n.gloire-=a),n.H&&n.H.etat==="garde"&&n.H.pv>0&&(n.souffleT=(n.souffleT??2)-a)<=0&&(za(kt,n.H.x-n.cam+n.H.dir*14,A-n.H.y-104,n.H.dir),n.souffleT=2.2+Math.random()),l>0&&(n.etat==="prologue"?(gt(l,{...t,appuis:new Set}),(o.has("sabre")||o.has("fort"))&&(n.etatT=Jr(n.etatT)),n.etatT>=la()&&(n.etat="jeu",n.etatT=0)):n.etat==="jeu"||n.etat==="fin"?(gt(l,n.etat==="jeu"&&!n.cinema?t:{appuis:new Set}),n.etat==="jeu"&&Ur(l),Or(l),n.etat==="jeu"&&n.H.pv<=0&&n.H.t>2.5&&(n.etat="fin",n.etatT=0,n.nouveauRecord=Gr(n.tues))):n.H&&gt(l,{appuis:new Set}),ar(l),ir(l),(n.serieT-=l)<=0&&(n.meilleureSerie=Math.max(n.meilleureSerie,n.serie),n.serie=0)),n.secousse=Math.max(0,n.secousse-a),n.coupe=Math.max(0,(n.coupe||0)-a),n.eclair=Math.max(0,n.eclair-a),n.rouge=Math.max(0,n.rouge-a)}let i=(n.boss||n.cinema)&&(n.bossN||0)%2?"theme":"theme2",c=n.etat==="jeu"&&!n.boss&&n.tues>=(n.prochainBoss||30)-6;Et(n.etat==="titre"||n.etat==="prologue"?"nuit":n.etat==="fin"||n.H&&n.H.pv<=0?"fin":n.etat==="jeu"?n.boss||n.cinema?"boss":"nuit":null,i,c?"boss":null),Ia(n.grandMoment>0,!1,n.coupe>0,s),n.grandMoment>0&&(n.grandMoment-=a),o.clear(),n.H&&(n.cam+=(tt(n.H.x-n.W/2,0,D-n.W)-n.cam)*Math.min(1,a*5)),uo(),Rt&&((n.mesures||=[]).push(performance.now()-r),n.mesures.length>600&&n.mesures.shift()),n.compteur&&lo(e,performance.now()-r,a),n.gel>0&&n.evt&&(n.evt.gel=!0),n.evtPrec=n.evt,n.evt={}}var W={n:0,t0:0,calc:0,pire:0,sautees:0,texte:"",causes:{}};n.evt={};/[?&]compteur/.test(location.search)&&(n.compteur=!0);function lo(e,r,a){if(W.n++,W.calc+=r,W.pire=Math.max(W.pire,r),a>.025){W.sautees++;let o=n.evtPrec||{},t=o.mort?"MORT":o.toile?"TOILE":o.musique?"MUSIQUE":o.gel?"GEL":"?";W.causes[t]=(W.causes[t]||0)+1}if(e-W.t0>=1e3){let o=Object.entries(W.causes).map(([t,s])=>`${t} ${s}`).join(" ");W.texte=`${W.n} I/S  ${(W.calc/Math.max(1,W.n)).toFixed(1)} MS (PIRE ${W.pire.toFixed(1)})  ${W.sautees} SAUTEES${o?" : "+o:""}`,W.causes={},W.n=0,W.calc=0,W.pire=0,W.sautees=0,W.t0=e}W.texte&&O(W.texte,8,n.HAUT-14,N,1,"ombre")}function uo(){let e=n.secousse>0?Math.round((Math.random()-.5)*6):0,r=n.secousse>0?Math.round((Math.random()-.5)*4):0,a=Math.round(n.cam)-e;if(p.save(),p.translate(0,r),Ja(a),Za(p,kt,a),n.taches&&rr(a),or(a),n.etat!=="titre"&&Lr(a),n.H&&Yt(a),sr(a),cr(a),Ka(a),Ha(p,kt,a),p.restore(),n.H?.etat==="iai"){let o=Math.min(1,n.H.charge/1.2);p.globalAlpha=.45*o,p.fillStyle="#000",p.fillRect(0,0,n.W,n.HAUT),p.globalAlpha=1,Yt(Math.round(n.cam))}n.coupe>0&&(p.fillStyle="#000",p.fillRect(0,0,n.W,n.HAUT),p.fillStyle="#fff",p.fillRect(Math.round(Math.min(n.coupeX0,n.coupeX1)-n.cam),A-58,Math.round(Math.abs(n.coupeX1-n.coupeX0)),2)),n.eclair>0&&!(n.coupe>0)&&(p.globalAlpha=Math.min(.7,n.eclair*5),p.fillStyle=N,p.fillRect(0,0,n.W,n.HAUT),p.globalAlpha=1),n.rouge>0&&(p.globalAlpha=n.rouge*1.6,p.fillStyle=U[2],p.fillRect(0,0,n.W,4),p.fillRect(0,n.HAUT-4,n.W,4),p.fillRect(0,0,4,n.HAUT),p.fillRect(n.W-4,0,4,n.HAUT),p.globalAlpha=1),n.etat==="titre"?Xr():n.etat==="prologue"?Kr(n.etatT):(Dr(),n.cinema&&_r(n.cinema),n.gloire>0&&Fr(n.gloire),n.etat==="fin"&&Yr(n.etatT,n.nouveauRecord)),n.etat==="jeu"&&Lt()&&Qr(),u["r-garde"]||O("IMAGES ABSENTES : LANCER  python3 outils/rotoscoper.py monter garde ga",n.W/2,20,U[4],1,"ombre","centre")}window.__musique=qa;window.__lady=()=>({etat:n.etat,x:n.H&&Math.round(n.H.x),pv:n.H?.pv,h:n.H?.etat,anim:n.H?.anim,k:n.H?.k,fureur:n.H?.fureur,tues:n.tues,ennemis:n.ennemis.map(e=>`${e.type}:${e.etat}:${Math.round(e.x)}`),chrono:n.chrono});Rt&&(window.__essai={J:n,S:u,apparaitre:qe,tuer:Ke,jouer:ua,memoire:et,dessinerSprite:se,poser(e){n.H.x=e},fureur(){n.H.fureur=1},invincible(){n.H.pv=999},calme(){n.majDirecteurOff=!0},manuel(e=!0){n.manuel=e,e&&(Oe=0)},pas(e=1/60){Oe||(Oe=1e3),Zr(Oe+e*1e3)},rendu:()=>p.canvas.toDataURL(),appuyer(e){he(e),le[e]=!0},lacher(e){le[e]=!1},direct(){n.etat="jeu",n.etatT=0,n.majDirecteurOff=!0,n.forcerAttaque=null,n.H.pv=999,n.H.x=D/2,n.cam=(D-n.W)/2,n.gundam&&Ut()},blesser(e=1){Se({x:n.H.x+e*40,type:"sabreur"},-e)},touches:()=>({...me}),etat:()=>({etat:n.H.etat,anim:n.H.anim,k:n.H.k,x:n.H.x,y:n.H.y,cam:n.cam,dir:n.H.dir,tues:n.tues,nb:n.ennemis.length,repit:+(n.repit||0).toFixed(2),cinema:n.cinema?[+n.cinema.t.toFixed(2),n.cinema.fin]:null,ennemi:n.ennemis[0]?{type:n.ennemis[0].type,etat:n.ennemis[0].etat,anim:n.ennemis[0].anim,k:n.ennemis[0].k,x:n.ennemis[0].x,y:n.ennemis[0].y,dir:n.ennemis[0].dir,pv:n.ennemis[0].pv,fondu:n.ennemis[0].fondu?[n.ennemis[0].fondu.anim,n.ennemis[0].fondu.k]:null}:null})});Ne();var kt=Ya(n.W,n.HAUT,A);Kt();await _a();Xa();Va(["r-garde","r-course","r-marche","r-coup-leger","r-estoc","r-coup-fort","r-k-combo2","r-k-final","r-revers","r-k-coupe-epaule","r-k-balayage","r-k-montante","r-k-haute","r-k-dash-coupe","r-bond-coupe","r-k-pied-tournant"],[1,4]);$a(Object.keys(u).filter(e=>/^r-/.test(e)));if(u["bouton-leger"]&&u["bouton-fort"]){document.body.classList.add("peint");for(let[e,r]of[["sabre","bouton-leger"],["fort","bouton-fort"]]){let a=document.querySelector(`.rond[data-k="${e}"]`);a&&(a.style.backgroundImage=`url(${u[r].img.src})`)}}requestAnimationFrame(zr);export{pa as noterErreur};
+// src/js/etat.js
+var J = {};
+
+// src/js/config.js
+var ESSAI = /#essai/.test(location.hash);
+var ARENE = 704;
+var DECOR_HAUT = 20;
+var SOL = 301;
+var GRAVITE = 1450;
+var ENCRE = "#050505";
+var OS = "#f2f1ec";
+var BRUME = "#8a8a86";
+var SANG = ["#2a0306", "#5c0710", "#8e0c18", "#b8141f", "#dc2a2a"];
+var PV_MAX = 7;
+var SOIN_TOUS = 25;
+var FUREUR_PAR_MORT = 0.14;
+var FUREUR_PAR_PARADE = 0.2;
+var HEROINE = { vitesse: 90, saut: 520, reculParade: 64 };
+var ANIMS = {
+  "r-garde": { ips: 6, boucle: "aller-retour" },
+  // le dessin unique de repos (respire) ; la garde de Kagetsura : voir r-k-garde
+  "r-k-garde": { cadence: [7, 7, 7, 7, 7, 7, 7, 7, 7], boucle: true },
+  // les 9 images de la garde de Kagetsura : elle respire, le sabre bouge
+  "r-marche": { ips: 10, boucle: true },
+  // foulée ≈ 9 px par image : 10 images/s × 9 = 90 px/s, les pieds ne glissent pas
+  "r-course": { ips: 14, boucle: true },
+  // la chaîne de la planche de Kagetsura : coupe (X) → deuxième coupe (X X) → coupe haute (X X X) → finale (X X X X)
+  "r-coup-leger": { cadence: [2, 3, 3, 3, 3, 6, 3, 5], frappe: [3, 5], suite: 7, retour: ["r-k-saut", 11, 12], portee: 80, degats: 1, pas: 12, coupe: "lateral" },
+  "r-k-combo2": { cadence: [2, 2, 2, 3, 6, 4, 5], frappe: [3, 4], suite: 5, portee: 86, degats: 1, pas: 16, coupe: "lateral" },
+  // la coupe haute (7 images) : garde haute, le sabre monte, elle bondit… et la finale s'enchaîne d'elle-même (puis)
+  "r-k-fort": { cadence: [3, 3, 3, 4, 4, 3, 4], frappe: [5, 6], suite: 6, puis: "r-k-final", portee: 70, degats: 1, pas: 24, coupe: "vertical" },
+  // le bond tranchant : la même planche sans le sabre au-dessus de la tête — l'accroupi (4, 5) puis le bond (6), et la finale
+  "r-bond-coupe": { de: 4, cadence: [4, 4, 5], frappe: [2, 2], suite: 2, puis: "r-k-final", portee: 80, degats: 1, pas: 34, coupe: "vertical" },
+  "r-k-final": { cadence: [3, 3, 7, 4, 4, 6], frappe: [1, 2], suite: 3, retour: ["r-k-releve-final", 1, 2, 3], portee: 96, degats: 2, pas: 24, tranche: true, coupe: "vertical" },
+  "r-estoc": { cadence: [2, 2, 3, 5, 5, 4, 4], frappe: [3, 4], suite: 4, portee: 100, degats: 1, pas: 30, coupe: "estoc" },
+  // l'estoc (7 images), dans la série X
+  "r-estoc-fort": { cadence: [2, 2, 3, 6, 6, 4, 4], frappe: [3, 4], suite: 4, portee: 110, degats: 2, pas: 40, tranche: true, coupe: "estoc" },
+  // le même, en coup fort : plus long, plus lourd, il brise une garde
+  // le revers : la fin de la tournoyante (images 4 à 7) — un coup horizontal vif, sans le tour du sabre au-dessus de la tête
+  "r-revers": { cadence: [3, 4, 4, 4], frappe: [0, 1], suite: 2, portee: 90, degats: 1, pas: 14, coupe: "lateral", de: 4 },
+  // la coupe d'épaule (5 images) : lame à l'horizontale, elle glisse en avant en tranchant — le pas fait le coup
+  "r-k-coupe-epaule": { cadence: [2, 3, 4, 3, 4], frappe: [1, 3], suite: 3, portee: 96, degats: 1, pas: 38, coupe: "lateral" },
+  // ↓ + X : le coup de poing (11 images) — elle se baisse main au sol (images 1 à 4 : une esquive, un shuriken haut passe
+  // au-dessus d'elle), se relève et frappe du poing (7 à 9)
+  "r-k-coup-poing": { de: 1, cadence: [3, 3, 3, 3, 3, 3, 4, 4, 3, 4], frappe: [6, 8], suite: 8, esquive: [0, 3], portee: 62, degats: 1, pas: 22, repousse: true, coupe: "pied" },
+  "r-poing-direct": { de: 5, cadence: [2, 3, 4, 4, 3, 4], frappe: [2, 4], suite: 4, portee: 62, degats: 1, pas: 16, repousse: true, coupe: "pied" },
+  // le même sans l'esquive : le direct, vif
+  // le coup de pied retourné (8 images) : elle pivote, la jambe fouette à hauteur de tête
+  "r-k-pied-tournant": { cadence: [3, 3, 3, 3, 4, 5, 3, 4], frappe: [4, 6], suite: 6, retour: ["r-k-saut", 11, 12], portee: 78, degats: 1, pas: 18, repousse: true, coupe: "pied" },
+  "r-coup-fort": { cadence: [4, 3, 7, 4, 4, 5], frappe: [1, 2], suite: 3, retour: ["r-k-releve-final", 1, 2, 3], portee: 96, degats: 2, pas: 20, tranche: true, coupe: "vertical" },
+  // V : la finale, seule
+  "r-k-balayage": { cadence: [4, 3, 6, 3, 5, 4], frappe: [0, 4], suite: 4, retour: ["r-k-releve-final", 1, 2, 3], portee: 110, degats: 1, pas: 14, bas: true, coupe: "lateral" },
+  // le balayage horizontal : ses arcs font le coup (images 0, 2, 4)
+  "r-k-montante": { cadence: [3, 2, 3, 6, 4, 4, 4], frappe: [1, 3], suite: 4, retour: ["r-k-saut", 11, 12], portee: 80, degats: 2, pas: 8, tranche: true, coupe: "vertical" },
+  "r-k-dash-coupe": { cadence: [3, 3, 7, 4, 5], frappe: [1, 2], suite: 3, retour: ["r-k-releve-final", 1, 2, 3], portee: 100, degats: 2, pas: 60, tranche: true, coupe: "vertical" },
+  "r-k-pied": { cadence: [3, 3, 5, 5, 3, 3, 3, 4], frappe: [2, 5], suite: 5, portee: 70, degats: 1, pas: 14, repousse: true, coupe: "pied" },
+  "r-k-haute": { cadence: [3, 3, 4, 5, 5, 3, 3, 4], frappe: [2, 5], suite: 5, portee: 100, degats: 2, pas: 12, tranche: true, coupe: "vertical" },
+  "r-moulinet": { cadence: [4, 4, 4, 4, 4, 4, 5, 8] },
+  // la tournoyante jouée en parade, ample, sans frappe
+  "r-k-saut": { ips: 12 },
+  // les images suivent le vol (heroine.js) : appel, montée, sommet, descente, réception
+  "r-k-salto": { ips: 20 },
+  // joué sur la durée du vol
+  // la coupe plongeante (X en l'air) : un appel (image 5), puis elle fond en avant et vers le bas sur l'image 8 (heroine.js,
+  // état « plonge », fantômes et sillage de lame), et s'écrase au sol dans la coupe accroupie de la finale (r-plonge-fin)
+  "r-k-saute-coupe": { de: 5, cadence: [3, 3, 6, 6], frappe: [1, 2], portee: 96, degats: 2, pas: 0, tranche: true, coupe: "vertical" },
+  "r-plonge-fin": { de: 2, cadence: [6, 3, 3, 4], frappe: [0, 1], suite: 2, retour: ["r-k-releve-final", 1, 2, 3], portee: 100, degats: 2, pas: 6, tranche: true, coupe: "vertical" },
+  "r-k-pied-saute": { cadence: [2, 2, 2, 3, 4, 4, 4, 5, 5, 5], frappe: [4, 9], portee: 70, degats: 1, pas: 0, coupe: "pied" },
+  "r-k-chute": { ips: 12 },
+  "r-k-releve": { ips: 8 },
+  "r-k-releve-final": { ips: 10 },
+  // le relevé après une coupe accroupie (joué par l'état « retour » : images 1, 2, 3)
+  "r-k-charge": { ips: 10, boucle: "aller-retour" },
+  "r-saut": { ips: 10 },
+  // l'attaque sautée de repli (sans planche de Kagetsura) : la grande coupe descendante, jouée vite
+  "r-coup-air": { image: "r-coup-fort", de: 3, a: 11, ips: 26, frappe: [0.3, 0.75], portee: 96, degats: 2, pas: 0, tranche: true },
+  "r-parade": { ips: 14 },
+  "r-touche": { cadence: [3, 5, 7] },
+  "r-mort": { ips: 5, tiens: { 3: 2 } }
+};
+for (const a of Object.values(ANIMS)) {
+  if (!a.cadence) continue;
+  const total = a.cadence.reduce((s, d) => s + d, 0), avant2 = (i) => a.cadence.slice(0, i).reduce((s, d) => s + d, 0) / total;
+  a.ips = 60;
+  a.total = total;
+  a.suiteCadence = a.cadence.flatMap((d, i) => Array(d).fill((a.de || 0) + i));
+  if (a.frappe && Number.isInteger(a.frappe[0])) a.frappe = [avant2(a.frappe[0]), avant2(a.frappe[1] + 1)];
+  if (Number.isInteger(a.suite)) a.suite = avant2(a.suite);
+}
+function suiteImages(anim, n) {
+  const a = ANIMS[anim] || {}, s = [];
+  if (a.suiteCadence) return n < a.suiteCadence[a.suiteCadence.length - 1] + 1 ? a.suiteCadence.map((k) => Math.min(k, n - 1)) : a.suiteCadence;
+  if (a.de != null) {
+    for (let k = a.de; k <= a.a; k++) s.push(k);
+    return s;
+  }
+  for (let k = 0; k < n; k++) for (let r = 0; r <= ((a.tiens || {})[k] || 0); r++) s.push(k);
+  if (a.boucle === "aller-retour") return [...s, ...s.slice(1, -1).reverse()];
+  return s;
+}
+var COMBO = ["r-coup-leger", "r-estoc", "r-coup-fort", "r-k-combo2", "r-k-final", "r-k-balayage", "r-k-montante", "r-k-dash-coupe", "r-k-pied", "r-k-haute", "r-k-fort", "r-bond-coupe", "r-estoc-fort", "r-revers", "r-k-coupe-epaule", "r-k-pied-tournant", "r-k-coup-poing", "r-poing-direct"];
+var CHAINES = { sabre: [0, 3, 14, 13, 1, 5], fort: [4, 12, 15, 7, 5, 11], corps: [17, 8, 16, 15] };
+var CORPS_A_CORPS = 46;
+var REPRISE_FORT = 1.5;
+var REPRISE_LEGER = 2.5;
+var MOULINET = { morts: 6, libre: 110, fureur: 0.2, sang: 0.15, repos: 15 };
+var FENETRE_PARFAITE = 0.16;
+var TAMPON = 0.4;
+var ENNEMIS = {
+  sabreur: { vitesse: 84, ipsMarche: 12, distance: 64, armer: 0.3, frappe: 0.2, portee: 74, sautable: 70, repos: 0.4, bond: 210, bloque: 0.3 },
+  // agressif : il presse, arme vite, se remet vite
+  ninja: { vitesse: 100, ipsMarche: 12, distance: 240, armer: 0.42, frappe: 0.12, portee: 0, sautable: 0, repos: 0.5, bond: 0, bloque: 0 },
+  // le colosse : le boss, tous les 30 morts (BOSS_TOUS_LES) ; il encaisse BOSS_PV coups la première fois, un de plus à chaque venue
+  boss: { vitesse: 92, ipsMarche: 12, distance: 70, armer: 0.28, frappe: 0.2, portee: 80, sautable: 80, repos: 0.32, bond: 220, bloque: 0.5 }
+};
+var BOSS_TOUS_LES = 30;
+var BOSS_PV = 4;
+var BOSS_REPIT = 5;
+
+// src/js/ecran.js
+var cvs = document.getElementById("ecran");
+var ctx = cvs.getContext("2d", { alpha: false });
+var jeu = document.getElementById("jeu");
+J.W = 640;
+J.HAUT = 360;
+cvs.width = J.W;
+cvs.height = J.HAUT;
+function disposer() {
+  const vv = window.visualViewport, vw = vv ? vv.width : innerWidth, vh = vv ? vv.height : innerHeight;
+  const dpr = window.devicePixelRatio || 1;
+  let k = Math.min(vw * dpr / J.W, vh * dpr / J.HAUT);
+  if (k >= 2) k = Math.floor(k);
+  const l = J.W * k / dpr, h = J.HAUT * k / dpr;
+  Object.assign(cvs.style, {
+    width: l + "px",
+    height: h + "px",
+    left: Math.round((vw - l) / 2 * dpr) / dpr + "px",
+    top: Math.round((vh - h) / 2 * dpr) / dpr + "px"
+  });
+  ctx.imageSmoothingEnabled = false;
+}
+addEventListener("resize", disposer);
+window.visualViewport?.addEventListener("resize", disposer);
+screen.orientation?.addEventListener?.("change", disposer);
+
+// src/js/son.js
+J.actx = null;
+J.muet = false;
+J.bruitBuf = null;
+J.maitre = null;
+try {
+  J.muet = localStorage.getItem("lady-snowblood-muet") === "1";
+} catch {
+}
+function reveillerSon() {
+  if (!J.actx) {
+    try {
+      J.actx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: "playback" });
+    } catch {
+      try {
+        J.actx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch {
+        return;
+      }
+    }
+    const reprendre = () => {
+      if (J.actx && J.actx.state !== "running" && document.visibilityState === "visible") J.actx.resume().catch(() => {
+      });
+    };
+    J.actx.addEventListener?.("statechange", reprendre);
+    document.addEventListener("visibilitychange", reprendre);
+  }
+  if (J.actx.state === "suspended") J.actx.resume();
+}
+function sortie() {
+  if (!J.maitre) {
+    J.maitre = J.actx.createGain();
+    J.maitre.gain.value = J.muet ? 0 : 0.36;
+    J.maitre.connect(J.actx.destination);
+  }
+  return J.maitre;
+}
+function majVolume() {
+  if (J.maitre) J.maitre.gain.value = J.muet ? 0 : 0.36;
+}
+function bruit() {
+  if (!J.bruitBuf) {
+    J.bruitBuf = J.actx.createBuffer(1, J.actx.sampleRate * 2, J.actx.sampleRate);
+    const d = J.bruitBuf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const s = J.actx.createBufferSource();
+  s.buffer = J.bruitBuf;
+  return s;
+}
+function env(g, t, a, d, v) {
+  g.gain.setValueAtTime(1e-4, t);
+  g.gain.exponentialRampToValueAtTime(v, t + a);
+  g.gain.exponentialRampToValueAtTime(1e-4, t + a + d);
+}
+function osc(type, f0, f1, t, d, v, out) {
+  const o = J.actx.createOscillator(), g = J.actx.createGain();
+  o.type = type;
+  o.frequency.setValueAtTime(f0, t);
+  o.frequency.exponentialRampToValueAtTime(f1, t + d);
+  env(g, t, 4e-3, d, v);
+  o.connect(g).connect(out);
+  o.start(t);
+  o.stop(t + d + 0.05);
+  o.onended = () => {
+    o.disconnect();
+    g.disconnect();
+  };
+}
+function souffle(filtre, f0, f1, t, d, v, out, q = 1, attaque = 6e-3) {
+  const s = bruit(), f = J.actx.createBiquadFilter(), g = J.actx.createGain();
+  f.type = filtre;
+  f.Q.value = q;
+  f.frequency.setValueAtTime(f0, t);
+  f.frequency.exponentialRampToValueAtTime(f1, t + d);
+  env(g, t, attaque, d, v);
+  s.connect(f).connect(g).connect(out);
+  s.start(t, Math.random());
+  s.stop(t + d + 0.1);
+  s.onended = () => {
+    s.disconnect();
+    f.disconnect();
+    g.disconnect();
+  };
+}
+var BRUITAGES = false;
+function sfx(nom, delai = 0) {
+  if (!BRUITAGES) return;
+  if (J.muet || !J.actx || J.actx.state !== "running") return;
+  const t = J.actx.currentTime + delai, out = sortie();
+  switch (nom) {
+    case "lame":
+      souffle("bandpass", 900, 3800, t, 0.13, 0.55, out, 2.5);
+      break;
+    // le sabre fend l'air
+    case "lourd":
+      souffle("bandpass", 500, 2600, t, 0.22, 0.7, out, 1.6);
+      break;
+    case "chair":
+      souffle("lowpass", 2400, 300, t, 0.16, 0.9, out, 1);
+      osc("square", 140, 60, t, 0.07, 0.12, out);
+      break;
+    case "sang":
+      souffle("highpass", 1800, 900, t + 0.04, 0.55, 0.28, out, 0.7, 0.02);
+      break;
+    // la gerbe
+    case "fer":
+      [1, 2.76, 5.4, 8.9].forEach((m, i) => osc("triangle", 820 * m, 820 * m * 0.99, t, 0.5 - i * 0.1, [0.25, 0.14, 0.08, 0.05][i], out));
+      break;
+    case "parade":
+      [1, 2.4, 4.1].forEach((m, i) => osc("sine", 1300 * m, 1290 * m, t, 0.9 - i * 0.2, [0.3, 0.15, 0.08][i], out));
+      souffle("highpass", 5e3, 3e3, t, 0.08, 0.5, out);
+      break;
+    case "shuriken":
+      souffle("bandpass", 3e3, 5200, t, 0.18, 0.25, out, 6);
+      break;
+    case "aie":
+      souffle("lowpass", 1600, 200, t, 0.2, 0.8, out);
+      osc("sine", 300, 180, t, 0.18, 0.12, out);
+      break;
+    case "chute":
+      souffle("lowpass", 500, 80, t, 0.3, 0.7, out);
+      break;
+    case "taiko":
+      osc("sine", 110, 42, t, 0.6, 0.9, out);
+      souffle("lowpass", 400, 60, t, 0.25, 0.6, out);
+      break;
+    case "fureur":
+      osc("sawtooth", 70, 35, t, 1.4, 0.18, out);
+      souffle("bandpass", 300, 2400, t, 1.1, 0.4, out, 0.8, 0.3);
+      break;
+    case "soin":
+      [523, 659, 784].forEach((f, i) => osc("sine", f, f, t + i * 0.09, 0.4, 0.12, out));
+      break;
+    case "glas":
+      [1, 2, 2.76, 5.4].forEach((m, i) => osc("sine", 82 * m, 82 * m * 0.995, t, 3.2 - i * 0.5, [0.5, 0.2, 0.14, 0.06][i], out));
+      break;
+    case "choix":
+      osc("square", 660, 660, t, 0.04, 0.05, out);
+      break;
+  }
+}
+var THEMES = ["theme", "theme2"];
+var M = { meta: {}, brut: {}, dec: {}, charge: false, voix: null, etat: null, piste: null, bus: null, filtre: null, volume: BRUITAGES ? 0.55 : 0.95, fx: null };
+function chargerMusique() {
+  if (M.charge || !J.actx) return;
+  M.charge = true;
+  for (const t of THEMES) fetch(`son/${t}.mp3.json`).then((r) => r.json()).then((m) => {
+    M.meta[t] = m;
+    if (M.etat && !M.voix) relancer();
+  }).catch(() => {
+  });
+}
+function relancer() {
+  const e = M.etat, p = M.piste;
+  M.etat = null;
+  musique(e, p);
+}
+var cle = (t, seg) => `${t}/${seg}`;
+function decoder(t, seg) {
+  const k = cle(t, seg), m = M.meta[t];
+  if (!m || !m.segments[seg]) return null;
+  if (M.dec[k]) return M.dec[k];
+  M.dec[k] = fetch("son/" + m.segments[seg].fichier).then((r) => r.arrayBuffer()).then((ab) => {
+    J.evt && (J.evt.musique = true);
+    return new Promise((ok, ko) => J.actx.decodeAudioData(ab, ok, ko));
+  }).then((buf) => ({ buf, seg: m.segments[seg], mesure: m.mesure, phase: m.phase - m.segments[seg].debut })).catch(() => {
+    delete M.dec[k];
+    return null;
+  });
+  return M.dec[k];
+}
+function liberer(garder) {
+  for (const k of Object.keys(M.dec)) if (!garder.includes(k)) delete M.dec[k];
+}
+function bus() {
+  if (!M.bus) {
+    M.filtre = J.actx.createBiquadFilter();
+    M.filtre.type = "lowpass";
+    M.filtre.frequency.value = 18e3;
+    M.filtre.Q.value = 0.5;
+    M.bus = J.actx.createGain();
+    M.bus.gain.value = M.volume;
+    M.filtre.connect(M.bus).connect(sortie());
+  }
+  return M.filtre;
+}
+function position(v) {
+  let pos = v.debut + (J.actx.currentTime - v.t0);
+  if (v.boucle && pos > v.boucle[1]) pos = v.boucle[0] + (pos - v.boucle[0]) % (v.boucle[1] - v.boucle[0]);
+  return pos;
+}
+function prochaineMesure(v) {
+  if (!v) return J.actx.currentTime + 0.05;
+  const p = position(v), k = Math.ceil((p - v.phase) / v.mesure + 1e-3);
+  return J.actx.currentTime + (v.phase + k * v.mesure - p);
+}
+function voix(S2, depart, t, fondu) {
+  const src = J.actx.createBufferSource(), g = J.actx.createGain();
+  src.buffer = S2.buf;
+  const boucle2 = S2.seg.boucle;
+  if (boucle2) {
+    src.loop = true;
+    src.loopStart = boucle2[0];
+    src.loopEnd = boucle2[1];
+  }
+  g.gain.setValueAtTime(fondu ? 1e-4 : 1, t);
+  if (fondu) g.gain.exponentialRampToValueAtTime(1, t + fondu);
+  src.connect(g).connect(bus());
+  src.start(t, depart);
+  src.onended = () => {
+    src.disconnect();
+    g.disconnect();
+  };
+  return { s: src, g, t0: t, debut: depart, boucle: boucle2, mesure: S2.mesure, phase: S2.phase, k: null };
+}
+function couper(v, t, fondu) {
+  if (!v) return;
+  v.g.gain.setValueAtTime(Math.max(1e-4, v.g.gain.value), t);
+  v.g.gain.exponentialRampToValueAtTime(1e-4, t + fondu);
+  v.s.stop(t + fondu + 0.05);
+}
+function musique(etat, piste = "theme", bientot = null) {
+  if (!J.actx) return;
+  chargerMusique();
+  if (etat === "fin" || etat === "ouverture") piste = "theme";
+  const seg = etat === "fin" ? "coda" : etat, k = etat ? cle(piste, seg) : null;
+  const kb = bientot ? cle(piste, bientot) : null;
+  if (kb && kb !== M.bientot && M.meta[piste]) {
+    M.bientot = kb;
+    decoder(piste, bientot);
+  }
+  if (etat === M.etat && piste === M.piste) return;
+  const avant2 = M.etat, avantPiste = M.piste;
+  M.etat = etat;
+  M.piste = piste;
+  if (!etat) {
+    couper(M.voix, J.actx.currentTime, 1.2);
+    M.voix = null;
+    liberer([]);
+    return;
+  }
+  if (etat === "nuit" && avant2 === "ouverture" && avantPiste === piste && M.voix) {
+    M.voix.k = cle(piste, "ouverture");
+    return;
+  }
+  if (!M.meta[piste]) return;
+  const attendu = { etat, piste };
+  Promise.resolve(decoder(piste, seg)).then((S2) => {
+    if (!S2 || M.etat !== attendu.etat || M.piste !== attendu.piste) return;
+    const ancien = M.voix, B = S2.seg.boucle, mes = S2.mesure;
+    let v;
+    if (etat === "fin") {
+      const t = J.actx.currentTime + 0.05;
+      couper(ancien, t, 2.5);
+      v = voix(S2, 0, t, ancien ? 2.5 : 0.5);
+    } else if (etat === "ouverture" || !ancien) {
+      couper(ancien, J.actx.currentTime, 0.4);
+      v = voix(S2, etat === "ouverture" ? 0 : B[0], J.actx.currentTime + 0.05, etat === "ouverture" ? 0 : 1);
+    } else if (false) {
+      const t = J.actx.currentTime + 0.05;
+      couper(ancien, t, 2.5);
+      v = voix(S2, 0, t, 2.5);
+    } else {
+      const t = prochaineMesure(ancien), f = avantPiste !== piste ? mes * 2 : etat === "boss" ? mes / 2 : mes;
+      couper(ancien, t, f);
+      v = voix(S2, B[0], t, f);
+    }
+    v.k = cle(piste, seg);
+    M.voix = v;
+    liberer([v.k, M.bientot].filter(Boolean));
+  });
+}
+function majMusique(lent, gel, iai2, pause) {
+  if (!M.filtre) return;
+  const fx = `${lent || gel ? 1 : 0}${iai2 ? 1 : 0}${pause ? 1 : 0}`;
+  if (fx === M.fx) return;
+  M.fx = fx;
+  const t = J.actx.currentTime, etouffe = lent || gel;
+  M.filtre.frequency.cancelScheduledValues(t);
+  M.filtre.frequency.setTargetAtTime(etouffe ? 900 : 18e3, t, etouffe ? 0.04 : 0.25);
+  M.bus.gain.cancelScheduledValues(t);
+  M.bus.gain.setTargetAtTime(iai2 ? 1e-4 : pause ? M.volume * 0.35 : M.volume, t, iai2 ? 0.01 : 0.15);
+}
+function etatMusique() {
+  const v = M.voix;
+  if (!J.actx) return { contexte: false };
+  const pos = v ? position(v) : null;
+  return { contexte: J.actx.state, chargee: Object.keys(M.meta).sort().join("+"), decodes: Object.keys(M.dec).sort().join(" "), etat: M.etat, piste: M.piste, position: pos && Math.round(pos * 100) / 100, niveau: M.bus && Math.round(M.bus.gain.value * 100) / 100, filtre: M.filtre && Math.round(M.filtre.frequency.value) };
+}
+
+// src/js/entrees.js
+var clavier = {};
+var boutons = {};
+var tenu = (k) => !!(clavier[k] || boutons[k]);
+J.appuis = /* @__PURE__ */ new Set();
+var KONAMI = ["up", "up", "down", "down", "left", "right", "left", "right", "fort", "sabre"];
+var saisie = [];
+var konamiEnCours = () => saisie.length >= 8 && KONAMI.slice(0, saisie.length).join() === saisie.join();
+function appui(k) {
+  reveillerSon();
+  if (J.pause) {
+    J.pause = false;
+    return;
+  }
+  J.appuis.add(k);
+  if (KONAMI.includes(k)) {
+    saisie.push(k);
+    if (saisie.length > KONAMI.length) saisie.shift();
+    if (saisie.join() === KONAMI.join()) {
+      saisie = [];
+      J.appuis.add("konami");
+    }
+  }
+  const t = performance.now();
+  if (k === "left" || k === "right") {
+    if (t - (dernier[k] || -1e9) < 260 || t - (relaches[k] || -1e9) < 340) {
+      J.appuis.add("dash-" + k);
+      dernier[k] = -1e9;
+      relaches[k] = -1e9;
+    } else dernier[k] = t;
+  }
+}
+function relache(k) {
+  relaches[k] = performance.now();
+}
+var dernier = {};
+var relaches = {};
+var tactile = matchMedia("(pointer: coarse)").matches;
+function vibrer(ms) {
+  if (tactile && navigator.vibrate) try {
+    navigator.vibrate(ms);
+  } catch {
+  }
+}
+var PAR_CODE = {
+  KeyX: "sabre",
+  Space: "sabre",
+  Enter: "sabre",
+  NumpadEnter: "sabre",
+  KeyJ: "sabre",
+  KeyC: "fort",
+  KeyK: "fort",
+  KeyV: "fort",
+  KeyL: "fort",
+  ArrowLeft: "left",
+  ArrowRight: "right",
+  ArrowUp: "up",
+  ArrowDown: "down"
+};
+var PAR_CARACTERE = { z: "up", q: "left", s: "down", d: "right", w: "up", a: "left" };
+var lire = (e) => PAR_CODE[e.code] || PAR_CARACTERE[(e.key || "").toLowerCase()];
+var enfoncees = /* @__PURE__ */ new Map();
+addEventListener("keydown", (e) => {
+  const t = (e.key || "").toLowerCase();
+  if (e.code === "KeyM" || t === "m") {
+    if (!e.repeat) basculerSon();
+    return;
+  }
+  if ((e.code === "KeyP" || t === "p" || e.key === "Escape") && !e.repeat) {
+    J.pause = !J.pause && J.etat === "jeu";
+    return;
+  }
+  if ((e.code === "KeyW" || t === "w") && !e.repeat) {
+    appui("boss");
+    return;
+  }
+  if ((e.code === "KeyO" || t === "o") && !e.repeat) {
+    J.compteur = !J.compteur;
+    return;
+  }
+  if (e.metaKey || e.ctrlKey) return;
+  const k = lire(e);
+  if (!k) return;
+  e.preventDefault();
+  if (!e.repeat && !enfoncees.has(e.code)) appui(k);
+  enfoncees.set(e.code, k);
+  clavier[k] = true;
+});
+addEventListener("keyup", (e) => {
+  const k = enfoncees.get(e.code) || lire(e);
+  enfoncees.delete(e.code);
+  if (k && ![...enfoncees.values()].includes(k)) {
+    clavier[k] = false;
+    relache(k);
+  }
+});
+function relacher() {
+  enfoncees.clear();
+  for (const k in clavier) clavier[k] = false;
+  for (const k in boutons) boutons[k] = 0;
+  croix.fin();
+  actions.fin();
+}
+addEventListener("blur", relacher);
+function basculerSon() {
+  J.muet = !J.muet;
+  majVolume();
+  try {
+    localStorage.setItem("lady-snowblood-muet", J.muet ? "1" : "0");
+  } catch {
+  }
+}
+var montrerManette = () => jeu.classList.toggle("tactile", tactile);
+montrerManette();
+var DIRECTIONS = ["left", "right", "up", "down"];
+var croix = (() => {
+  const zone = document.getElementById("croix"), dessin = zone.querySelector(".croix-dessin"), pommeau = zone.querySelector(".pommeau"), bras = {};
+  DIRECTIONS.forEach((k) => {
+    bras[k] = zone.querySelector(`[data-dir="${k}"]`);
+  });
+  const FLOTTANT = false, SUIVI = false, MORT = 12, RAYON = 42, ENTREE = { left: 0.383, right: 0.383, up: 0.5, down: 0.5 }, SORTIE = { left: 0.25, right: 0.25, up: 0.3, down: 0.3 };
+  const PICHENETTE = { px: 40, ms: 160 };
+  let doigt = null, actives = /* @__PURE__ */ new Set(), cx = 0, cy = 0, maison = null;
+  let entree = null;
+  const poser = (nouvelles, e) => {
+    for (const k of DIRECTIONS) {
+      const avant2 = actives.has(k), apres = nouvelles.has(k);
+      if (apres && !avant2) {
+        appui(k);
+        if ((k === "left" || k === "right") && e) entree = { k, t: performance.now(), x: e.clientX, fait: false };
+      }
+      if (avant2 && !apres) {
+        relache(k);
+        if (entree && entree.k === k) entree = null;
+      }
+      boutons[k] = apres ? 1 : 0;
+      bras[k].classList.toggle("on", apres);
+    }
+    actives = nouvelles;
+  };
+  const placer = () => {
+    const z = zone.getBoundingClientRect(), w2 = maison.width / 2, h2 = maison.height / 2;
+    const tx = Math.max(z.left + w2 - maison.cx, Math.min(z.right - w2 - maison.cx, cx - maison.cx));
+    const ty = Math.max(z.top + h2 - maison.cy, Math.min(z.bottom - h2 - maison.cy, cy - maison.cy));
+    dessin.style.transform = `translate(${Math.round(tx)}px, ${Math.round(ty)}px)`;
+  };
+  const lire2 = (e) => {
+    let dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy);
+    if (SUIVI && d > RAYON) {
+      cx += dx * (1 - RAYON / d);
+      cy += dy * (1 - RAYON / d);
+      dx = e.clientX - cx;
+      dy = e.clientY - cy;
+      d = RAYON;
+      placer();
+    }
+    const s = /* @__PURE__ */ new Set();
+    if (d > MORT) {
+      const c = dx / d, n = dy / d, comp = { left: -c, right: c, up: -n, down: n };
+      for (const k of DIRECTIONS) if (comp[k] > (actives.has(k) ? SORTIE[k] : ENTREE[k])) s.add(k);
+    }
+    poser(s, e);
+    if (pommeau) {
+      const r = dessin.getBoundingClientRect().width * 0.19, k = d > r ? r / d : 1;
+      pommeau.classList.remove("retour");
+      pommeau.style.transform = `translate(${Math.round(dx * k)}px, ${Math.round(dy * k)}px)`;
+    }
+    if (entree && !entree.fait && performance.now() - entree.t < PICHENETTE.ms && (e.clientX - entree.x) * (entree.k === "right" ? 1 : -1) > PICHENETTE.px) {
+      entree.fait = true;
+      J.appuis.add("dash-" + entree.k);
+    }
+  };
+  zone.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    if (doigt !== null) return;
+    doigt = e.pointerId;
+    zone.setPointerCapture(e.pointerId);
+    if (!maison) {
+      const r = dessin.getBoundingClientRect();
+      maison = { cx: r.left + r.width / 2, cy: r.top + r.height / 2, width: r.width, height: r.height };
+    }
+    if (FLOTTANT) {
+      cx = e.clientX;
+      cy = e.clientY;
+      dessin.classList.remove("retour");
+      placer();
+    } else {
+      cx = maison.cx;
+      cy = maison.cy;
+    }
+    poser(/* @__PURE__ */ new Set(), e);
+    if (!FLOTTANT) lire2(e);
+  });
+  zone.addEventListener("pointermove", (e) => {
+    if (e.pointerId === doigt) lire2(e);
+  });
+  const lever = (e) => {
+    if (e.pointerId === doigt) api.fin();
+  };
+  ["pointerup", "pointercancel", "lostpointercapture"].forEach((t) => zone.addEventListener(t, lever));
+  addEventListener("resize", () => {
+    maison = null;
+  });
+  const api = { fin() {
+    doigt = null;
+    poser(/* @__PURE__ */ new Set());
+    entree = null;
+    dessin.classList.add("retour");
+    dessin.style.transform = "";
+    if (pommeau) {
+      pommeau.classList.add("retour");
+      pommeau.style.transform = "";
+    }
+  } };
+  return api;
+})();
+var actions = (() => {
+  const zone = document.getElementById("actions"), liste = [...zone.querySelectorAll("[data-k]")];
+  const doigts = /* @__PURE__ */ new Map();
+  let centres = [];
+  const compter = () => {
+    for (const b of liste) {
+      let n = 0;
+      for (const v of doigts.values()) if (v === b) n++;
+      boutons[b.dataset.k] = n;
+      b.classList.toggle("on", n > 0);
+    }
+  };
+  const viser = (e) => {
+    let meilleur = null, dmin = Infinity;
+    for (const { b, x, y } of centres) {
+      const d = Math.hypot(e.clientX - x, e.clientY - y);
+      if (d < dmin) {
+        dmin = d;
+        meilleur = b;
+      }
+    }
+    return meilleur;
+  };
+  const suivre = (e) => {
+    const b = viser(e), avant2 = doigts.get(e.pointerId);
+    if (b !== avant2) {
+      doigts.set(e.pointerId, b);
+      if (b) {
+        appui(b.dataset.k);
+        vibrer(8);
+      }
+      compter();
+    }
+  };
+  zone.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    zone.setPointerCapture(e.pointerId);
+    centres = liste.map((b) => {
+      const r = b.getBoundingClientRect();
+      return { b, x: r.left + r.width / 2, y: r.top + r.height / 2, rayon: r.width * 0.8 };
+    });
+    doigts.set(e.pointerId, null);
+    suivre(e);
+  });
+  zone.addEventListener("pointermove", (e) => {
+    if (doigts.has(e.pointerId)) suivre(e);
+  });
+  const lever = (e) => {
+    if (doigts.delete(e.pointerId)) compter();
+  };
+  ["pointerup", "pointercancel", "lostpointercapture"].forEach((t) => zone.addEventListener(t, lever));
+  zone.addEventListener("contextmenu", (e) => e.preventDefault());
+  return { fin() {
+    doigts.clear();
+    compter();
+  } };
+})();
+jeu.addEventListener("touchstart", (e) => {
+  if (e.cancelable) e.preventDefault();
+}, { passive: false });
+jeu.addEventListener("touchmove", (e) => {
+  if (e.cancelable) e.preventDefault();
+}, { passive: false });
+document.addEventListener("gesturestart", (e) => e.preventDefault());
+jeu.addEventListener("contextmenu", (e) => e.preventDefault());
+addEventListener("pointerup", reveillerSon, true);
+addEventListener("touchend", reveillerSon, true);
+addEventListener("pointerdown", (e) => {
+  if (e.pointerType === "touch" && !tactile) {
+    tactile = true;
+    montrerManette();
+  }
+}, true);
+document.getElementById("ecran").addEventListener("pointerdown", (e) => {
+  reveillerSon();
+  const r = e.currentTarget.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width * J.W, y = (e.clientY - r.top) / r.height * J.HAUT;
+  if (x > J.W - 20 && y < 20) basculerSon();
+  else if (J.pause) J.pause = false;
+  else if (J.etat !== "jeu") appui("sabre");
+});
+
+// src/js/appareil.js
+J.pause = false;
+var installee = matchMedia("(display-mode: fullscreen), (display-mode: standalone)").matches || navigator.standalone === true;
+var portrait = matchMedia("(orientation: portrait) and (pointer: coarse)");
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+  const avaitUnControleur = !!navigator.serviceWorker.controller;
+  let aRecharger = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (avaitUnControleur) aRecharger = true;
+  });
+  setInterval(() => {
+    if (aRecharger && J.etat === "titre") location.reload();
+  }, 1e3);
+  addEventListener("load", () => navigator.serviceWorker.register("sw.js").then((inscription) => {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") inscription.update().catch(() => {
+      });
+    });
+  }).catch(() => {
+  }));
+}
+var verrou = null;
+async function garderEcranAllume() {
+  if (!("wakeLock" in navigator) || verrou || document.visibilityState !== "visible") return;
+  try {
+    verrou = await navigator.wakeLock.request("screen");
+    verrou.addEventListener("release", () => {
+      verrou = null;
+    });
+  } catch {
+  }
+}
+function mettreEnPause() {
+  if (J.etat === "jeu") J.pause = true;
+  relacher();
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") {
+    mettreEnPause();
+    J.actx?.suspend?.().catch(() => {
+    });
+  } else garderEcranAllume();
+});
+addEventListener("pagehide", mettreEnPause);
+portrait.addEventListener?.("change", (e) => {
+  if (e.matches) mettreEnPause();
+});
+var pleinEcranDemande = false;
+addEventListener("pointerup", (e) => {
+  garderEcranAllume();
+  if (pleinEcranDemande || installee || e.pointerType !== "touch") return;
+  pleinEcranDemande = true;
+  const el = document.documentElement;
+  if (!document.fullscreenElement && el.requestFullscreen) {
+    el.requestFullscreen({ navigationUI: "hide" }).then(() => screen.orientation?.lock?.("landscape")).catch(() => {
+    });
+  }
+}, true);
+var enPause = () => J.pause || portrait.matches;
+
+// donnees:donnees.js
+var ART = { "decor/scene": { "taille": [704, 396], "decalage": [0, 0], "hauteurAvantRognage": 396, "raccord": false, "src": "images/decor/scene.png" }, "decor/banniere": { "taille": [3456, 172], "decalage": [0, 0], "hauteurAvantRognage": 172, "raccord": false, "cellule": [54, 172], "images": 64, "pieds": [0, 172], "decor": { "x": 650, "y": 104, "ips": 10 }, "src": "images/decor/banniere.png" }, "decor/cascades": { "taille": [21456, 50], "decalage": [0, 0], "hauteurAvantRognage": 50, "raccord": false, "cellule": [447, 50], "images": 48, "pieds": [0, 50], "decor": { "x": 145, "y": 250, "ips": 12 }, "src": "images/decor/cascades.png" }, "decor/lune": { "taille": [9200, 95], "decalage": [0, 0], "hauteurAvantRognage": 95, "raccord": false, "cellule": [115, 95], "images": 80, "pieds": [0, 95], "decor": { "x": 453, "y": 20, "ips": 10 }, "src": "images/decor/lune.png" }, "decor/lanterne": { "taille": [1408, 22], "decalage": [0, 0], "hauteurAvantRognage": 22, "raccord": false, "cellule": [22, 22], "images": 64, "pieds": [0, 22], "decor": { "x": 22, "y": 224, "ips": 10 }, "src": "images/decor/lanterne.png" }, "decor/fenetres": { "taille": [4096, 38], "decalage": [0, 0], "hauteurAvantRognage": 38, "raccord": false, "cellule": [64, 38], "images": 64, "pieds": [0, 38], "decor": { "x": 538, "y": 94, "ips": 10 }, "src": "images/decor/fenetres.png" }, "effets/e-k-coupes": { "taille": [512, 106], "decalage": [0, 0], "hauteurAvantRognage": 106, "raccord": false, "cellule": [64, 106], "images": 8, "ancres": [[-31, 121], [-31, 121], [-31, 121], [-31, 121], [-31, 121], [-31, 121], [-31, 121], [-31, 121]], "pieds": [-31, 121], "src": "images/effets/e-k-coupes.png" }, "effets/e-k-combo2": { "taille": [343, 38], "decalage": [0, 0], "hauteurAvantRognage": 38, "raccord": false, "cellule": [49, 38], "images": 7, "ancres": [[-45, 55], [-45, 55], [-45, 55], [-45, 55], [-45, 55], [-45, 55], [-45, 55]], "pieds": [-45, 55], "src": "images/effets/e-k-combo2.png" }, "effets/e-k-final": { "taille": [522, 107], "decalage": [0, 0], "hauteurAvantRognage": 107, "raccord": false, "cellule": [87, 107], "images": 6, "ancres": [[-4, 120], [-4, 120], [-4, 120], [-4, 120], [-4, 120], [-4, 120]], "pieds": [-4, 120], "src": "images/effets/e-k-final.png" }, "effets/e-k-estoc": { "taille": [749, 62], "decalage": [0, 0], "hauteurAvantRognage": 62, "raccord": false, "cellule": [107, 62], "images": 7, "ancres": [[3, 90], [3, 90], [3, 90], [3, 90], [3, 90], [3, 90], [3, 90]], "pieds": [3, 90], "src": "images/effets/e-k-estoc.png" }, "effets/e-k-balayage": { "taille": [774, 43], "decalage": [0, 0], "hauteurAvantRognage": 43, "raccord": false, "cellule": [129, 43], "images": 6, "ancres": [[78, 72], [78, 72], [78, 72], [78, 72], [78, 72], [78, 72]], "pieds": [78, 72], "src": "images/effets/e-k-balayage.png" }, "gundam/g-r-garde": { "taille": [188, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [94, 97], "images": 2, "pieds": [39, 96], "ancres": [[39, 96], [39, 96]], "gundam": true, "src": "images/gundam/g-r-garde.png" }, "gundam/g-r-garde-titre": { "taille": [188, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [94, 97], "images": 2, "pieds": [39, 96], "ancres": [[39, 96], [39, 96]], "gundam": true, "src": "images/gundam/g-r-garde-titre.png" }, "gundam/g-r-marche": { "taille": [744, 103], "decalage": [0, 0], "hauteurAvantRognage": 103, "raccord": false, "cellule": [93, 103], "images": 8, "pieds": [39, 102], "ancres": [[39, 102], [39, 102], [39, 102], [39, 102], [39, 102], [39, 102], [39, 102], [39, 102]], "gundam": true, "src": "images/gundam/g-r-marche.png" }, "gundam/g-r-course": { "taille": [744, 103], "decalage": [0, 0], "hauteurAvantRognage": 103, "raccord": false, "cellule": [93, 103], "images": 8, "pieds": [39, 102], "ancres": [[39, 102], [39, 102], [39, 102], [39, 102], [39, 102], [39, 102], [39, 102], [39, 102]], "gundam": true, "src": "images/gundam/g-r-course.png" }, "gundam/g-r-coup-leger": { "taille": [944, 99], "decalage": [0, 0], "hauteurAvantRognage": 99, "raccord": false, "cellule": [118, 99], "images": 8, "pieds": [59, 98], "ancres": [[59, 98], [59, 98], [59, 98], [59, 98], [59, 98], [59, 98], [59, 98], [59, 98]], "gundam": true, "src": "images/gundam/g-r-coup-leger.png" }, "gundam/g-r-k-combo2": { "taille": [714, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [102, 97], "images": 7, "pieds": [58, 96], "ancres": [[58, 96], [58, 96], [58, 96], [58, 96], [58, 96], [58, 96], [58, 96]], "gundam": true, "src": "images/gundam/g-r-k-combo2.png" }, "gundam/g-r-k-coupe-epaule": { "taille": [590, 99], "decalage": [0, 0], "hauteurAvantRognage": 99, "raccord": false, "cellule": [118, 99], "images": 5, "pieds": [59, 98], "ancres": [[59, 98], [59, 98], [59, 98], [59, 98], [59, 98]], "gundam": true, "src": "images/gundam/g-r-k-coupe-epaule.png" }, "gundam/g-r-revers": { "taille": [704, 92], "decalage": [0, 0], "hauteurAvantRognage": 92, "raccord": false, "cellule": [88, 92], "images": 8, "pieds": [33, 91], "ancres": [[33, 91], [33, 91], [33, 91], [33, 91], [33, 91], [33, 91], [33, 91], [33, 91]], "gundam": true, "src": "images/gundam/g-r-revers.png" }, "gundam/g-r-estoc": { "taille": [854, 89], "decalage": [0, 0], "hauteurAvantRognage": 89, "raccord": false, "cellule": [122, 89], "images": 7, "pieds": [44, 88], "ancres": [[44, 88], [44, 88], [44, 88], [44, 88], [44, 88], [44, 88], [44, 88]], "gundam": true, "src": "images/gundam/g-r-estoc.png" }, "gundam/g-r-estoc-fort": { "taille": [854, 89], "decalage": [0, 0], "hauteurAvantRognage": 89, "raccord": false, "cellule": [122, 89], "images": 7, "pieds": [44, 88], "ancres": [[44, 88], [44, 88], [44, 88], [44, 88], [44, 88], [44, 88], [44, 88]], "gundam": true, "src": "images/gundam/g-r-estoc-fort.png" }, "gundam/g-r-k-balayage": { "taille": [612, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [102, 97], "images": 6, "pieds": [58, 96], "ancres": [[58, 96], [58, 96], [58, 96], [58, 96], [58, 96], [58, 96]], "gundam": true, "src": "images/gundam/g-r-k-balayage.png" }, "gundam/g-r-k-final": { "taille": [846, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [141, 109], "images": 6, "pieds": [54, 108], "ancres": [[54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108]], "gundam": true, "src": "images/gundam/g-r-k-final.png" }, "gundam/g-r-coup-fort": { "taille": [846, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [141, 109], "images": 6, "pieds": [54, 108], "ancres": [[54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108]], "gundam": true, "src": "images/gundam/g-r-coup-fort.png" }, "gundam/g-r-plonge-fin": { "taille": [846, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [141, 109], "images": 6, "pieds": [54, 108], "ancres": [[54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108]], "gundam": true, "src": "images/gundam/g-r-plonge-fin.png" }, "gundam/g-r-k-fort": { "taille": [539, 111], "decalage": [0, 0], "hauteurAvantRognage": 111, "raccord": false, "cellule": [77, 111], "images": 7, "pieds": [37, 110], "ancres": [[37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110]], "gundam": true, "src": "images/gundam/g-r-k-fort.png" }, "gundam/g-r-bond-coupe": { "taille": [539, 111], "decalage": [0, 0], "hauteurAvantRognage": 111, "raccord": false, "cellule": [77, 111], "images": 7, "pieds": [37, 110], "ancres": [[37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110]], "gundam": true, "src": "images/gundam/g-r-bond-coupe.png" }, "gundam/g-r-k-montante": { "taille": [539, 111], "decalage": [0, 0], "hauteurAvantRognage": 111, "raccord": false, "cellule": [77, 111], "images": 7, "pieds": [37, 110], "ancres": [[37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110]], "gundam": true, "src": "images/gundam/g-r-k-montante.png" }, "gundam/g-r-k-pied-tournant": { "taille": [616, 111], "decalage": [0, 0], "hauteurAvantRognage": 111, "raccord": false, "cellule": [77, 111], "images": 8, "pieds": [37, 110], "ancres": [[37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110], [37, 110]], "gundam": true, "src": "images/gundam/g-r-k-pied-tournant.png" }, "gundam/g-r-k-dash-coupe": { "taille": [705, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [141, 109], "images": 5, "pieds": [54, 108], "ancres": [[54, 108], [54, 108], [54, 108], [54, 108], [54, 108]], "gundam": true, "src": "images/gundam/g-r-k-dash-coupe.png" }, "gundam/g-r-k-haute": { "taille": [1128, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [141, 109], "images": 8, "pieds": [54, 108], "ancres": [[54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108]], "gundam": true, "src": "images/gundam/g-r-k-haute.png" }, "gundam/g-r-moulinet": { "taille": [1128, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [141, 109], "images": 8, "pieds": [54, 108], "ancres": [[54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108], [54, 108]], "gundam": true, "src": "images/gundam/g-r-moulinet.png" }, "gundam/g-r-k-pied": { "taille": [704, 92], "decalage": [0, 0], "hauteurAvantRognage": 92, "raccord": false, "cellule": [88, 92], "images": 8, "pieds": [33, 91], "ancres": [[33, 91], [33, 91], [33, 91], [33, 91], [33, 91], [33, 91], [33, 91], [33, 91]], "gundam": true, "src": "images/gundam/g-r-k-pied.png" }, "gundam/g-r-k-coup-poing": { "taille": [1045, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [95, 97], "images": 11, "pieds": [39, 96], "ancres": [[39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96]], "gundam": true, "src": "images/gundam/g-r-k-coup-poing.png" }, "gundam/g-r-poing-direct": { "taille": [1045, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [95, 97], "images": 11, "pieds": [39, 96], "ancres": [[39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96]], "gundam": true, "src": "images/gundam/g-r-poing-direct.png" }, "gundam/g-r-k-saut": { "taille": [1300, 104], "decalage": [0, 0], "hauteurAvantRognage": 104, "raccord": false, "cellule": [100, 104], "images": 13, "pieds": [39, 103], "ancres": [[39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103], [39, 103]], "gundam": true, "src": "images/gundam/g-r-k-saut.png" }, "gundam/g-r-k-salto": { "taille": [1740, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [145, 109], "images": 12, "pieds": [33, 108], "ancres": [[33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108]], "gundam": true, "src": "images/gundam/g-r-k-salto.png" }, "gundam/g-r-k-saute-coupe": { "taille": [1305, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [145, 109], "images": 9, "pieds": [33, 108], "ancres": [[33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108], [33, 108]], "gundam": true, "src": "images/gundam/g-r-k-saute-coupe.png" }, "gundam/g-r-k-pied-saute": { "taille": [940, 104], "decalage": [0, 0], "hauteurAvantRognage": 104, "raccord": false, "cellule": [94, 104], "images": 10, "pieds": [33, 103], "ancres": [[33, 103], [33, 103], [33, 103], [33, 103], [33, 103], [33, 103], [33, 103], [33, 103], [33, 103], [33, 103]], "gundam": true, "src": "images/gundam/g-r-k-pied-saute.png" }, "gundam/g-r-k-chute": { "taille": [1272, 105], "decalage": [0, 0], "hauteurAvantRognage": 105, "raccord": false, "cellule": [159, 105], "images": 8, "pieds": [64, 104], "ancres": [[64, 104], [64, 104], [64, 104], [64, 104], [64, 104], [64, 104], [64, 104], [64, 104]], "gundam": true, "src": "images/gundam/g-r-k-chute.png" }, "gundam/g-r-mort": { "taille": [1272, 105], "decalage": [0, 0], "hauteurAvantRognage": 105, "raccord": false, "cellule": [159, 105], "images": 8, "pieds": [64, 104], "ancres": [[64, 104], [64, 104], [64, 104], [64, 104], [64, 104], [64, 104], [64, 104], [64, 104]], "gundam": true, "src": "images/gundam/g-r-mort.png" }, "gundam/g-r-touche": { "taille": [288, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [96, 97], "images": 3, "pieds": [55, 96], "ancres": [[55, 96], [55, 96], [55, 96]], "gundam": true, "src": "images/gundam/g-r-touche.png" }, "gundam/g-r-k-releve": { "taille": [285, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [95, 97], "images": 3, "pieds": [39, 96], "ancres": [[39, 96], [39, 96], [39, 96]], "gundam": true, "src": "images/gundam/g-r-k-releve.png" }, "gundam/g-r-k-releve-final": { "taille": [760, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [95, 97], "images": 8, "pieds": [39, 96], "ancres": [[39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96], [39, 96]], "gundam": true, "src": "images/gundam/g-r-k-releve-final.png" }, "gundam/g-r-k-charge": { "taille": [1260, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [105, 97], "images": 12, "pieds": [49, 96], "ancres": [[49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96], [49, 96]], "gundam": true, "src": "images/gundam/g-r-k-charge.png" }, "gundam/g-r-parade": { "taille": [128, 81], "decalage": [0, 0], "hauteurAvantRognage": 81, "raccord": false, "cellule": [64, 81], "images": 2, "pieds": [31, 80], "ancres": [[31, 80], [31, 80]], "gundam": true, "src": "images/gundam/g-r-parade.png" }, "interface/portrait-boss": { "taille": [32, 32], "decalage": [0, 0], "hauteurAvantRognage": 32, "raccord": false, "src": "images/interface/portrait-boss.png" }, "logo/logo": { "taille": [441, 127], "decalage": [6, 12], "hauteurAvantRognage": 150, "raccord": false, "src": "images/logo/logo.png" }, "proto/r-w-garde": { "taille": [889, 116], "decalage": [0, 0], "hauteurAvantRognage": 116, "raccord": false, "cellule": [127, 116], "images": 7, "pieds": [23, 101], "ancres": [[23, 101], [23, 101], [23, 101], [23, 101], [23, 101], [23, 101], [23, 101]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 77, "corps": 102, "haut": 82, "bas": 65, "cx": 40 }, { "avant": 79, "corps": 93, "haut": 98, "bas": 75, "cx": 41 }, { "avant": 79, "corps": 97, "haut": 86, "bas": 70, "cx": 43 }, { "avant": 77, "corps": 97, "haut": 91, "bas": 73, "cx": 43 }, { "avant": 76, "corps": 97, "haut": 89, "bas": 73, "cx": 43 }, { "avant": 60, "corps": 97, "haut": 79, "bas": 68, "cx": 43 }, { "avant": 64, "corps": 97, "haut": 80, "bas": 63, "cx": 43 }], "lames": null, "src": "images/proto/r-w-garde.png" }, "proto/r-w-pret": { "taille": [944, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [118, 109], "images": 8, "pieds": [12, 92], "ancres": [[12, 92], [12, 92], [12, 92], [12, 92], [12, 92], [12, 92], [12, 92], [12, 92]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 91, "corps": 91, "haut": 81, "bas": 7, "cx": 40 }, { "avant": 102, "corps": 101, "haut": 38, "bas": 15, "cx": 45 }, { "avant": 103, "corps": 96, "haut": 55, "bas": 14, "cx": 42 }, { "avant": 103, "corps": 96, "haut": 55, "bas": 15, "cx": 42 }, { "avant": 102, "corps": 96, "haut": 55, "bas": 15, "cx": 42 }, { "avant": 103, "corps": 96, "haut": 55, "bas": 12, "cx": 42 }, { "avant": 95, "corps": 91, "haut": 75, "bas": 22, "cx": 40 }, { "avant": 97, "corps": 79, "haut": 81, "bas": 17, "cx": 34 }], "lames": null, "src": "images/proto/r-w-pret.png" }, "proto/r-w-marche": { "taille": [444, 120], "decalage": [0, 0], "hauteurAvantRognage": 120, "raccord": false, "cellule": [74, 120], "images": 6, "pieds": [43, 114], "ancres": [[43, 114], [43, 114], [43, 114], [43, 114], [43, 114], [43, 114]], "depot": true, "regarde": "droite", "proto": true, "ancre": "torse", "allonge": [{ "avant": 27, "corps": 28, "haut": 91, "bas": 11, "cx": -7 }, { "avant": 25, "corps": 28, "haut": 96, "bas": 17, "cx": -5 }, { "avant": 24, "corps": 28, "haut": 98, "bas": 11, "cx": -2 }, { "avant": 24, "corps": 29, "haut": 97, "bas": 10, "cx": -6 }, { "avant": 25, "corps": 28, "haut": 101, "bas": 10, "cx": -1 }, { "avant": 26, "corps": 28, "haut": 96, "bas": 11, "cx": -1 }], "lames": null, "src": "images/proto/r-w-marche.png" }, "proto/r-w-ruee": { "taille": [900, 120], "decalage": [0, 0], "hauteurAvantRognage": 120, "raccord": false, "cellule": [150, 120], "images": 6, "pieds": [74, 118], "ancres": [[74, 118], [74, 118], [74, 118], [74, 118], [74, 118], [74, 118]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": 73, "corps": 73, "haut": 105, "bas": 49, "cx": 0 }, { "avant": 62, "corps": 47, "haut": 75, "bas": 39, "cx": 0 }, { "avant": 56, "corps": 61, "haut": 100, "bas": 70, "cx": 0 }, { "avant": 71, "corps": 70, "haut": 96, "bas": 55, "cx": 0 }, { "avant": 58, "corps": 56, "haut": 76, "bas": 41, "cx": 0 }, { "avant": 57, "corps": 66, "haut": 116, "bas": 65, "cx": 0 }], "lames": [[97.9, 50.6, 147, 41], [84.9, 65.1, 134.9, 62.7], [82.4, 48.2, 130, 33], [96.4, 54.3, 145, 42.5], [82.5, 66.6, 132, 59.5], [85.6, 42.6, 130, 19.6]], "src": "images/proto/r-w-ruee.png" }, "proto/r-w-lourd": { "taille": [1421, 124], "decalage": [0, 0], "hauteurAvantRognage": 124, "raccord": false, "cellule": [203, 124], "images": 7, "pieds": [18, 107], "ancres": [[18, 107], [18, 107], [18, 107], [18, 107], [18, 107], [18, 107], [18, 107]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 114, "corps": 113, "haut": 77, "bas": 32, "cx": 51 }, { "avant": 77, "corps": 121, "haut": 89, "bas": 48, "cx": 55 }, { "avant": 182, "corps": 181, "haut": 105, "bas": 64, "cx": 85 }, { "avant": 166, "corps": 148, "haut": 87, "bas": 47, "cx": 65 }, { "avant": 100, "corps": 111, "haut": 87, "bas": 48, "cx": 50 }, { "avant": 79, "corps": 109, "haut": 89, "bas": 48, "cx": 49 }, { "avant": 117, "corps": 116, "haut": 90, "bas": 36, "cx": 52 }], "lames": [[81.4, 60.3, 131.2, 65.2], [54, 67.1, 95, 38.5], [151.2, 33.4, 200, 22.5], [133.7, 45, 182.8, 35.7], [70.1, 54, 118, 39.5], [52.5, 61.3, 97, 38.5], [85.3, 49.3, 135, 44]], "src": "images/proto/r-w-lourd.png" }, "proto/r-w-fente": { "taille": [609, 105], "decalage": [0, 0], "hauteurAvantRognage": 105, "raccord": false, "cellule": [203, 105], "images": 3, "pieds": [12, 91], "ancres": [[12, 91], [12, 91], [12, 91]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 133, "corps": 133, "haut": 84, "bas": 62, "cx": 61 }, { "avant": 102, "corps": 109, "haut": 87, "bas": 49, "cx": 49 }, { "avant": 188, "corps": 187, "haut": 77, "bas": 25, "cx": 88 }], "lames": [[96.3, 29.8, 143.6, 13.5], [56.3, 76.7, 62.4, 27], [150, 40, 200, 40]], "src": "images/proto/r-w-fente.png" }, "proto/r-w-droit": { "taille": [875, 127], "decalage": [0, 0], "hauteurAvantRognage": 127, "raccord": false, "cellule": [175, 127], "images": 5, "pieds": [14, 112], "ancres": [[14, 112], [14, 112], [14, 112], [14, 112], [14, 112]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 157, "corps": 154, "haut": 109, "bas": 80, "cx": 71 }, { "avant": 143, "corps": 139, "haut": 102, "bas": 79, "cx": 64 }, { "avant": 149, "corps": 145, "haut": 105, "bas": 81, "cx": 66 }, { "avant": 124, "corps": 124, "haut": 100, "bas": 66, "cx": 57 }, { "avant": 101, "corps": 101, "haut": 97, "bas": 47, "cx": 45 }], "lames": [[123.6, 33.4, 171, 17.5], [110, 38.5, 157, 21.5], [115.9, 35.8, 163, 19], [90.8, 45.4, 138, 29], [66, 50, 115, 40]], "src": "images/proto/r-w-droit.png" }, "proto/r-w-pied": { "taille": [1218, 137], "decalage": [0, 0], "hauteurAvantRognage": 137, "raccord": false, "cellule": [174, 137], "images": 7, "pieds": [52, 121], "ancres": [[52, 121], [52, 121], [52, 121], [52, 121], [52, 121], [52, 121], [52, 121]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 81, "corps": 96, "haut": 101, "bas": 84, "cx": 42 }, { "avant": 105, "corps": 101, "haut": 97, "bas": 52, "cx": 45 }, { "avant": 59, "corps": 118, "haut": 118, "bas": 65, "cx": 35 }, { "avant": 63, "corps": 113, "haut": 118, "bas": 65, "cx": 31 }, { "avant": 31, "corps": 39, "haut": 107, "bas": 31, "cx": -2 }, { "avant": 105, "corps": 101, "haut": 97, "bas": 52, "cx": 45 }, { "avant": 81, "corps": 96, "haut": 101, "bas": 84, "cx": 42 }], "lames": null, "src": "images/proto/r-w-pied.png" }, "proto/r-w-accroupie": { "taille": [632, 135], "decalage": [0, 0], "hauteurAvantRognage": 135, "raccord": false, "cellule": [158, 135], "images": 4, "pieds": [57, 119], "ancres": [[57, 119], [57, 119], [57, 119], [57, 119]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 42, "corps": 93, "haut": 116, "bas": 36, "cx": 28 }, { "avant": 23, "corps": 59, "haut": 112, "bas": 30, "cx": 4 }, { "avant": 25, "corps": 64, "haut": 113, "bas": 32, "cx": 4 }, { "avant": 100, "corps": 98, "haut": 108, "bas": 91, "cx": 44 }], "lames": [[53.8, 64.4, 99, 43], [52, 65, 79.1, 23.1], [55, 61.2, 80.4, 18.1], [112.7, 42.7, 157, 19.5]], "src": "images/proto/r-w-accroupie.png" }, "proto/r-w-tornade": { "taille": [1200, 119], "decalage": [0, 0], "hauteurAvantRognage": 119, "raccord": false, "cellule": [120, 119], "images": 10, "pieds": [28, 105], "ancres": [[28, 105], [28, 105], [28, 105], [28, 105], [28, 105], [28, 105], [28, 105], [28, 105], [28, 105], [28, 105]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 68, "corps": 75, "haut": 68, "bas": 14, "cx": 31 }, { "avant": 68, "corps": 75, "haut": 68, "bas": 14, "cx": 31 }, { "avant": 80, "corps": 90, "haut": 55, "bas": 12, "cx": 39 }, { "avant": 80, "corps": 90, "haut": 55, "bas": 12, "cx": 39 }, { "avant": 80, "corps": 90, "haut": 58, "bas": 15, "cx": 39 }, { "avant": 80, "corps": 90, "haut": 58, "bas": 15, "cx": 39 }, { "avant": 78, "corps": 44, "haut": 82, "bas": 29, "cx": 9 }, { "avant": 88, "corps": 52, "haut": 71, "bas": 28, "cx": 18 }, { "avant": 34, "corps": 46, "haut": 77, "bas": 34, "cx": 14 }, { "avant": 38, "corps": 46, "haut": 74, "bas": 16, "cx": 15 }], "lames": [null, null, null, null, null, null, [58.4, 51.3, 105.6, 68], [66, 54.7, 115.8, 50.8], null, null], "src": "images/proto/r-w-tornade.png" }, "proto/r-w-saut": { "taille": [775, 233], "decalage": [0, 0], "hauteurAvantRognage": 233, "raccord": false, "cellule": [155, 233], "images": 5, "pieds": [84, 146], "ancres": [[84, 146], [84, 146], [84, 146], [84, 146], [84, 146]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": -38, "corps": 50, "haut": 43, "bas": 34, "cx": 0 }, { "avant": -4, "corps": 54, "haut": 84, "bas": 25, "cx": 0 }, { "avant": 67, "corps": 68, "haut": 137, "bas": 91, "cx": 0 }, { "avant": 67, "corps": 68, "haut": 137, "bas": 91, "cx": 0 }, { "avant": 65, "corps": 66, "haut": 144, "bas": 96, "cx": 0 }], "lames": null, "src": "images/proto/r-w-saut.png" }, "proto/r-w-retombee": { "taille": [1206, 195], "decalage": [0, 0], "hauteurAvantRognage": 195, "raccord": false, "cellule": [201, 195], "images": 6, "pieds": [86, 139], "ancres": [[86, 139], [86, 139], [86, 139], [86, 139], [86, 139], [86, 139]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": 27, "corps": 53, "haut": 135, "bas": 91, "cx": 0 }, { "avant": 30, "corps": 60, "haut": 91, "bas": 71, "cx": 0 }, { "avant": 69, "corps": 84, "haut": 59, "bas": 31, "cx": 0 }, { "avant": 23, "corps": 50, "haut": 58, "bas": 7, "cx": 0 }, { "avant": 17, "corps": 46, "haut": 59, "bas": 0, "cx": 0 }, { "avant": 0, "corps": 48, "haut": 27, "bas": 0, "cx": 0 }], "lames": [[80.2, 63.7, 113, 26], [85.6, 100.4, 86.6, 50.4], [107.5, 78.3, 155, 94], [77.8, 67.5, 109, 106.5], [85.3, 74.3, 87.8, 124.2], [86, 75.5, 86, 125.5]], "src": "images/proto/r-w-retombee.png" }, "proto/r-w-intro": { "taille": [1204, 113], "decalage": [0, 0], "hauteurAvantRognage": 113, "raccord": false, "cellule": [86, 113], "images": 14, "pieds": [12, 106], "ancres": [[12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106], [12, 106]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 53, "corps": 55, "haut": 92, "bas": 12, "cx": 22 }, { "avant": 52, "corps": 63, "haut": 91, "bas": 10, "cx": 26 }, { "avant": 52, "corps": 63, "haut": 91, "bas": 10, "cx": 26 }, { "avant": 41, "corps": 71, "haut": 87, "bas": 10, "cx": 30 }, { "avant": 41, "corps": 71, "haut": 87, "bas": 10, "cx": 30 }, { "avant": 52, "corps": 71, "haut": 93, "bas": 10, "cx": 30 }, { "avant": 52, "corps": 71, "haut": 93, "bas": 10, "cx": 30 }, { "avant": 53, "corps": 71, "haut": 87, "bas": 10, "cx": 30 }, { "avant": 53, "corps": 71, "haut": 87, "bas": 10, "cx": 30 }, { "avant": 53, "corps": 71, "haut": 90, "bas": 10, "cx": 30 }, { "avant": 53, "corps": 71, "haut": 90, "bas": 10, "cx": 30 }, { "avant": 43, "corps": 71, "haut": 90, "bas": 10, "cx": 30 }, { "avant": 43, "corps": 71, "haut": 90, "bas": 10, "cx": 30 }, { "avant": 52, "corps": 71, "haut": 93, "bas": 10, "cx": 30 }], "lames": null, "src": "images/proto/r-w-intro.png" }, "proto/r-w-bloc": { "taille": [994, 126], "decalage": [0, 0], "hauteurAvantRognage": 126, "raccord": false, "cellule": [142, 126], "images": 7, "pieds": [39, 111], "ancres": [[39, 111], [39, 111], [39, 111], [39, 111], [39, 111], [39, 111], [39, 111]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 92, "corps": 101, "haut": 107, "bas": 58, "cx": 38 }, { "avant": 76, "corps": 92, "haut": 89, "bas": 60, "cx": 40 }, { "avant": 82, "corps": 91, "haut": 98, "bas": 60, "cx": 39 }, { "avant": 79, "corps": 91, "haut": 96, "bas": 60, "cx": 39 }, { "avant": 76, "corps": 91, "haut": 92, "bas": 60, "cx": 39 }, { "avant": 75, "corps": 91, "haut": 90, "bas": 60, "cx": 39 }, { "avant": 74, "corps": 91, "haut": 89, "bas": 60, "cx": 39 }], "lames": null, "src": "images/proto/r-w-bloc.png" }, "proto/r-w-touche": { "taille": [572, 89], "decalage": [0, 0], "hauteurAvantRognage": 89, "raccord": false, "cellule": [143, 89], "images": 4, "pieds": [48, 73], "ancres": [[48, 73], [48, 73], [48, 73], [48, 73]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 39, "corps": 74, "haut": 64, "bas": 6, "cx": 14 }, { "avant": 39, "corps": 76, "haut": 63, "bas": 12, "cx": 17 }, { "avant": 34, "corps": 73, "haut": 70, "bas": 15, "cx": 16 }, { "avant": 93, "corps": 90, "haut": 38, "bas": 12, "cx": 37 }], "lames": null, "src": "images/proto/r-w-touche.png" }, "proto/r-w-souleve": { "taille": [1038, 171], "decalage": [0, 0], "hauteurAvantRognage": 171, "raccord": false, "cellule": [173, 171], "images": 6, "pieds": [58, 156], "ancres": [[58, 156], [58, 156], [58, 156], [58, 156], [58, 156], [58, 156]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 60, "corps": 53, "haut": 122, "bas": 105, "cx": -2 }, { "avant": 47, "corps": 57, "haut": 109, "bas": 81, "cx": 8 }, { "avant": 80, "corps": 113, "haut": 103, "bas": 52, "cx": 38 }, { "avant": 85, "corps": 87, "haut": 101, "bas": 48, "cx": 23 }, { "avant": 39, "corps": 63, "haut": 105, "bas": 80, "cx": 12 }, { "avant": 62, "corps": 58, "haut": 79, "bas": 47, "cx": 7 }], "lames": null, "src": "images/proto/r-w-souleve.png" }, "proto/r-w-chute": { "taille": [1288, 104], "decalage": [0, 0], "hauteurAvantRognage": 104, "raccord": false, "cellule": [184, 104], "images": 7, "pieds": [95, 94], "ancres": [[95, 94], [95, 94], [95, 94], [95, 94], [95, 94], [95, 94], [95, 94]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": 62, "corps": 62, "haut": 75, "bas": 1, "cx": 0 }, { "avant": 39, "corps": 40, "haut": 84, "bas": 4, "cx": 0 }, { "avant": -10, "corps": 87, "haut": 79, "bas": 0, "cx": 0 }, { "avant": -11, "corps": 60, "haut": 89, "bas": 0, "cx": 0 }, { "avant": 22, "corps": 46, "haut": 73, "bas": 0, "cx": 0 }, { "avant": 56, "corps": 52, "haut": 62, "bas": -7, "cx": 0 }, { "avant": 56, "corps": 56, "haut": 62, "bas": 31, "cx": 0 }], "lames": null, "src": "images/proto/r-w-chute.png" }, "proto/r-w-mort1": { "taille": [1015, 113], "decalage": [0, 0], "hauteurAvantRognage": 113, "raccord": false, "cellule": [145, 113], "images": 7, "pieds": [72, 111], "ancres": [[72, 111], [72, 111], [72, 111], [72, 111], [72, 111], [72, 111], [72, 111]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": 34, "corps": 63, "haut": 79, "bas": 54, "cx": 0 }, { "avant": 16, "corps": 64, "haut": 87, "bas": 54, "cx": 0 }, { "avant": 41, "corps": 71, "haut": 98, "bas": 69, "cx": 0 }, { "avant": 41, "corps": 71, "haut": 98, "bas": 69, "cx": 0 }, { "avant": 41, "corps": 67, "haut": 97, "bas": 70, "cx": 0 }, { "avant": 41, "corps": 71, "haut": 98, "bas": 69, "cx": 0 }, { "avant": 41, "corps": 67, "haut": 97, "bas": 70, "cx": 0 }], "lames": null, "src": "images/proto/r-w-mort1.png" }, "proto/r-w-mort2": { "taille": [966, 114], "decalage": [0, 0], "hauteurAvantRognage": 114, "raccord": false, "cellule": [161, 114], "images": 6, "pieds": [80, 111], "ancres": [[80, 111], [80, 111], [80, 111], [80, 111], [80, 111], [80, 111]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": 41, "corps": 71, "haut": 98, "bas": 69, "cx": 0 }, { "avant": 17, "corps": 74, "haut": 89, "bas": 66, "cx": 0 }, { "avant": 7, "corps": 79, "haut": 23, "bas": 11, "cx": 0 }, { "avant": 4, "corps": 69, "haut": 38, "bas": 22, "cx": 0 }, { "avant": 2, "corps": 60, "haut": 82, "bas": 18, "cx": 0 }, { "avant": 2, "corps": 61, "haut": 85, "bas": 20, "cx": 0 }], "lames": null, "src": "images/proto/r-w-mort2.png" }, "proto/r-w-gisant": { "taille": [525, 66], "decalage": [0, 0], "hauteurAvantRognage": 66, "raccord": false, "cellule": [175, 66], "images": 3, "pieds": [87, 60], "ancres": [[87, 60], [87, 60], [87, 60]], "depot": true, "regarde": "droite", "proto": true, "ancre": "centre", "allonge": [{ "avant": -5, "corps": 86, "haut": 26, "bas": 1, "cx": 0 }, { "avant": 7, "corps": 79, "haut": 23, "bas": 11, "cx": 0 }, { "avant": 32, "corps": 82, "haut": 17, "bas": -2, "cx": 0 }], "lames": null, "src": "images/proto/r-w-gisant.png" }, "proto/r-w-victoire": { "taille": [1079, 151], "decalage": [0, 0], "hauteurAvantRognage": 151, "raccord": false, "cellule": [83, 151], "images": 13, "pieds": [18, 144], "ancres": [[18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144], [18, 144]], "depot": true, "regarde": "droite", "proto": true, "ancre": "arriere", "allonge": [{ "avant": 33, "corps": 49, "haut": 130, "bas": 10, "cx": 17 }, { "avant": 34, "corps": 49, "haut": 129, "bas": 10, "cx": 17 }, { "avant": 54, "corps": 59, "haut": 102, "bas": 10, "cx": 22 }, { "avant": 42, "corps": 53, "haut": 103, "bas": 10, "cx": 18 }, { "avant": 41, "corps": 53, "haut": 105, "bas": 10, "cx": 18 }, { "avant": 43, "corps": 53, "haut": 105, "bas": 10, "cx": 18 }, { "avant": 54, "corps": 58, "haut": 86, "bas": 9, "cx": 23 }, { "avant": 57, "corps": 63, "haut": 81, "bas": 9, "cx": 26 }, { "avant": 55, "corps": 63, "haut": 97, "bas": 10, "cx": 26 }, { "avant": 52, "corps": 59, "haut": 137, "bas": 9, "cx": 24 }, { "avant": 48, "corps": 57, "haut": 140, "bas": 9, "cx": 23 }, { "avant": 55, "corps": 57, "haut": 90, "bas": 10, "cx": 23 }, { "avant": 47, "corps": 62, "haut": 66, "bas": 9, "cx": 25 }], "lames": null, "src": "images/proto/r-w-victoire.png" }, "roto/r-coup-leger": { "taille": [1390, 105], "decalage": [0, 0], "hauteurAvantRognage": 105, "raccord": false, "cellule": [139, 105], "images": 10, "pieds": [54, 98], "lames": [[39.7, 29.1, 26.2, 8.9], null, [38.6, 37.9, 19.6, 28.1], [38.9, 38.3, 20.1, 28.2], [58, 67.4, 79.1, 60.2], [52.3, 64.3, 33.9, 56.1], [89.5, 47.8, 136.4, 51.4], [88.4, 48.1, 113, 49.3], null, [27.9, 28, 12.1, 23.3]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "src": "images/roto/r-coup-leger.png" }, "roto/r-garde": { "taille": [1053, 108], "decalage": [0, 0], "hauteurAvantRognage": 108, "raccord": false, "cellule": [117, 108], "images": 9, "pieds": [72, 107], "bustes": [67, 67.8, 68.6, 68.3, 68.2, 67.5, 66.4, 66.7, 66.2], "lames": [[67.5, 36.2, 106.7, 10.1], [68.6, 35.8, 101.7, 2.3], [68.4, 36.5, 106.8, 9.3], [69, 36, 112.3, 17.7], [79.3, 35.2, 113.5, 28.7], [93.1, 42.4, 111.4, 44.1], [95.6, 45.7, 108, 47.4], [67.5, 41, 114.5, 41.3], [66.9, 36.4, 109.1, 15.6]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "ancres": [[67, 107], [68, 107], [69, 107], [68, 107], [68, 107], [68, 107], [66, 107], [67, 107], [66, 107]], "src": "images/roto/r-garde.png" }, "roto/r-marche": { "taille": [992, 106], "decalage": [0, 0], "hauteurAvantRognage": 106, "raccord": false, "cellule": [124, 106], "images": 8, "pieds": [66, 98], "bustes": [57.8, 56.4, 57.7, 58, 59.2, 62.6, 63.9, 58.5], "lames": [[70.7, 29.4, 117.4, 23.9], [68.8, 28.2, 115.4, 22.2], [69.7, 25.7, 116.1, 17.6], [69.3, 24.4, 115.5, 15.8], [71.4, 24.4, 117.5, 14.6], [75.2, 24.5, 121.4, 15.5], [73.1, 27.4, 119.6, 20.5], [70.2, 29.2, 116.8, 23.1]], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "ancres": [[58, 98], [56, 98], [58, 98], [58, 98], [59, 98], [63, 98], [64, 98], [58, 98]], "src": "images/roto/r-marche.png" }, "roto/r-estoc": { "taille": [1660, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [166, 97], "images": 10, "pieds": [64, 94], "lames": [[60.9, 33.5, 107.1, 42.5], [80.4, 39.4, 127.4, 38.7], [98.5, 41.8, 145.5, 41.1], [106.3, 42, 143.2, 42], [118.3, 43, 165.3, 40.1], [146.5, 39.9, 164.5, 40.7], [144.1, 40.3, 164.5, 40.6], null, null, [96.9, 41.8, 143.9, 41.1]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "src": "images/roto/r-estoc.png" }, "roto/r-parade": { "taille": [625, 103], "decalage": [0, 0], "hauteurAvantRognage": 103, "raccord": false, "cellule": [125, 103], "images": 5, "pieds": [69, 101], "lames": [[75.2, 24.4, 97.7, 9.6], [88.5, 51.9, 77.7, 34.8], [75.3, 38.7, 83, 71.3], [74.2, 37.6, 78.2, 84.5], [65.3, 42.6, 85.7, 84.9]], "indices": [0, 1, 2, 3, 4], "src": "images/roto/r-parade.png" }, "roto/r-saut": { "taille": [984, 163], "decalage": [0, 0], "hauteurAvantRognage": 163, "raccord": false, "cellule": [123, 163], "images": 8, "pieds": [50, 154], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "src": "images/roto/r-saut.png" }, "roto/r-coup-fort": { "taille": [3196, 112], "decalage": [0, 0], "hauteurAvantRognage": 112, "raccord": false, "cellule": [188, 112], "images": 17, "pieds": [87, 106], "lames": [null, [101.8, 33.9, 147.9, 43.4], [99.9, 32.2, 135.2, 37.2], null, [86.5, 22.7, 41.2, 10.2], [119.5, 32.2, 83.3, 2.1], [115.4, 29.9, 95.5, 10.8], [143, 66.2, 185, 44.8], null, [64.9, 84.3, 44.1, 90.7], [64.3, 84.7, 44.1, 90.7], null, null, [68.6, 81.3, 49.2, 86.8], null, [119.3, 68.8, 139.9, 69.6], [102, 56.1, 148.9, 59.6]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "src": "images/roto/r-coup-fort.png" }, "roto/r-touche": { "taille": [804, 118], "decalage": [0, 0], "hauteurAvantRognage": 118, "raccord": false, "cellule": [134, 118], "images": 6, "pieds": [82, 111], "lames": [[30.7, 68.3, 2.3, 82.9], [30.7, 68.3, 2.3, 82.9], null, [36.1, 52.9, 12.8, 36.1], [53.8, 45.5, 60.5, 16.7], [63.9, 42.1, 94.2, 6]], "indices": [0, 1, 2, 3, 4, 5], "src": "images/roto/r-touche.png" }, "roto/r-mort": { "taille": [1456, 96], "decalage": [0, 0], "hauteurAvantRognage": 96, "raccord": false, "cellule": [182, 96], "images": 8, "pieds": [91, 85], "lames": [[62.9, 19.2, 109.6, 13.9], [53.1, 33.8, 26.3, 25.3], [62.5, 52.5, 30.1, 65.9], null, [90.7, 78.1, 71.8, 56.9], [115.9, 68.3, 131.3, 23.8], [123.2, 71, 141.2, 40.7], [95.1, 78.1, 139.8, 63.3]], "indices": [0, 1, 2, 3, 4, 10, 11, 12], "src": "images/roto/r-mort.png" }, "roto/r-sa-garde": { "taille": [1060, 101], "decalage": [0, 0], "hauteurAvantRognage": 101, "raccord": false, "cellule": [106, 101], "images": 10, "pieds": [49, 99], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "ancres": [[51, 97], [50, 97], [49, 96], [48, 97], [47, 97], [46, 98], [47, 99], [50, 99], [51, 98], [51, 96]], "src": "images/roto/r-sa-garde.png" }, "roto/r-sa-attaque": { "taille": [1720, 141], "decalage": [0, 0], "hauteurAvantRognage": 141, "raccord": false, "cellule": [215, 141], "images": 8, "pieds": [92, 133], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "src": "images/roto/r-sa-attaque.png" }, "roto/r-ni-garde": { "taille": [1250, 90], "decalage": [0, 0], "hauteurAvantRognage": 90, "raccord": false, "cellule": [125, 90], "images": 10, "pieds": [71, 89], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "ancres": [[73, 85], [72, 86], [70, 86], [70, 87], [71, 88], [71, 89], [71, 89], [71, 88], [71, 87], [72, 86]], "src": "images/roto/r-ni-garde.png" }, "roto/r-ni-course": { "taille": [750, 90], "decalage": [0, 0], "hauteurAvantRognage": 90, "raccord": false, "cellule": [150, 90], "images": 5, "pieds": [69, 86], "indices": [0, 1, 2, 3, 4], "ancres": [[73, 88], [82, 88], [72, 86], [62, 87], [57, 87]], "src": "images/roto/r-ni-course.png" }, "roto/r-ni-lancer": { "taille": [1376, 120], "decalage": [0, 0], "hauteurAvantRognage": 120, "raccord": false, "cellule": [172, 120], "images": 8, "pieds": [66, 113], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "src": "images/roto/r-ni-lancer.png" }, "roto/r-ni-bond": { "taille": [1155, 135], "decalage": [0, 0], "hauteurAvantRognage": 135, "raccord": false, "cellule": [165, 135], "images": 7, "pieds": [86, 130], "indices": [0, 1, 2, 3, 4, 5, 6], "src": "images/roto/r-ni-bond.png" }, "roto/r-ni-touche": { "taille": [938, 87], "decalage": [0, 0], "hauteurAvantRognage": 87, "raccord": false, "cellule": [134, 87], "images": 7, "pieds": [76, 82], "indices": [0, 1, 2, 3, 4, 5, 6], "src": "images/roto/r-ni-touche.png" }, "roto/r-ni-mort": { "taille": [1539, 142], "decalage": [0, 0], "hauteurAvantRognage": 142, "raccord": false, "cellule": [171, 142], "images": 9, "pieds": [88, 133], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "src": "images/roto/r-ni-mort.png" }, "roto/r-sa-marche": { "taille": [1240, 121], "decalage": [0, 0], "hauteurAvantRognage": 121, "raccord": false, "cellule": [124, 121], "images": 10, "pieds": [54, 120], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "ancres": [[54, 118], [54, 116], [52, 115], [50, 119], [53, 120], [58, 116], [61, 116], [56, 118], [51, 115], [51, 120]], "src": "images/roto/r-sa-marche.png" }, "roto/r-sa-touche": { "taille": [1001, 113], "decalage": [0, 0], "hauteurAvantRognage": 113, "raccord": false, "cellule": [143, 113], "images": 7, "pieds": [68, 106], "indices": [0, 1, 2, 3, 4, 5, 6], "src": "images/roto/r-sa-touche.png" }, "roto/r-sa-mort": { "taille": [1710, 126], "decalage": [0, 0], "hauteurAvantRognage": 126, "raccord": false, "cellule": [190, 126], "images": 9, "pieds": [102, 120], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "src": "images/roto/r-sa-mort.png" }, "roto/r-k-garde": { "taille": [1188, 100], "decalage": [0, 0], "hauteurAvantRognage": 100, "raccord": false, "cellule": [132, 100], "images": 9, "pieds": [75, 99], "lames": [null, null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "ancres": [[79, 95], [75, 97], [71, 94], [75, 98], [76, 94], [73, 96], [75, 95], [75, 96], [76, 96]], "src": "images/roto/r-k-garde.png" }, "roto/r-k-marche": { "taille": [840, 109], "decalage": [0, 0], "hauteurAvantRognage": 109, "raccord": false, "cellule": [105, 109], "images": 8, "pieds": [46, 108], "bustes": [41.9, 47.1, 43.3, 40.2, 42.9, 48.6, 43.3, 41], "lames": [null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "ancres": [[42, 108], [47, 108], [43, 108], [40, 108], [43, 108], [49, 108], [43, 108], [41, 108]], "src": "images/roto/r-k-marche.png" }, "roto/r-k-course": { "taille": [890, 91], "decalage": [0, 0], "hauteurAvantRognage": 91, "raccord": false, "cellule": [178, 91], "images": 5, "pieds": [85, 89], "bustes": [101.4, 106.1, 105.3, 103.1, 95.9], "lames": [null, null, null, null, null], "indices": [0, 1, 2, 3, 4], "ancres": [[109, 89], [83, 89], [94, 89], [115, 89], [96, 89]], "src": "images/roto/r-k-course.png" }, "roto/r-k-coupes": { "taille": [1496, 113], "decalage": [0, 0], "hauteurAvantRognage": 113, "raccord": false, "cellule": [187, 113], "images": 8, "pieds": [95, 111], "bustes": [97, 94.8, 102.1, 97, 116.8, 125.9, 112, 132.2], "lames": [null, null, null, null, [169.6, 56.6, 190.2, 29.7], null, [159.6, 93.1, 169.7, 91.9], null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "depot": true, "src": "images/roto/r-k-coupes.png" }, "roto/r-k-chute": { "taille": [1400, 116], "decalage": [0, 0], "hauteurAvantRognage": 116, "raccord": false, "cellule": [175, 116], "images": 8, "pieds": [89, 103], "bustes": [94.8, 78.8, 94.6, 49.8, 87.8, 128.2, 89.4, 89.3], "lames": [null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "src": "images/roto/r-k-chute.png" }, "roto/r-k-releve": { "taille": [399, 80], "decalage": [0, 0], "hauteurAvantRognage": 80, "raccord": false, "cellule": [133, 80], "images": 3, "pieds": [74, 78], "bustes": [69.7, 78.3, 69.2], "lames": [null, null, null], "indices": [0, 1, 2], "src": "images/roto/r-k-releve.png" }, "roto/r-k-saut": { "taille": [962, 108], "decalage": [0, 0], "hauteurAvantRognage": 108, "raccord": false, "cellule": [74, 108], "images": 13, "pieds": [38, 107], "bustes": [41.6, 44.9, 44.4, 44.7, 45, 41.3, 42, 40.6, 50.3, 49.4, 41.4, 43.7, 43.3], "lames": [null, null, null, null, null, null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "src": "images/roto/r-k-saut.png" }, "roto/r-k-salto": { "taille": [1440, 123], "decalage": [0, 0], "hauteurAvantRognage": 123, "raccord": false, "cellule": [120, 123], "images": 12, "pieds": [61, 118], "bustes": [93.2, 75.2, 73.8, 50.1, 54.3, 55.4, 68.5, 38.1, 44.5, 46.1, 64.3, 67.9], "lames": [null, null, null, null, null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "src": "images/roto/r-k-salto.png" }, "roto/r-k-pied": { "taille": [1112, 103], "decalage": [0, 0], "hauteurAvantRognage": 103, "raccord": false, "cellule": [139, 103], "images": 8, "pieds": [72, 101], "bustes": [78.2, 64.4, 59.5, 69.7, 69.2, 68.5, 61.1, 59.9], "lames": [null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "src": "images/roto/r-k-pied.png" }, "roto/r-k-pied-saute": { "taille": [1300, 115], "decalage": [0, 0], "hauteurAvantRognage": 115, "raccord": false, "cellule": [130, 115], "images": 10, "pieds": [51, 112], "bustes": [50.2, 55.3, 42.2, 41.8, 46.8, 46.7, 60.8, 61.3, 63.7, 61.7], "lames": [null, null, null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "src": "images/roto/r-k-pied-saute.png" }, "roto/r-k-combo2": { "taille": [882, 100], "decalage": [0, 0], "hauteurAvantRognage": 100, "raccord": false, "cellule": [126, 100], "images": 7, "pieds": [32, 98], "bustes": [47, 52.2, 48.6, 48.9, 49.3, 46.8, 49.1], "lames": [[94.8, 80.9, 104.2, 79.8], [68.2, 81.9, 82.2, 81.9], [68.2, 81.2, 96.8, 81.2], [96.1, 80.9, 105.5, 79.8], [96.1, 80.9, 105.5, 79.8], [108.3, 74.8, 122.9, 70.2], [101.3, 42.7, 114, 29.6]], "indices": [0, 1, 2, 3, 4, 5, 6], "src": "images/roto/r-k-combo2.png" }, "roto/r-k-final": { "taille": [822, 113], "decalage": [0, 0], "hauteurAvantRognage": 113, "raccord": false, "cellule": [137, 113], "images": 6, "pieds": [48, 111], "bustes": [66.4, 64.8, 90.4, 61.4, 75.1, 61.3], "lames": [[97, 48.9, 117.7, 26.7], [97.8, 49.6, 133.2, 6.1], null, [96.4, 95.6, 107.5, 95.6], null, [73.6, 93.6, 97.1, 93.6]], "indices": [0, 1, 2, 3, 4, 5], "depot": true, "src": "images/roto/r-k-final.png" }, "roto/r-k-montante": { "taille": [959, 140], "decalage": [0, 0], "hauteurAvantRognage": 140, "raccord": false, "cellule": [137, 140], "images": 7, "pieds": [60, 139], "bustes": [76.9, 69.9, 76.9, 75.5, 75.3, 71.8, 101.3], "lames": [[30.8, 47.7, -2.8, 18.6], [36.8, 47.1, 32.1, -8.7], [42.5, 49.9, 79.1, 7.5], [40.4, 53.2, 96.2, 48.5], null, [37.5, 107.2, 33.3, 65.4], [51.4, 66.6, -4.5, 69]], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "src": "images/roto/r-k-montante.png" }, "roto/r-k-haute": { "taille": [1128, 152], "decalage": [0, 0], "hauteurAvantRognage": 152, "raccord": false, "cellule": [141, 152], "images": 8, "pieds": [84, 150], "bustes": [94.6, 95.4, 93.5, 87.5, 93.2, 93.5, 92.4, 87.6], "lames": [[45.9, 64.9, 16.6, 98.7], [45.6, 58, -10.2, 62.8], [48.2, 51.4, 14.7, 22.3], [56.4, 45.2, 51.6, -10.6], [62.2, 46.6, 91.4, 12.8], [62.1, 55.4, 117.9, 50.5], null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "src": "images/roto/r-k-haute.png" }, "roto/r-k-charge": { "taille": [948, 142], "decalage": [0, 0], "hauteurAvantRognage": 142, "raccord": false, "cellule": [79, 142], "images": 12, "pieds": [44, 140], "bustes": [40.9, 40.9, 41.5, 41, 40.9, 40.4, 40.9, 30.1, 40.9, 29.5, 40.9, 46.2], "lames": [[19.9, 54.3, 25.8, -1.3], [19.9, 54.3, 25.8, -1.3], [19.9, 50.3, 25.8, -5.4], [19.9, 54.3, 25.8, -1.3], [19.9, 54.3, 25.8, -1.3], [19.9, 54.3, 25.8, -1.3], [19.9, 54.3, 25.8, -1.3], null, [19.9, 54.3, 25.8, -1.3], [20.9, 56.3, 24.7, 0.4], [19.9, 54.3, 25.8, -1.3], [28.2, 32.1, 4.8, 37.7]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "src": "images/roto/r-k-charge.png" }, "roto/r-k-saute-coupe": { "taille": [1188, 139], "decalage": [0, 0], "hauteurAvantRognage": 139, "raccord": false, "cellule": [132, 139], "images": 9, "pieds": [75, 137], "bustes": [62.9, 71.4, 64.5, 71.5, 71, 85.2, 83.8, 85.5, 99.9], "lames": [[51.5, 53.6, 55.1, -2.2], [50.3, 51.8, 56.2, -3.9], [51.5, 53.6, 55.2, -2.3], [50.3, 51.8, 56.2, -3.9], [50.6, 51.3, 56, -4.4], [51.1, 38.2, 13.6, 79.9], [36, 87.7, 48.6, 33.1], [40.2, 87.9, 48.3, 32.5], [43.7, 36.9, -9.1, 55.3]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "src": "images/roto/r-k-saute-coupe.png" }, "roto/r-k-balayage": { "taille": [966, 85], "decalage": [0, 0], "hauteurAvantRognage": 85, "raccord": false, "cellule": [161, 85], "images": 6, "pieds": [80, 83], "bustes": [86.2, 102.6, 85.9, 102.6, 119.3, 120.4], "lames": [null, null, null, null, null, [33, 12.8, 25.2, 14]], "indices": [0, 1, 2, 3, 4, 5], "depot": true, "src": "images/roto/r-k-balayage.png" }, "roto/r-k-dash-coupe": { "taille": [795, 114], "decalage": [0, 0], "hauteurAvantRognage": 114, "raccord": false, "cellule": [159, 114], "images": 5, "pieds": [50, 111], "bustes": [77.1, 64.7, 62.7, 62.7, 62.8], "lames": [[126.1, 24.6, 77.5, -3.3], [99.3, 49.6, 134.5, 6.1], [71.8, 97.3, 127.6, 93.1], [71.8, 97.3, 127.6, 93.1], [71.8, 97.8, 127.6, 93.1]], "indices": [0, 1, 2, 3, 4], "src": "images/roto/r-k-dash-coupe.png" }, "roto/r-k-fort": { "taille": [1099, 125], "decalage": [0, 0], "hauteurAvantRognage": 125, "raccord": false, "cellule": [157, 125], "images": 7, "pieds": [82, 123], "bustes": [128.2, 85.9, 92.2, 90.8, 89.1, 90.3, 105.6], "lames": [null, null, [71.7, 15.5, 15.9, 20.6], [59.1, 25, 31.1, 53.7], [44.1, 72.8, 56.6, 18.2], [48, 72.9, 55.9, 17.5], [51, 23.2, -1.9, 41.6]], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "src": "images/roto/r-k-fort.png" }, "roto/r-k-estoc": { "taille": [1057, 97], "decalage": [0, 0], "hauteurAvantRognage": 97, "raccord": false, "cellule": [151, 97], "images": 7, "pieds": [47, 95], "bustes": [54.1, 57.9, 65, 64.8, 78.5, 85.3, 68.1], "lames": [[13.8, 6.4, 5.9, 8.3], [29.1, 16.6, 18, 16.6], null, [88, 15.9, 77.9, 8.6], [129.1, 42.3, 137.8, 42.3], null, null], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "src": "images/roto/r-k-estoc.png" }, "roto/r-k-coupe-epaule": { "taille": [585, 98], "decalage": [0, 0], "hauteurAvantRognage": 98, "raccord": false, "cellule": [117, 98], "images": 5, "pieds": [42, 98], "bustes": [56.8, 57.1, 57.1, 57.1, 46], "lames": [[90.3, 36.1, 117.1, 6.1], [90.5, 36.3, 114.8, 9.7], [90.8, 36.6, 118.8, 4.9], [90.8, 36.6, 118.8, 4.9], null], "indices": [0, 1, 2, 3, 4], "depot": true, "src": "images/roto/r-k-coupe-epaule.png" }, "roto/r-k-pied-tournant": { "taille": [1056, 106], "decalage": [0, 0], "hauteurAvantRognage": 106, "raccord": false, "cellule": [132, 106], "images": 8, "pieds": [53, 104], "bustes": [58.8, 46.3, 40.5, 46.3, 58.5, 57.6, 65, 46.3], "lames": [[46.6, 13, 42.3, 4.3], null, null, null, null, null, [38.5, 60.7, 32.7, 67.4], null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "depot": true, "src": "images/roto/r-k-pied-tournant.png" }, "roto/r-k-releve-final": { "taille": [1192, 115], "decalage": [0, 0], "hauteurAvantRognage": 115, "raccord": false, "cellule": [149, 115], "images": 8, "pieds": [62, 113], "bustes": [73.3, 73.8, 75.6, 69.7, 67.7, 108.3, 66, 64.6], "lames": [[87.4, 96.5, 143.1, 91.5], [87.4, 97.1, 143.1, 91.9], [111, 51.7, 146.1, 8.1], [79.7, 10.8, 25.2, -1.8], null, null, null, [46, 10.4, -9.8, 15.5]], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "depot": true, "src": "images/roto/r-k-releve-final.png" }, "roto/r-k-coup-poing": { "taille": [1386, 107], "decalage": [0, 0], "hauteurAvantRognage": 107, "raccord": false, "cellule": [126, 107], "images": 11, "pieds": [40, 104], "bustes": [43.7, 44.9, 44.9, 45.5, 45.6, 43.8, 44.9, 45.9, 45.2, 44.9, 44.7], "lames": [null, null, null, null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "depot": true, "src": "images/roto/r-k-coup-poing.png" }, "roto/r-f-marche": { "taille": [1168, 129], "decalage": [0, 0], "hauteurAvantRognage": 129, "raccord": false, "cellule": [146, 129], "images": 8, "pieds": [55, 127], "bustes": [55.4, 60.5, 60.4, 56.2, 55.2, 61.8, 59, 55.2], "lames": [null, null, null, null, [46.4, 71.9, 24.1, 71.9], null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "ancres": [[96, 127], [60, 127], [56, 127], [56, 127], [54, 127], [74, 127], [56, 127], [61, 127]], "depot": true, "src": "images/roto/r-f-marche.png" }, "roto/r-f-course": { "taille": [775, 102], "decalage": [0, 0], "hauteurAvantRognage": 102, "raccord": false, "cellule": [155, 102], "images": 5, "pieds": [74, 100], "bustes": [96.9, 89.3, 90.3, 86.9, 90.2], "lames": [[73, 20, 53, 11.9], null, [39.1, 6.3, 17.1, 1.5], [77.1, 16.4, 40.1, 12], [56, 13.9, 41, 11.8]], "indices": [0, 1, 2, 3, 4], "ancres": [[97, 100], [62, 100], [71, 100], [94, 100], [91, 100]], "depot": true, "src": "images/roto/r-f-course.png" }, "roto/r-f-garde": { "taille": [768, 122], "decalage": [0, 0], "hauteurAvantRognage": 122, "raccord": false, "cellule": [96, 122], "images": 8, "pieds": [27, 121], "bustes": [44.9, 43, 41.9, 41.9, 43.2, 44.5, 44.8, 45], "lames": [null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "ancres": [[45, 121], [43, 121], [42, 121], [42, 121], [43, 121], [44, 121], [45, 121], [45, 121]], "depot": true, "src": "images/roto/r-f-garde.png" }, "roto/r-f-coupe1": { "taille": [1820, 121], "decalage": [0, 0], "hauteurAvantRognage": 121, "raccord": false, "cellule": [130, 121], "images": 14, "pieds": [25, 117], "bustes": [44.8, 44.2, 47.6, 47.4, 44.2, 46.5, 45.8, 50.5, 41.8, 55.4, 41.7, 45.8, 41.1, 40.8], "lames": [null, null, null, null, null, [44.3, 52.3, 69.8, 62.5], null, [84.6, 52.9, 126.6, 70], [39, 44.1, 79.7, 60.8], [33, 44.9, 71.9, 61.2], [38.8, 42.6, 81.9, 57.3], [38.8, 42.5, 81.7, 56.8], [39.9, 43.4, 81, 56.9], [40, 43.9, 81, 57.1]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "depot": true, "src": "images/roto/r-f-coupe1.png" }, "roto/r-f-coupe3": { "taille": [1422, 133], "decalage": [0, 0], "hauteurAvantRognage": 133, "raccord": false, "cellule": [158, 133], "images": 9, "pieds": [58, 126], "bustes": [100.9, 67.6, 84.9, 67.6, 77.7, 67.4, 68.1, 68.8, 98.5], "lames": [[133.5, 71.5, 149.4, 56.5], [67, 104.9, 106, 106.9], [141.6, 92.6, 153.7, 50.1], [62.7, 103.9, 108, 107.8], [66, 105.1, 107, 107.9], [68, 105.8, 107, 108.1], [70, 104.2, 107, 106.3], [70, 101.9, 112, 104.6], [132.7, 73.3, 147.6, 54.4]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "depot": true, "src": "images/roto/r-f-coupe3.png" }, "roto/r-f-chute": { "taille": [1584, 120], "decalage": [0, 0], "hauteurAvantRognage": 120, "raccord": false, "cellule": [176, 120], "images": 9, "pieds": [86, 115], "bustes": [98.4, 85.2, 87.3, 98.4, 65.4, 80.7, 125.3, 88.9, 83.6], "lames": [null, null, null, null, null, [77.1, 85.9, 86.9, 115.2], [122.7, 88.1, 144.7, 99], [93.3, 104.1, 119.5, 112.7], null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "depot": true, "src": "images/roto/r-f-chute.png" }, "roto/r-f-releve": { "taille": [396, 105], "decalage": [0, 0], "hauteurAvantRognage": 105, "raccord": false, "cellule": [132, 105], "images": 3, "pieds": [59, 101], "bustes": [57.4, 65.4, 73.3], "lames": [null, null, null], "indices": [0, 1, 2], "depot": true, "src": "images/roto/r-f-releve.png" }, "roto/r-b-marche": { "taille": [952, 118], "decalage": [0, 0], "hauteurAvantRognage": 118, "raccord": false, "cellule": [119, 118], "images": 8, "pieds": [48, 115], "bustes": [48.1, 48.9, 48.7, 44.3, 46, 46.5, 48.7, 48], "lames": [null, null, null, null, null, null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "ancres": [[49, 115], [49, 115], [47, 115], [42, 115], [83, 115], [47, 115], [49, 115], [48, 115]], "depot": true, "src": "images/roto/r-b-marche.png" }, "roto/r-b-course": { "taille": [1395, 100], "decalage": [0, 0], "hauteurAvantRognage": 100, "raccord": false, "cellule": [155, 100], "images": 9, "pieds": [81, 95], "bustes": [90.1, 77.7, 76.8, 79, 76.9, 74.2, 77.4, 73.7, 75.5], "lames": [[85.2, 56, 65.4, 58.8], [89, 50.3, 48.1, 51.4], [90, 50.3, 49.1, 51.9], [89.4, 51.2, 55.5, 52.9], [87.5, 54.5, 53.7, 51.8], [86.1, 53.4, 52.4, 51.6], [89.4, 53.2, 55.5, 54.2], [85, 51.6, 52.1, 52.9], null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "ancres": [[77, 95], [79, 95], [77, 95], [75, 95], [77, 95], [55, 95], [78, 95], [43, 95], [93, 95]], "depot": true, "src": "images/roto/r-b-course.png" }, "roto/r-b-garde": { "taille": [600, 116], "decalage": [0, 0], "hauteurAvantRognage": 116, "raccord": false, "cellule": [60, 116], "images": 10, "pieds": [38, 109], "bustes": [34, 33.9, 33.9, 34, 34, 34, 34, 34.1, 34.1, 34.1], "lames": [[40.5, 51.6, 40.5, 103.1], [40.5, 51.6, 40.8, 103.1], [40.2, 51.6, 41, 92.1], [40.3, 51.6, 41.3, 103.1], [40.6, 51.6, 40.4, 103.1], [40.6, 51.6, 40.7, 103.1], [40.5, 51.6, 40.5, 103.1], [40.5, 51.6, 40.5, 103.1], [40.5, 51.6, 40.5, 103.1], [40.5, 51.6, 40.5, 103.1]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "ancres": [[34, 109], [34, 109], [34, 109], [34, 109], [34, 109], [34, 109], [34, 109], [34, 109], [34, 109], [34, 109]], "depot": true, "src": "images/roto/r-b-garde.png" }, "roto/r-b-lancer": { "taille": [792, 121], "decalage": [0, 0], "hauteurAvantRognage": 121, "raccord": false, "cellule": [132, 121], "images": 6, "pieds": [43, 113], "bustes": [56.3, 54.2, 55.7, 57.7, 42.2, 42.8], "lames": [[50.8, 64.4, 49.4, 115.9], [49.9, 64.4, 48.4, 115.9], [50.8, 64.4, 49.4, 115.9], [44.2, 62.7, 48.4, 95.1], [29.6, 77.1, 23.9, 99.5], [39.2, 71.3, 32.5, 98.8]], "indices": [0, 1, 2, 3, 4, 5], "depot": true, "src": "images/roto/r-b-lancer.png" }, "roto/r-b-coup": { "taille": [1672, 131], "decalage": [0, 0], "hauteurAvantRognage": 131, "raccord": false, "cellule": [152, 131], "images": 11, "pieds": [58, 124], "bustes": [62.7, 66.7, 81.8, 69.4, 63.6, 57.3, 51, 63.3, 62.3, 58, 63.1], "lames": [[54.7, 85.5, 40.6, 111.8], null, null, [69.4, 75.6, 39.9, 87.7], null, null, null, null, [73.2, 68.6, 59.9, 104.3], [73.6, 67.2, 76.8, 105.7], null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "depot": true, "src": "images/roto/r-b-coup.png" }, "roto/r-b-chute": { "taille": [1107, 98], "decalage": [0, 0], "hauteurAvantRognage": 98, "raccord": false, "cellule": [123, 98], "images": 9, "pieds": [58, 94], "bustes": [72.7, 58.1, 56.4, 52, 48.1, 46.9, 53.9, 54, 57.8], "lames": [null, [52, 81.9, 86.1, 72], null, null, [47.4, 68.8, 22, 78.2], null, null, null, [56.5, 60, 48, 80.7]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8], "depot": true, "src": "images/roto/r-b-chute.png" }, "roto/r-b-mort": { "taille": [1469, 137], "decalage": [0, 0], "hauteurAvantRognage": 137, "raccord": false, "cellule": [113, 137], "images": 13, "pieds": [65, 127], "bustes": [63.4, 65.7, 71.1, 61.9, 64.7, 65.4, 63.1, 71.8, 71.5, 56.6, 55.2, 62.3, 62], "lames": [null, null, null, null, null, null, null, null, null, [53.9, 103.4, 22.5, 111.1], null, null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "depot": true, "src": "images/roto/r-b-mort.png" }, "roto/r-f-coupe2": { "taille": [2262, 141], "decalage": [0, 0], "hauteurAvantRognage": 141, "raccord": false, "cellule": [174, 141], "images": 13, "pieds": [51, 136], "bustes": [67.4, 74, 72.8, 70.8, 68.6, 73.9, 66.7, 68.8, 72.6, 56.3, 80.2, 80.2, 89.5], "lames": [[77.9, 66.9, 119.8, 85.5], null, null, null, [78, 44.3, 96, 46.3], [90, 61.2, 104.1, 63.3], null, [8.4, 68.6, 27.3, 36.2], [36.3, 14.5, 4.1, 35.2], [24, 11.8, 6, 15.2], [133.5, 26, 104.8, 11.5], [109.9, 11.3, 133, 22.9], [141.7, 77.8, 172.9, 51]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "depot": true, "src": "images/roto/r-f-coupe2.png" }, "roto/r-f-envol": { "taille": [2210, 160], "decalage": [0, 0], "hauteurAvantRognage": 160, "raccord": false, "cellule": [170, 160], "images": 13, "pieds": [55, 152], "bustes": [62.2, 62.2, 60, 63, 50.3, 52.9, 51, 65.4, 53.4, 41.8, 45, 56.2, 53.2], "lames": [[89.7, 76.6, 116.5, 90], [77.9, 6.4, 96.2, 10.3], [59.1, 12.5, 78.1, 15.5], null, [11.5, 33.8, 20.3, 12.7], [4.1, 67.1, 3.4, 51], [23.8, 82.1, 5.6, 59.4], null, [56.8, 110.4, 22.6, 94.8], [102, 103, 99.2, 143.2], null, [126.1, 86.9, 148.9, 84.3], [126.9, 100.9, 167.8, 69]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "depot": true, "src": "images/roto/r-f-envol.png" }, "roto/r-f-grande-coupe": { "taille": [1880, 146], "decalage": [0, 0], "hauteurAvantRognage": 146, "raccord": false, "cellule": [188, 146], "images": 10, "pieds": [70, 138], "bustes": [86.3, 88.3, 92.8, 75.2, 99.4, 113.4, 98.8, 90.7, 81.7, 108.4], "lames": [null, [37.2, 65.6, 49.4, 42.2], [43.8, 14.7, 9.4, 37], [32.9, 16.7, 3.8, 24.3], [81.1, 9.7, 110.1, 20.7], [161.2, 87.2, 185.6, 66.7], [115.4, 100.3, 156.6, 117.9], [119.7, 103.6, 146.8, 115.4], [123.4, 97.9, 178.3, 116], [117.9, 94.1, 79, 96.4]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], "depot": true, "src": "images/roto/r-f-grande-coupe.png" }, "roto/r-f-parade": { "taille": [1650, 121], "decalage": [0, 0], "hauteurAvantRognage": 121, "raccord": false, "cellule": [150, 121], "images": 11, "pieds": [41, 118], "bustes": [63.8, 61.7, 69.7, 62.6, 64.9, 63.3, 64.7, 61.8, 68.2, 85.8, 68.1], "lames": [null, null, [79.3, 79.3, 105.6, 52.6], null, [58.2, 64.8, 31.4, 37.6], [52.2, 72.4, 14.4, 56.4], [55, 79.9, 15, 76.4], [78.5, 85.8, 96.2, 75.3], [133.8, 22.4, 148, 28], null, [60.9, 7, 106, 2.1]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "depot": true, "src": "images/roto/r-f-parade.png" }, "roto/r-f-pied": { "taille": [695, 119], "decalage": [0, 0], "hauteurAvantRognage": 119, "raccord": false, "cellule": [139, 119], "images": 5, "pieds": [63, 113], "bustes": [50.7, 60.9, 63.4, 68.6, 81.4], "lames": [[52, 68.4, 84.3, 78.8], [75.9, 61.4, 107.7, 80.8], [57.3, 61.7, 28.4, 80.9], [61.7, 54.9, 36, 54.8], null], "indices": [0, 1, 2, 3, 4], "depot": true, "src": "images/roto/r-f-pied.png" }, "roto/r-f-poings": { "taille": [1547, 119], "decalage": [0, 0], "hauteurAvantRognage": 119, "raccord": false, "cellule": [119, 119], "images": 13, "pieds": [28, 115], "bustes": [45.1, 45.3, 45.2, 45.6, 45.1, 47.3, 45.1, 47, 47.1, 45.9, 53.5, 54, 53.4], "lames": [null, null, null, null, null, null, null, null, null, null, [40.6, 80.7, 12.2, 108.3], [40.8, 81.5, 11.9, 108.6], [40.8, 81.5, 11.9, 108.6]], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "depot": true, "src": "images/roto/r-f-poings.png" }, "roto/r-f-revers": { "taille": [1573, 130], "decalage": [0, 0], "hauteurAvantRognage": 130, "raccord": false, "cellule": [143, 130], "images": 11, "pieds": [32, 125], "bustes": [66.5, 59.3, 66.6, 59.3, 59.3, 59.4, 59.6, 58.7, 50.2, 53.9, 52.3], "lames": [null, [53, 7.9, 81.9, 1.7], [34.1, 10.3, 55.9, 5.5], [40, 9.1, 77.9, 2.6], [50, 14.5, 97, 18.5], null, [87.2, 18.1, 119.1, 24.7], null, [119.1, 30.6, 132.3, 5.2], null, null], "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "depot": true, "src": "images/roto/r-f-revers.png" }, "roto/r-x-arc": { "taille": [890, 183], "decalage": [0, 0], "hauteurAvantRognage": 183, "raccord": false, "cellule": [178, 183], "images": 5, "pieds": [42, 169], "indices": [0, 1, 2, 3, 4], "depot": true, "ancres": [[42, 175], [42, 173], [42, 179], [42, 179], [42, 179]], "src": "images/roto/r-x-arc.png" }, "roto/r-x-garde": { "taille": [1092, 142], "decalage": [0, 0], "hauteurAvantRognage": 142, "raccord": false, "cellule": [156, 142], "images": 7, "pieds": [66, 136], "indices": [0, 1, 2, 3, 4, 5, 6], "ancres": [[66, 136], [66, 136], [66, 136], [66, 136], [66, 136], [66, 136], [66, 136]], "depot": true, "src": "images/roto/r-x-garde.png" }, "roto/r-x-course": { "taille": [1932, 135], "decalage": [0, 0], "hauteurAvantRognage": 135, "raccord": false, "cellule": [322, 135], "images": 6, "pieds": [179, 128], "indices": [0, 1, 2, 3, 4, 5], "ancres": [[179, 128], [179, 128], [179, 128], [179, 129], [179, 128], [179, 128]], "depot": true, "src": "images/roto/r-x-course.png" }, "roto/r-x-grande-griffe": { "taille": [1456, 123], "decalage": [0, 0], "hauteurAvantRognage": 123, "raccord": false, "cellule": [208, 123], "images": 7, "pieds": [19, 114], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "ancres": [[19, 119], [19, 116], [19, 119], [19, 118], [19, 120], [19, 119], [19, 115]], "src": "images/roto/r-x-grande-griffe.png" }, "roto/r-x-foreuse": { "taille": [1392, 186], "decalage": [0, 0], "hauteurAvantRognage": 186, "raccord": false, "cellule": [232, 186], "images": 6, "pieds": [71, 162], "indices": [0, 1, 2, 3, 4, 5], "depot": true, "ancres": [[71, 162], [71, 183], [71, 167], [71, 167], [71, 157], [71, 168]], "src": "images/roto/r-x-foreuse.png" }, "roto/r-x-chute": { "taille": [1491, 119], "decalage": [0, 0], "hauteurAvantRognage": 119, "raccord": false, "cellule": [213, 119], "images": 7, "pieds": [83, 103], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "ancres": [[83, 106], [83, 109], [83, 115], [83, 111], [83, 112], [83, 108], [83, 103]], "src": "images/roto/r-x-chute.png" }, "roto/r-x-marche": { "taille": [1880, 131], "decalage": [0, 0], "hauteurAvantRognage": 131, "raccord": false, "cellule": [235, 131], "images": 8, "pieds": [67, 122], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "ancres": [[67, 122], [67, 122], [67, 122], [67, 122], [67, 123], [67, 122], [67, 122], [67, 122]], "depot": true, "src": "images/roto/r-x-marche.png" }, "roto/r-x-griffe": { "taille": [1208, 119], "decalage": [0, 0], "hauteurAvantRognage": 119, "raccord": false, "cellule": [151, 119], "images": 8, "pieds": [16, 115], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "depot": true, "ancres": [[16, 116], [16, 115], [16, 115], [16, 117], [16, 115], [16, 116], [16, 114], [16, 114]], "src": "images/roto/r-x-griffe.png" }, "roto/r-x-tourbillon": { "taille": [1004, 210], "decalage": [0, 0], "hauteurAvantRognage": 210, "raccord": false, "cellule": [251, 210], "images": 4, "pieds": [67, 197], "indices": [0, 1, 2, 3], "depot": true, "ancres": [[67, 208], [67, 202], [67, 198], [67, 192]], "src": "images/roto/r-x-tourbillon.png" }, "roto/r-x-rafale": { "taille": [876, 175], "decalage": [0, 0], "hauteurAvantRognage": 175, "raccord": false, "cellule": [219, 175], "images": 4, "pieds": [83, 164], "indices": [0, 1, 2, 3], "depot": true, "ancres": [[83, 160], [83, 172], [83, 167], [83, 164]], "src": "images/roto/r-x-rafale.png" }, "roto/r-x-pied": { "taille": [1656, 254], "decalage": [0, 0], "hauteurAvantRognage": 254, "raccord": false, "cellule": [207, 254], "images": 8, "pieds": [111, 233], "indices": [0, 1, 2, 3, 4, 5, 6, 7], "depot": true, "ancres": [[111, 242], [111, 228], [111, 244], [111, 249], [111, 240], [111, 245], [111, 238], [111, 239]], "src": "images/roto/r-x-pied.png" }, "roto/r-x-plongeon": { "taille": [1056, 154], "decalage": [0, 0], "hauteurAvantRognage": 154, "raccord": false, "cellule": [176, 154], "images": 6, "pieds": [73, 144], "indices": [0, 1, 2, 3, 4, 5], "depot": true, "ancres": [[73, 140], [73, 150], [73, 151], [73, 149], [73, 151], [73, 145]], "src": "images/roto/r-x-plongeon.png" }, "roto/r-x-touche": { "taille": [1572, 167], "decalage": [0, 0], "hauteurAvantRognage": 167, "raccord": false, "cellule": [262, 167], "images": 6, "pieds": [72, 157], "indices": [0, 1, 2, 3, 4, 5], "depot": true, "ancres": [[72, 149], [72, 151], [72, 150], [72, 160], [72, 158], [72, 162]], "src": "images/roto/r-x-touche.png" }, "roto/r-x-releve": { "taille": [840, 142], "decalage": [0, 0], "hauteurAvantRognage": 142, "raccord": false, "cellule": [120, 142], "images": 7, "pieds": [20, 135], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "ancres": [[20, 138], [20, 138], [20, 139], [20, 137], [20, 140], [20, 136], [20, 137]], "src": "images/roto/r-x-releve.png" }, "roto/r-x-intro": { "taille": [1365, 131], "decalage": [0, 0], "hauteurAvantRognage": 131, "raccord": false, "cellule": [195, 131], "images": 7, "pieds": [20, 122], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "ancres": [[20, 123], [20, 127], [20, 127], [20, 128], [20, 126], [20, 128], [20, 129]], "src": "images/roto/r-x-intro.png" }, "roto/r-x-marche2": { "taille": [2499, 179], "decalage": [0, 0], "hauteurAvantRognage": 179, "raccord": false, "cellule": [357, 179], "images": 7, "pieds": [185, 168], "indices": [0, 1, 2, 3, 4, 5, 6], "depot": true, "ancres": [[185, 168], [185, 169], [185, 168], [185, 168], [185, 168], [185, 168], [185, 168]], "src": "images/roto/r-x-marche2.png" } };
+
+// src/js/outils.js
+var clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+var rand = (a, b) => a + Math.random() * (b - a);
+var frac = (x) => x - Math.floor(x);
+var hash = (n) => frac(Math.sin(n * 127.1 + 311.7) * 43758.5453);
+var memoire = { toiles: 0, octets: 0 };
+var toile = (w, h) => {
+  const c = document.createElement("canvas");
+  c.width = w;
+  c.height = h;
+  memoire.toiles++;
+  memoire.octets += w * h * 4;
+  return c;
+};
+
+// src/js/sprites.js
+var S = {};
+var images = /* @__PURE__ */ new Map();
+function chargerImage(src) {
+  if (!images.has(src)) images.set(src, new Promise((ok) => {
+    const i = new Image();
+    i.onload = () => ok(i);
+    i.onerror = () => ok(null);
+    i.src = src;
+  }));
+  return images.get(src);
+}
+async function chargerSprites() {
+  await Promise.all(Object.entries(ART).map(async ([cle2, d]) => {
+    const img = await chargerImage(d.src);
+    if (!img) return;
+    const nom = cle2.split("/")[1];
+    if (!d.cellule) {
+      S[nom] = { img, w: img.width, h: img.height, decalage: d.decalage || [0, 0] };
+      return;
+    }
+    const [cw, ch] = d.cellule, n = d.images;
+    const lecture = toile(img.width, img.height), g = lecture.getContext("2d", { willReadFrequently: true });
+    g.drawImage(img, 0, 0);
+    const px = g.getImageData(0, 0, lecture.width, lecture.height);
+    const c = img;
+    const ancres = [], hauts = [];
+    for (let k = 0; k < n; k++) {
+      let bas = -1;
+      for (let y = ch - 1; y >= 0 && bas < 0; y--) for (let x = 0; x < cw; x++) if (px.data[(y * c.width + k * cw + x) * 4 + 3] > 0) {
+        bas = y;
+        break;
+      }
+      let somme = 0, nb = 0, haut = ch;
+      for (let y = Math.max(0, bas - 4); y <= bas; y++) for (let x = 0; x < cw; x++) if (px.data[(y * c.width + k * cw + x) * 4 + 3] > 0) {
+        somme += x;
+        nb++;
+      }
+      for (let y = 0; y < ch && haut === ch; y++) for (let x = 0; x < cw; x++) if (px.data[(y * c.width + k * cw + x) * 4 + 3] > 0) {
+        haut = y;
+        break;
+      }
+      ancres.push(d.ancres ? d.ancres[k] : d.pieds ? d.pieds : [nb ? Math.round(somme / nb) : cw >> 1, bas < 0 ? ch : bas + 1]);
+      hauts.push(bas + 1 - haut);
+    }
+    S[nom] = { img: c, px, cw, ch, n, ancres, hauts, decor: d.decor || null, lames: d.lames || null, regarde: d.regarde || "droite", depot: !!d.depot, blanc: null, souillures: [], allonge: d.allonge || null, ancre: d.ancre || "pieds" };
+  }));
+}
+function poserCase(g, img, s, k, versGauche, dx, dy, y0 = 0, h = s.ch) {
+  if (!versGauche) {
+    g.drawImage(img, k * s.cw, y0, s.cw, h, dx, dy + y0, s.cw, h);
+    return;
+  }
+  g.scale(-1, 1);
+  g.drawImage(img, k * s.cw, y0, s.cw, h, -(dx + s.cw), dy + y0, s.cw, h);
+  g.scale(-1, 1);
+}
+var blanche = toile(256, 256);
+var gb = blanche.getContext("2d");
+var NIVEAUX = 12;
+var ROUGES = [[70, 6, 12], [112, 10, 20], [150, 16, 26], [178, 30, 34]];
+function bruitTache(x, y) {
+  const v = (a, b, t) => {
+    const i = Math.floor(a / t), j = Math.floor(b / t), fx = a / t - i, fy = b / t - j;
+    const h = (p, q) => hash(p * 57 + q * 131);
+    const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+    return (h(i, j) * (1 - sx) + h(i + 1, j) * sx) * (1 - sy) + (h(i, j + 1) * (1 - sx) + h(i + 1, j + 1) * sx) * sy;
+  };
+  return v(x, y, 7) * 0.55 + v(x + 40, y, 3) * 0.3 + hash(x * 13 + y * 7) * 0.15;
+}
+function souiller(s, niveau) {
+  const seuil = 0.14 + niveau / NIVEAUX * 0.48;
+  const c = toile(s.img.width, s.img.height), g = c.getContext("2d");
+  const d = new ImageData(new Uint8ClampedArray(s.px.data), s.img.width, s.img.height), p = d.data;
+  for (let k = 0; k < s.n; k++) {
+    const [ax, ay] = s.ancres[k];
+    for (let y = 0; y < s.ch; y++) for (let x = 0; x < s.cw; x++) {
+      const i = (y * s.img.width + k * s.cw + x) * 4;
+      if (p[i + 3] === 0) continue;
+      const lum = p[i];
+      if (lum < 120) continue;
+      const bas = (ay - y) / 80;
+      const n = bruitTache(x - ax, y - ay) + (bas < 0.35 ? -0.08 : 0) + (bas > 0.75 ? 0.1 : 0);
+      if (n < seuil) {
+        const r = ROUGES[Math.min(3, Math.floor(lum / 256 * 4 + (seuil - n) * 3))];
+        p[i] = r[0];
+        p[i + 1] = r[1];
+        p[i + 2] = r[2];
+      }
+    }
+  }
+  g.putImageData(d, 0, 0);
+  return { img: c };
+}
+function dessiner(nom, k, x, y, dir, o = {}) {
+  const s = S[nom];
+  if (!s) return false;
+  k = Math.max(0, Math.min(s.n - 1, k | 0));
+  let src = s;
+  if (o.blanc) {
+    k = Math.max(0, Math.min(s.n - 1, k | 0));
+    const [ax2, ay2] = s.ancres[k], vg = dir < 0 === (s.regarde === "droite");
+    if (blanche.width < s.cw || blanche.height < s.ch) {
+      blanche.width = Math.max(blanche.width, s.cw);
+      blanche.height = Math.max(blanche.height, s.ch);
+    }
+    gb.globalCompositeOperation = "source-over";
+    gb.clearRect(0, 0, s.cw, s.ch);
+    poserCase(gb, s.img, s, k, vg, 0, 0);
+    gb.globalCompositeOperation = "source-in";
+    gb.fillStyle = "#f2f1ec";
+    gb.fillRect(0, 0, s.cw, s.ch);
+    gb.globalCompositeOperation = "source-over";
+    const dx2 = vg ? Math.round(x) - (s.cw - ax2) : Math.round(x) - ax2;
+    if (o.alpha != null) ctx.globalAlpha = o.alpha;
+    ctx.drawImage(blanche, 0, 0, s.cw, s.ch, dx2, Math.round(y) - ay2, s.cw, s.ch);
+    if (o.alpha != null) ctx.globalAlpha = 1;
+    return true;
+  } else if (o.souillure > 0.02) {
+    let niv = Math.min(NIVEAUX, Math.ceil(o.souillure * NIVEAUX));
+    while (niv > 0 && !s.souillures[niv]) niv--;
+    if (niv > 0) src = s.souillures[niv];
+  }
+  const [ax, ay] = s.ancres[k];
+  const versGauche = dir < 0 === (s.regarde === "droite");
+  const dx = versGauche ? Math.round(x) - (s.cw - ax) : Math.round(x) - ax;
+  if (o.alpha != null) ctx.globalAlpha = o.alpha;
+  poserCase(ctx, src.img, s, k, versGauche, dx, Math.round(y) - ay);
+  if (o.alpha != null) ctx.globalAlpha = 1;
+  return true;
+}
+var BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+var trames = {};
+function trame(niveau, couleur = "#000") {
+  const cle2 = niveau + couleur;
+  if (trames[cle2]) return trames[cle2];
+  const c = toile(4, 4), g = c.getContext("2d");
+  g.fillStyle = couleur;
+  for (let i = 0; i < 16; i++) if (BAYER[i] < niveau) g.fillRect(i % 4, i >> 2, 1, 1);
+  return trames[cle2] = c;
+}
+var motifs = {};
+function motif(g, niveau, couleur = "#000") {
+  const cle2 = niveau + couleur;
+  return motifs[cle2] || (motifs[cle2] = g.createPattern(trame(niveau, couleur), "repeat"));
+}
+var tampon = toile(400, 260);
+var gt = tampon.getContext("2d");
+function dessinerFondu(nom, k, x, y, dir, reste, o = {}) {
+  const s = S[nom];
+  if (!s || reste <= 0) return;
+  k = Math.max(0, Math.min(s.n - 1, k | 0));
+  const niveau = Math.max(1, Math.min(15, Math.round(reste * 16)));
+  const cw = Math.min(s.cw, tampon.width), ch = Math.min(s.ch, tampon.height);
+  gt.clearRect(0, 0, cw, ch);
+  gt.globalCompositeOperation = "source-over";
+  const [ax, ay] = s.ancres[k], versGauche = dir < 0 === (s.regarde === "droite");
+  poserCase(gt, s.img, s, k, versGauche, 0, 0);
+  gt.globalCompositeOperation = "destination-in";
+  const dx = versGauche ? Math.round(x) - (s.cw - ax) : Math.round(x) - ax, dy = Math.round(y) - ay;
+  gt.fillStyle = motif(gt, niveau);
+  gt.save();
+  gt.translate(-(dx % 4 + 4) % 4, -(dy % 4 + 4) % 4);
+  gt.fillRect(0, 0, cw + 4, ch + 4);
+  gt.restore();
+  gt.globalCompositeOperation = "source-over";
+  ctx.drawImage(tampon, 0, 0, s.cw, s.ch, dx, dy, s.cw, s.ch);
+}
+function lameA(nom, k, x, y, dir) {
+  const s = S[nom], l = s?.lames?.[k];
+  if (!l) return null;
+  const [ax, ay] = s.ancres[k], sens = dir < 0 === (s.regarde === "droite") ? -1 : 1;
+  return [[x + sens * (l[0] - ax), y + (l[1] - ay)], [x + sens * (l[2] - ax), y + (l[3] - ay)]];
+}
+function dessinerTrainee(liste, cam, maintenant, vie) {
+  if (liste.length < 2) return;
+  const pas = 6, polaire = ([a2, b2]) => [a2, Math.atan2(b2[1] - a2[1], b2[0] - a2[0]), Math.hypot(b2[0] - a2[0], b2[1] - a2[1])];
+  const pointes = [];
+  for (let i = 1; i < liste.length; i++) {
+    const [a0, t0, l0] = polaire(liste[i - 1].seg), [a1, t1, l1] = polaire(liste[i].seg);
+    let dt = t1 - t0;
+    if (dt > Math.PI) dt -= 2 * Math.PI;
+    if (dt < -Math.PI) dt += 2 * Math.PI;
+    const age = Math.max(0, 1 - (maintenant - liste[i].t) / vie);
+    ctx.fillStyle = motif(ctx, Math.max(2, Math.round(10 * age)), "#f2f1ec");
+    let prec = null;
+    for (let k = 0; k <= pas; k++) {
+      const f = k / pas, ang = t0 + dt * f, l = l0 + (l1 - l0) * f, ax = a0[0] + (a1[0] - a0[0]) * f, ay = a0[1] + (a1[1] - a0[1]) * f;
+      const pointe = [ax + Math.cos(ang) * l, ay + Math.sin(ang) * l], milieu = [ax + Math.cos(ang) * l * 0.6, ay + Math.sin(ang) * l * 0.6];
+      if (prec) {
+        ctx.beginPath();
+        ctx.moveTo(Math.round(prec[0][0] - cam), Math.round(prec[0][1]));
+        ctx.lineTo(Math.round(pointe[0] - cam), Math.round(pointe[1]));
+        ctx.lineTo(Math.round(milieu[0] - cam), Math.round(milieu[1]));
+        ctx.lineTo(Math.round(prec[1][0] - cam), Math.round(prec[1][1]));
+        ctx.closePath();
+        ctx.fill();
+      }
+      prec = [pointe, milieu];
+      pointes.push([pointe, age]);
+    }
+  }
+  ctx.save();
+  ctx.lineCap = "round";
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 2;
+  for (let i = 1; i < pointes.length; i++) {
+    ctx.globalAlpha = pointes[i][1];
+    ctx.beginPath();
+    ctx.moveTo(Math.round(pointes[i - 1][0][0] - cam), Math.round(pointes[i - 1][0][1]));
+    ctx.lineTo(Math.round(pointes[i][0][0] - cam), Math.round(pointes[i][0][1]));
+    ctx.stroke();
+  }
+  ctx.restore();
+  const [a, b] = liste[liste.length - 1].seg;
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(Math.round(a[0] - cam) + 0.5, Math.round(a[1]) + 0.5);
+  ctx.lineTo(Math.round(b[0] - cam) + 0.5, Math.round(b[1]) + 0.5);
+  ctx.stroke();
+}
+function preparerSouillures(noms, paliers) {
+  const file = [];
+  for (const niv of paliers) for (const n of noms) if (S[n]) file.push([n, niv]);
+  const suite = () => {
+    const t0 = performance.now();
+    while (file.length && performance.now() - t0 < 6) {
+      const [n, niv] = file.shift();
+      const s = S[n];
+      if (!s.souillures[niv]) s.souillures[niv] = souiller(s, niv);
+    }
+    if (!file.length) {
+      prets.souillures = true;
+      libererPixels();
+    }
+    if (file.length) setTimeout(suite, 16);
+  };
+  setTimeout(suite, 500);
+}
+function preparerSignatures(noms) {
+  const file = [];
+  for (const n of noms) if (S[n] && S[n].n) for (let k = 0; k < S[n].n; k++) file.push([n, k]);
+  const suite = () => {
+    const t0 = performance.now();
+    while (file.length && performance.now() - t0 < 5) {
+      const [n, k] = file.shift();
+      signature(S[n], k);
+    }
+    if (!file.length) {
+      prets.signatures = true;
+      libererPixels();
+    }
+    if (file.length) setTimeout(suite, 16);
+  };
+  setTimeout(suite, 900);
+}
+function imageCentrale(nom) {
+  const s = S[nom];
+  if (!s) return 0;
+  if (s.centrale != null) return s.centrale;
+  let meilleur = 0, dmin = Infinity;
+  for (let a = 0; a < s.n; a++) {
+    const sa = signature(s, a);
+    let d = 0;
+    for (let b = 0; b < s.n; b++) {
+      const sb = signature(s, b);
+      for (let i = 0; i < sa.length; i++) d += Math.abs(sa[i] - sb[i]);
+    }
+    if (d < dmin) {
+      dmin = d;
+      meilleur = a;
+    }
+  }
+  return s.centrale = meilleur;
+}
+function dessinerRespire(nom, x, y, dir, t, o = {}) {
+  const s = S[nom];
+  if (!s) return false;
+  const k = imageCentrale(nom), [ax, ay] = s.ancres[k], h = s.hauts[k];
+  const expire = Math.sin(t * Math.PI * 2 / 2.6) > 0.35 ? 1 : 0;
+  const coupe = Math.round(ay - h * 0.55);
+  if (!expire) return dessiner(nom, k, x, y, dir, o);
+  const versGauche = dir < 0 === (s.regarde === "droite");
+  let src = s;
+  if (o.souillure > 0.02) {
+    let niv = Math.min(NIVEAUX, Math.ceil(o.souillure * NIVEAUX));
+    while (niv > 0 && !s.souillures[niv]) niv--;
+    if (niv > 0) src = s.souillures[niv];
+  }
+  const dx = versGauche ? Math.round(x) - (s.cw - ax) : Math.round(x) - ax, dy = Math.round(y) - ay;
+  poserCase(ctx, src.img, s, k, versGauche, dx, dy, coupe, s.ch - coupe);
+  poserCase(ctx, src.img, s, k, versGauche, dx, dy + 1, 0, coupe);
+  return true;
+}
+var nbImages = (nom) => S[nom]?.n || 1;
+var hauteur = (nom, k = 0) => S[nom]?.hauts[Math.min(k, S[nom].n - 1)] || 70;
+var prets = { souillures: false, signatures: false };
+function libererPixels() {
+  if (!prets.souillures || !prets.signatures) return;
+  for (const s of Object.values(S)) if (s && s.px && s.sigs && s.sigs.length >= s.n) s.px = null;
+}
+function signature(s, k) {
+  s.sigs = s.sigs || [];
+  if (s.sigs[k]) return s.sigs[k];
+  const [ax, ay] = s.ancres[k], out = new Float32Array(12 * 16);
+  for (let y = 0; y < s.ch; y++) for (let x = 0; x < s.cw; x++) {
+    if (s.px.data[(y * s.img.width + k * s.cw + x) * 4 + 3] === 0) continue;
+    const gx = Math.floor((x - ax + 90) / 15), gy = Math.floor((ay - y) / 10);
+    if (gx >= 0 && gx < 12 && gy >= 0 && gy < 16) out[gy * 12 + gx]++;
+  }
+  return s.sigs[k] = out;
+}
+function plusProche(depuis, kDepuis, vers) {
+  const a = S[depuis], b = S[vers];
+  if (!a || !b) return 0;
+  const sa = signature(a, kDepuis);
+  let meilleur = 0, dmin = Infinity;
+  for (let k = 0; k < b.n; k++) {
+    const sb = signature(b, k);
+    let d = 0;
+    for (let i = 0; i < sa.length; i++) d += Math.abs(sa[i] - sb[i]);
+    if (d < dmin) {
+      dmin = d;
+      meilleur = k;
+    }
+  }
+  return meilleur;
+}
+
+// src/js/heroine-images.js
+function assemblerHeroine() {
+  for (const nom of Object.keys(S)) if (nom.startsWith("e-k-") && S["r-k-" + nom.slice(4)]) S["r-k-" + nom.slice(4)].effet = nom;
+  if (S["r-coup-fort"]) S["r-coup-air"] = S["r-coup-fort"];
+  if (!/#ancien/.test(location.hash)) {
+    for (const [nouveau, ancien] of [["r-k-marche", "r-marche"], ["r-k-coupes", "r-coup-leger"]])
+      if (S[nouveau]) S[ancien] = S[nouveau];
+  }
+  const extrait = (nom, de, n) => {
+    const s = S[nom];
+    if (!s) return null;
+    const c = document.createElement("canvas");
+    c.width = s.cw * n;
+    c.height = s.ch;
+    c.getContext("2d").drawImage(s.img, de * s.cw, 0, s.cw * n, s.ch, 0, 0, s.cw * n, s.ch);
+    const px = c.getContext("2d").getImageData(0, 0, c.width, c.height);
+    return { ...s, img: c, px, n, ancres: s.ancres.slice(de, de + n), hauts: s.hauts.slice(de, de + n), lames: s.lames?.slice(de, de + n) || null, sigs: null, centrale: null, souillures: [] };
+  };
+  if (!/#ancien/.test(location.hash)) {
+    if (S["r-k-coupes"]) S["r-garde-titre"] = extrait("r-k-coupes", 0, 2);
+    if (S["r-k-garde"]?.depot && S["r-k-garde"].n === 9) {
+      S["r-garde"] = S["r-k-garde"];
+      S["r-garde"].vivante = true;
+      ANIMS["r-garde"] = ANIMS["r-k-garde"];
+    } else if (S["r-k-coupes"]) S["r-garde"] = extrait("r-k-coupes", 0, 2);
+    if (S["r-k-course"]) S["r-course"] = S["r-k-course"];
+    if (S["r-k-estoc"]) S["r-estoc"] = S["r-k-estoc"];
+    else if (S["r-k-combo2"]) S["r-estoc"] = S["r-k-combo2"];
+    if (S["r-k-final"]) {
+      S["r-coup-fort"] = S["r-k-final"];
+      S["r-plonge-fin"] = S["r-k-final"];
+    }
+    if (S["r-k-haute"]) S["r-moulinet"] = S["r-k-haute"];
+    if (S["r-k-fort"]) S["r-bond-coupe"] = S["r-k-fort"];
+    if (S["r-k-haute"]) S["r-revers"] = S["r-k-haute"];
+    if (S["r-k-coup-poing"]) S["r-poing-direct"] = S["r-k-coup-poing"];
+    if (S["r-estoc"]) S["r-estoc-fort"] = S["r-estoc"];
+    if (S["r-k-fort"]) S["r-parade"] = extrait("r-k-fort", 0, 2);
+    else if (S["r-k-charge"]) S["r-parade"] = extrait("r-k-charge", 0, 2);
+    if (S["r-k-chute"]) {
+      S["r-touche"] = extrait("r-k-chute", 0, 3);
+      S["r-mort"] = S["r-k-chute"];
+    }
+  }
+}
+var originaux = {};
+function basculerGundam() {
+  J.gundam = !J.gundam;
+  for (const nom of Object.keys(S)) {
+    if (!nom.startsWith("g-")) continue;
+    const cible = nom.slice(2);
+    if (J.gundam) {
+      if (!(cible in originaux)) originaux[cible] = S[cible];
+      S[cible] = S[nom];
+    } else if (cible in originaux) S[cible] = originaux[cible];
+  }
+  return J.gundam;
+}
+
+// src/js/decor.js
+var DEVANT = SOL + 6;
+J.vent = 0;
+var BOUCLES = ["lune", "fenetres", "cascades", "lanterne", "banniere"];
+function dessinerFond(cam) {
+  const s = S.scene;
+  if (s) ctx.drawImage(s.img, Math.round(-cam), -DECOR_HAUT);
+  else {
+    ctx.fillStyle = "#2a2a28";
+    ctx.fillRect(0, 0, J.W, J.HAUT);
+  }
+  if (!s) return;
+  for (const nom of BOUCLES) {
+    const b = S[nom];
+    if (!b || !b.decor) continue;
+    const x = Math.round(b.decor.x - cam);
+    if (x > J.W || x + b.cw < 0) continue;
+    const k = Math.floor(J.temps * (b.decor.ips || 10)) % b.n;
+    ctx.drawImage(b.img, k * b.cw, 0, b.cw, b.ch, x, b.decor.y - DECOR_HAUT, b.cw, b.ch);
+  }
+}
+function dessinerDevant(cam) {
+  const s = S.scene;
+  if (s) ctx.drawImage(s.img, 0, DEVANT + DECOR_HAUT, s.w, s.h - DEVANT - DECOR_HAUT, Math.round(-cam), DEVANT, s.w, s.h - DEVANT - DECOR_HAUT);
+}
+
+// src/js/ambiance.js
+function creerAmbiance(W, H, sol, { cinemascope = 0 } = {}) {
+  const A = { W, H, sol, t: 0, vent: 0, flocons: [], rafales: [], souffles: [], cinemascope };
+  const couche = (n, z) => {
+    for (let i = 0; i < n; i++) A.flocons.push(nouveau(z, true));
+  };
+  function nouveau(z, partout) {
+    return {
+      x: rand(-40, W + 40),
+      y: partout ? rand(-10, H) : rand(-30, -4),
+      z,
+      v: [10, 26, 55][z] * rand(0.7, 1.3),
+      ph: rand(0, 6.28),
+      g: z === 2 ? Math.random() < 0.35 ? 3 : 2 : 1,
+      a: [0.45, 0.75, 0.9][z] * rand(0.6, 1)
+    };
+  }
+  couche(140, 0);
+  couche(90, 1);
+  couche(28, 2);
+  const brume = toile(W * 2, 60), gb2 = brume.getContext("2d"), d = gb2.createImageData(W * 2, 60);
+  const B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+  for (let y = 0; y < 60; y++) for (let x = 0; x < W * 2; x++) {
+    const n = 0.5 + 0.5 * Math.sin(x * 0.021 + Math.sin(x * 7e-3) * 3) * Math.sin(y * 0.09 + x * 4e-3);
+    const dens = n * Math.sin(Math.PI * y / 60) * 0.55;
+    if (dens * 16 > B[(y & 3) * 4 + (x & 3)] + 1) {
+      const i = (y * W * 2 + x) * 4;
+      d.data[i] = d.data[i + 1] = d.data[i + 2] = 200;
+      d.data[i + 3] = 70;
+    }
+  }
+  gb2.putImageData(d, 0, 0);
+  A.brume = brume;
+  const vig = toile(W, H), gv = vig.getContext("2d"), dv = gv.createImageData(W, H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const dx = (x - W / 2) / (W / 2), dy = (y - H * 0.45) / (H / 2), r = Math.sqrt(dx * dx * 0.8 + dy * dy);
+    const f = Math.max(0, r - 0.72) * 1.9;
+    if (f * 16 > B[(y & 3) * 4 + (x & 3)]) {
+      const i = (y * W + x) * 4;
+      dv.data[i + 3] = Math.min(200, 110 + f * 90);
+    }
+  }
+  gv.putImageData(dv, 0, 0);
+  A.vignette = vig;
+  return A;
+}
+function majAmbiance(A, dt) {
+  A.t += dt;
+  const t = A.t;
+  const bourrasque = Math.max(0, Math.sin(t * 0.13) - 0.55) * 90;
+  A.vent = Math.sin(t * 0.31) * 12 + Math.sin(t * 1.1) * 5 + bourrasque;
+  for (const f of A.flocons) {
+    const k = [0.5, 0.8, 1.3][f.z];
+    f.y += f.v * dt;
+    f.x += (A.vent * k + Math.sin(t * 1.4 + f.ph) * 9 * k) * dt;
+    if (f.y > (f.z === 0 ? A.sol - 4 : A.H + 4) || f.x > A.W + 50 || f.x < -50) Object.assign(f, { x: rand(-40, A.W + 40), y: rand(-30, -4) });
+  }
+  if (Math.random() < dt * (0.6 + bourrasque / 25)) A.rafales.push({ x: A.vent > 0 ? -60 : A.W + 60, y: A.sol + rand(-6, 4), l: rand(40, 140), v: 0, t: 0, vie: rand(1.5, 3) });
+  for (let i = A.rafales.length - 1; i >= 0; i--) {
+    const r = A.rafales[i];
+    r.t += dt;
+    r.x += (A.vent * 3 + Math.sign(A.vent || 1) * 60) * dt;
+    if (r.t > r.vie) A.rafales.splice(i, 1);
+  }
+  for (let i = A.souffles.length - 1; i >= 0; i--) {
+    const s = A.souffles[i];
+    s.t += dt;
+    s.x += (s.dir * 10 + A.vent * 0.5) * dt;
+    s.y -= 6 * dt;
+    if (s.t > 1.4) A.souffles.splice(i, 1);
+  }
+}
+function souffler(A, x, y, dir) {
+  for (let i = 0; i < 6; i++) A.souffles.push({ x: x + dir * i * 1.5, y: y + rand(-1, 1), dir, t: -i * 0.04, r: rand(1, 2.5) });
+}
+function neige(ctx2, A, z, cam) {
+  const par = z === 0 ? 0.1 : z === 1 ? 0.3 : 0.8, paquets = [[], [], [], []], demi = [];
+  for (const f of A.flocons) if (f.z === z) {
+    const x = Math.round(f.x - cam * par), y = Math.round(f.y), n = Math.min(3, f.a * 4 | 0);
+    if (f.g === 3) {
+      paquets[n].push(x, y + 1, 3, 1, x + 1, y, 1, 3);
+      demi.push(x, y, 3, 3);
+    } else paquets[n].push(x, y, f.g, f.g);
+  }
+  ctx2.fillStyle = "#f2f1ec";
+  for (let n = 0; n < 4; n++) {
+    const p = paquets[n];
+    if (!p.length) continue;
+    ctx2.globalAlpha = (n + 0.5) / 4;
+    ctx2.beginPath();
+    for (let i = 0; i < p.length; i += 4) ctx2.rect(p[i], p[i + 1], p[i + 2], p[i + 3]);
+    ctx2.fill();
+  }
+  if (demi.length) {
+    ctx2.globalAlpha = 0.4;
+    ctx2.beginPath();
+    for (let i = 0; i < demi.length; i += 4) ctx2.rect(demi[i], demi[i + 1], demi[i + 2], demi[i + 3]);
+    ctx2.fill();
+  }
+  ctx2.globalAlpha = 1;
+}
+function ambianceFond(ctx2, A, cam = 0) {
+  neige(ctx2, A, 0, cam);
+  neige(ctx2, A, 1, cam);
+  const bx = -((A.t * 7 + cam * 0.6) % A.W);
+  ctx2.globalAlpha = 0.9;
+  ctx2.drawImage(A.brume, Math.round(bx), A.sol - 44);
+  ctx2.globalAlpha = 1;
+}
+function ambianceDevant(ctx2, A, cam = 0) {
+  ctx2.fillStyle = "#e8e7e2";
+  for (const r of A.rafales) {
+    const f = Math.sin(Math.PI * r.t / r.vie);
+    for (let k = 0; k < r.l; k += 2) {
+      const h = hash(k * 7 + Math.floor(r.x));
+      if (h < 0.45 * f) {
+        ctx2.globalAlpha = 0.5 * f * (1 - k / r.l);
+        ctx2.fillRect(Math.round(r.x - k * Math.sign(A.vent || 1)), Math.round(r.y - h * 6 + Math.sin(k * 0.3 + A.t * 8) * 2), 1, 1);
+      }
+    }
+  }
+  for (const s of A.souffles) if (s.t > 0) {
+    ctx2.globalAlpha = Math.max(0, 0.55 * (1 - s.t / 1.4));
+    ctx2.fillStyle = "#dcdbd6";
+    const r = Math.round(s.r + s.t * 3);
+    ctx2.fillRect(Math.round(s.x - r / 2), Math.round(s.y - r / 2), r, r);
+  }
+  ctx2.globalAlpha = 1;
+  neige(ctx2, A, 2, cam);
+  ctx2.drawImage(A.vignette, 0, 0);
+  if (!A.grains) {
+    A.grains = [];
+    for (let j = 0; j < 3; j++) {
+      const c = document.createElement("canvas");
+      c.width = A.W;
+      c.height = A.H;
+      const g = c.getContext("2d");
+      g.fillStyle = "rgba(0,0,0,0.18)";
+      for (let i = 0; i < 260; i++) g.fillRect(Math.random() * A.W | 0, Math.random() * A.H | 0, 1, 1);
+      g.fillStyle = "rgba(255,255,255,0.07)";
+      for (let i = 0; i < 120; i++) g.fillRect(Math.random() * A.W | 0, Math.random() * A.H | 0, 1, 1);
+      A.grains.push(c);
+    }
+  }
+  ctx2.drawImage(A.grains[Math.random() * A.grains.length | 0], 0, 0);
+  if (A.cinemascope) {
+    ctx2.fillStyle = "#000";
+    ctx2.fillRect(0, 0, A.W, A.cinemascope);
+    ctx2.fillRect(0, A.H - A.cinemascope, A.W, A.cinemascope);
+  }
+}
+
+// src/js/sang.js
+var HAUT_TACHES = 44;
+var Y_TACHES = SOL - 12;
+J.taches = null;
+J.gouttes = [];
+J.morceaux = [];
+J.jets = [];
+function viderSang() {
+  J.taches = toile(ARENE, HAUT_TACHES);
+  J.gouttes.length = 0;
+  J.morceaux.forEach(rendre);
+  J.morceaux.length = 0;
+  J.jets.length = 0;
+}
+function gerbe(x, y, dir, n = 40, force = 1, haut = 0.6, retour2 = 0.35) {
+  for (let i = 0; i < n; i++) {
+    const arriere = Math.random() < retour2, v = rand(60, 320) * force * (arriere ? 0.55 : 1), a = rand(-haut, 0.35);
+    J.gouttes.push({
+      x,
+      y,
+      vx: Math.cos(a) * v * (arriere ? -dir : dir) + rand(-30, 30),
+      vy: Math.sin(a) * v - rand(20, 140) * force,
+      t: 0,
+      c: SANG[1 + (Math.random() * 4 | 0)],
+      g: Math.random() < 0.18 ? 2 : 1,
+      prof: rand(-4, 12)
+    });
+  }
+  if (J.gouttes.length > 500) J.gouttes.splice(0, J.gouttes.length - 500);
+}
+function jet(x, y, dir, duree2 = 1.1, angle = -1.35) {
+  J.jets.push({ x, y, dir, t: 0, duree: duree2, angle, suit: null });
+}
+function tacher(x, prof, c, g) {
+  const t = J.taches.getContext("2d");
+  t.fillStyle = c;
+  const y = Math.round(12 + prof), l = g + (Math.random() * 4 | 0);
+  t.fillRect(Math.round(x - l / 2), y, l, g > 1 && Math.random() < 0.5 ? 2 : 1);
+  if (Math.random() < 0.25) {
+    t.fillStyle = SANG[1];
+    t.fillRect(Math.round(x + rand(-4, 4)), y + (Math.random() < 0.5 ? 1 : -1), 1, 1);
+  }
+}
+var reserve = /* @__PURE__ */ new Map();
+function prendre(w, h) {
+  const l = reserve.get(w + "x" + h);
+  J.evt && (J.evt.toile = true);
+  if (l && l.length) {
+    const c = l.pop(), g = c.getContext("2d");
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.globalCompositeOperation = "source-over";
+    g.globalAlpha = 1;
+    g.clearRect(0, 0, w, h);
+    return c;
+  }
+  return toile(w, h);
+}
+function rendre(m) {
+  if (!m || !m.img || !m.img.width) return;
+  const k = m.img.width + "x" + m.img.height;
+  let l = reserve.get(k);
+  if (!l) reserve.set(k, l = []);
+  if (l.length < 24) l.push(m.img);
+}
+function trancher(nom, k, x, dir, ligne, pente, elan) {
+  const s = S[nom];
+  if (!s) return [];
+  const versGauche = dir < 0 === (s.regarde === "droite");
+  const [ax0, ay] = s.ancres[k];
+  const ax = versGauche ? s.cw - ax0 : ax0;
+  const h = s.hauts[k], yCoupe = ay - h * ligne;
+  const morceau = (dessus) => {
+    const c = prendre(s.cw, s.ch), g = c.getContext("2d");
+    g.save();
+    g.beginPath();
+    const y0 = yCoupe - pente * s.cw / 2, y1 = yCoupe + pente * s.cw / 2;
+    if (dessus) {
+      g.moveTo(0, 0);
+      g.lineTo(s.cw, 0);
+      g.lineTo(s.cw, y1);
+      g.lineTo(0, y0);
+    } else {
+      g.moveTo(0, y0);
+      g.lineTo(s.cw, y1);
+      g.lineTo(s.cw, s.ch);
+      g.lineTo(0, s.ch);
+    }
+    g.closePath();
+    g.clip();
+    poserCase(g, s.img, s, k, versGauche, 0, 0);
+    g.restore();
+    g.globalCompositeOperation = "source-atop";
+    g.fillStyle = SANG[2];
+    for (let px = 0; px < s.cw; px++) {
+      const yy = Math.round(y0 + (y1 - y0) * px / s.cw);
+      g.fillRect(px, dessus ? yy - 2 : yy, 1, 2);
+    }
+    return c;
+  };
+  const haut = { img: morceau(true), x, y: SOL, ox: ax, oy: yCoupe, pivot: [ax, yCoupe], rot: 0, vx: elan[0], vy: elan[1], vr: elan[2], t: 0, pose: false, dessus: true };
+  const bas = { img: morceau(false), x, y: SOL, ox: ax, oy: ay, pivot: [ax, ay], rot: 0, vx: 0, vy: 0, vr: 0, t: 0, pose: false, debout: 0.55 + Math.random() * 0.4, dessus: false };
+  haut.y = SOL - h * ligne;
+  J.morceaux.push(haut, bas);
+  if (J.morceaux.length > 60) J.morceaux.splice(0, 2).forEach(rendre);
+  return [haut, bas];
+}
+function gisant(nom, k, x, dir) {
+  const s = S[nom];
+  if (!s) return;
+  const versGauche = dir < 0 === (s.regarde === "droite");
+  const c = prendre(s.cw, s.ch);
+  poserCase(c.getContext("2d"), s.img, s, k, versGauche, 0, 0);
+  const [ax0, ay] = s.ancres[k];
+  J.morceaux.push({ img: c, x, y: SOL, ox: versGauche ? s.cw - ax0 : ax0, oy: ay, pivot: [0, 0], rot: 0, vx: 0, vy: 0, vr: 0, t: 0, pose: true, dessus: false });
+  if (J.morceaux.length > 60) J.morceaux.splice(0, 1).forEach(rendre);
+}
+function majSang(dt) {
+  const H = J.H;
+  for (let i = J.gouttes.length - 1; i >= 0; i--) {
+    const g = J.gouttes[i];
+    g.t += dt;
+    g.vy += GRAVITE * 0.8 * dt;
+    g.x += g.vx * dt;
+    g.y += g.vy * dt;
+    g.vx *= 1 - 0.8 * dt;
+    if (H && H.pv > 0 && Math.abs(g.x - H.x) < 16 && g.y > SOL - 110 && g.y < SOL - 8 && g.vy > -50 && Math.random() < 0.35) {
+      H.souillure = Math.min(0.4, H.souillure + 5e-3);
+      J.gouttes.splice(i, 1);
+      continue;
+    }
+    if (g.y >= SOL + g.prof && g.vy > 0) {
+      if (g.x > 0 && g.x < ARENE) tacher(g.x, g.prof, g.c, g.g);
+      J.gouttes.splice(i, 1);
+    }
+  }
+  for (let i = J.jets.length - 1; i >= 0; i--) {
+    const j = J.jets[i];
+    j.t += dt;
+    if (j.suit) {
+      j.x = j.suit.x + j.dx;
+      j.y = j.suit.y + j.dy;
+    }
+    const force = 1 - j.t / j.duree;
+    if (force <= 0) {
+      J.jets.splice(i, 1);
+      continue;
+    }
+    const pulse = 0.6 + 0.4 * Math.sin(j.t * 22);
+    for (let n = 0; n < 3; n++) {
+      const a = j.angle + rand(-0.25, 0.25), v = rand(180, 360) * force * pulse;
+      J.gouttes.push({ x: j.x, y: j.y, vx: Math.cos(a) * v * j.dir * 0.5, vy: Math.sin(a) * v, t: 0, c: SANG[2 + (Math.random() * 3 | 0)], g: Math.random() < 0.3 ? 2 : 1, prof: rand(-4, 12) });
+    }
+  }
+  for (let i = J.morceaux.length - 1; i >= 0; i--) if (J.morceaux[i].t > RESTE + DISPARITION) rendre(J.morceaux.splice(i, 1)[0]);
+  for (const m of J.morceaux) {
+    m.t += dt;
+    if (m.pose) continue;
+    if (m.debout != null) {
+      if (m.t > m.debout) {
+        m.vr = m.vr || (Math.random() < 0.5 ? -1 : 1) * 2.2;
+        m.rot += m.vr * dt;
+        m.vr *= 1 + 3 * dt;
+        if (Math.abs(m.rot) > 1.45) {
+          m.rot = Math.sign(m.rot) * 1.52;
+          m.pose = true;
+          J.secousse = 0.05;
+        }
+      }
+      continue;
+    }
+    m.vy += GRAVITE * dt;
+    m.x += m.vx * dt;
+    m.y += m.vy * dt;
+    m.rot += m.vr * dt;
+    if (m.y >= SOL - 4 && m.vy > 0) {
+      if (Math.abs(m.vy) > 160) {
+        m.vy *= -0.3;
+        m.vx *= 0.5;
+        m.vr *= 0.5;
+        gerbe(m.x, SOL - 4, Math.sign(m.vx) || 1, 8, 0.5);
+      } else {
+        m.y = SOL - 4;
+        m.pose = true;
+        m.rot = Math.round(m.rot / (Math.PI / 2)) * (Math.PI / 2) + rand(-0.2, 0.2);
+      }
+    }
+  }
+}
+function dessinerTaches(cam) {
+  if (J.taches) ctx.drawImage(J.taches, Math.round(-cam), Y_TACHES);
+}
+var RESTE = 4;
+var DISPARITION = 0.8;
+function dessinerMorceaux(cam) {
+  for (const m of J.morceaux) {
+    const reste = m.t < RESTE ? 1 : 1 - (m.t - RESTE) / DISPARITION;
+    if (reste <= 0) continue;
+    if (reste < 1) ctx.globalAlpha = reste;
+    const x = Math.round(m.x - cam), y = Math.round(m.y);
+    if (!m.rot) ctx.drawImage(m.img, x - m.ox, y - m.oy);
+    else {
+      ctx.translate(x, y);
+      ctx.rotate(m.rot);
+      ctx.drawImage(m.img, -m.ox, -m.oy);
+      ctx.rotate(-m.rot);
+      ctx.translate(-x, -y);
+    }
+    if (reste < 1) ctx.globalAlpha = 1;
+  }
+}
+function dessinerGouttes(cam) {
+  const par = /* @__PURE__ */ new Map();
+  for (const g of J.gouttes) {
+    let l = par.get(g.c);
+    if (!l) par.set(g.c, l = []);
+    l.push(g);
+  }
+  for (const [c, l] of par) {
+    ctx.fillStyle = c;
+    ctx.beginPath();
+    for (const g of l) ctx.rect(Math.round(g.x - cam), Math.round(g.y), g.g, g.g);
+    ctx.fill();
+  }
+}
+
+// src/js/effets.js
+J.etincelles = [];
+J.projectiles = [];
+function etincelles(x, y, n = 10) {
+  for (let i = 0; i < n; i++) {
+    const a = rand(0, 6.28), v = rand(80, 300);
+    J.etincelles.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 60, t: 0, vie: rand(0.12, 0.3) });
+  }
+}
+function majEffets(dt) {
+  for (let i = J.etincelles.length - 1; i >= 0; i--) {
+    const e = J.etincelles[i];
+    e.t += dt;
+    e.vy += GRAVITE * 0.5 * dt;
+    e.x += e.vx * dt;
+    e.y += e.vy * dt;
+    if (e.t > e.vie) J.etincelles.splice(i, 1);
+  }
+}
+function dessinerEtincelles(cam) {
+  for (const e of J.etincelles) {
+    ctx.fillStyle = e.t < e.vie * 0.5 ? "#ffffff" : "#bdbdb6";
+    ctx.fillRect(Math.round(e.x - cam), Math.round(e.y), 1, 1);
+    ctx.fillRect(Math.round(e.x - cam - e.vx * 0.012), Math.round(e.y - e.vy * 0.012), 1, 1);
+  }
+}
+function eclat(x, y, f) {
+  const r = Math.round(2 + f * 7);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(Math.round(x) - r, Math.round(y), 2 * r + 1, 1);
+  ctx.fillRect(Math.round(x), Math.round(y) - r, 1, 2 * r + 1);
+  ctx.fillRect(Math.round(x) - 1, Math.round(y) - 1, 3, 3);
+}
+function etoile(x, y, r, tour, couleur) {
+  ctx.fillStyle = couleur;
+  if (tour) {
+    ctx.fillRect(x - r, y - 1, 2 * r + 1, 3);
+    ctx.fillRect(x - 1, y - r, 3, 2 * r + 1);
+  } else {
+    for (let i = -r; i <= r; i++) {
+      const e = Math.abs(i) < 2 ? 1 : 0;
+      ctx.fillRect(x + i - e, y + i, 2 * e + 1, 1);
+      ctx.fillRect(x + i - e, y - i, 2 * e + 1, 1);
+    }
+  }
+}
+function dessinerShuriken(p, cam, sol) {
+  const x = Math.round(p.x - cam), y = Math.round(p.y), tour = Math.floor(p.t * 20) % 2, sens = Math.sign(p.vx) || 1;
+  for (let k = 4; k >= 1; k--) {
+    ctx.globalAlpha = 0.55 - k * 0.11;
+    etoile(x - sens * k * 8, y, 5, (tour + k) % 2, "#f2f1ec");
+  }
+  ctx.globalAlpha = 1;
+  if (sol != null) {
+    ctx.fillStyle = "rgba(0, 0, 0, .45)";
+    ctx.fillRect(x - 6, sol - 1, 13, 2);
+  }
+  etoile(x, y, 7, tour, "#111");
+  etoile(x, y, 5, tour, "#f2f1ec");
+  ctx.fillStyle = "#111";
+  ctx.fillRect(x - 1, y - 1, 3, 3);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(x + sens * 3, y - 3, 1, 1);
+}
+
+// src/js/heroine.js
+function nouvelleHeroine() {
+  J.H = {
+    x: ARENE / 2,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    dir: 1,
+    etat: "garde",
+    t: 0,
+    anim: "r-garde",
+    k: 0,
+    combo: 0,
+    touches: /* @__PURE__ */ new Set(),
+    pv: PV_MAX,
+    fureur: 0,
+    souillure: 0,
+    invul: 0,
+    tampon: null,
+    paradeDepuis: 9,
+    bloque: 0,
+    marques: [],
+    trainee: [],
+    fantomes: [],
+    court: false,
+    presse: {},
+    enchaine: 0,
+    combo: 0
+  };
+}
+var SOUILLURE_MAX = 0.3;
+var FONDU = 0.12;
+var TRAINEE = 0.16;
+var DASH = 0.26;
+var DECOLLAGE = 0.05;
+var RETOUR = 2 / 60;
+var VOL = 2 * HEROINE.saut / GRAVITE;
+var PLONGE = { appel: 0.05, vx: 340, vy: 430 };
+var duree = (anim) => suiteImages(anim, nbImages(anim)).length / ANIMS[anim].ips;
+function changer(H, etat, anim) {
+  const avant2 = H.anim, kAvant = H.k;
+  if (avant2 && anim && anim !== avant2) H.fondu = { anim: avant2, k: kAvant, x: H.x, y: H.y, dir: H.dir, t: 0 };
+  H.etat = etat;
+  H.t = 0;
+  if (anim) H.anim = anim;
+  if (ANIMS[anim]?.boucle && avant2 && avant2 !== anim) {
+    const k = plusProche(avant2, kAvant, anim), suite = suiteImages(anim, nbImages(anim));
+    H.t = Math.max(0, suite.indexOf(k)) / ANIMS[anim].ips;
+  }
+}
+var auSol = (H) => H.y <= 0;
+var repli = { 3: 0, 4: 2, 5: 0, 6: 2, 7: 1, 8: 1, 9: 2, 10: 4, 11: 4, 12: 1, 13: 0, 14: 0, 15: 8, 16: 5, 17: 0 };
+var coupDispo = (n) => S[COMBO[n]] ? n : repli[n] ?? 0;
+function lancerCoup(H, n, E) {
+  n = coupDispo(n);
+  if (!H.enchaine) {
+    H.legers = 0;
+    H.lourds = 0;
+  }
+  if (CHAINES.sabre.includes(n)) H.legers++;
+  else H.lourds++;
+  if (CHAINES.fort.includes(n)) {
+    H.rangFort = CHAINES.fort.indexOf(n);
+    H.fortT = J.temps;
+  }
+  if (CHAINES.sabre.includes(n)) {
+    H.rangLeger = CHAINES.sabre.indexOf(n);
+    H.legerT = J.temps;
+  }
+  if (CHAINES.corps.includes(n)) {
+    H.rangCorps = CHAINES.corps.indexOf(n);
+    H.corpsT = J.temps;
+  }
+  if (E.L && !E.R) H.dir = -1;
+  else if (E.R && !E.L) H.dir = 1;
+  H.combo = n;
+  H.touches.clear();
+  H.relache = false;
+  changer(H, "coup", COMBO[n]);
+  sfx(ANIMS[COMBO[n]].tranche ? "lourd" : "lame");
+}
+function coupSuivant(H, bouton) {
+  if (bouton === "sabre") {
+    if (H.legers >= CHAINES.sabre.length || H.lourds) return -1;
+    if (collee(H)) return coupCorps(H);
+    return CHAINES.sabre[(H.departLeger + H.legers) % CHAINES.sabre.length];
+  }
+  if (H.lourds >= 2) return -1;
+  const c = CHAINES.fort, n = c[Math.min(c.length - 1, H.legers + H.lourds)];
+  return coupDispo(n) === H.combo ? c[(c.indexOf(n) + 1) % c.length] : n;
+}
+var collee = (H) => J.ennemis.some((e) => e.etat !== "mort" && !e.retirer && (e.x - H.x) * H.dir > -8 && (e.x - H.x) * H.dir < CORPS_A_CORPS);
+function coupCorps(H) {
+  const c = CHAINES.corps.filter((n) => S[COMBO[n]]);
+  if (!c.length) return -1;
+  const recent = J.temps - (H.corpsT ?? -99) < REPRISE_LEGER, i = recent ? (c.indexOf(H.rangCorps == null ? -1 : CHAINES.corps[H.rangCorps]) + 1) % c.length : 0;
+  return c[i];
+}
+function choisirCoup(H, E, touche) {
+  if (touche === "sabre") {
+    if (collee(H)) return coupCorps(H);
+    const c2 = CHAINES.sabre, reprise2 = J.temps - (H.legerT ?? -99) < REPRISE_LEGER;
+    H.departLeger = reprise2 ? (H.rangLeger + 1) % c2.length : H.etat === "marche" ? 2 : 0;
+    return c2[H.departLeger];
+  }
+  if (H.court) return 7;
+  const c = CHAINES.fort, reprise = J.temps - (H.fortT ?? -99) < REPRISE_FORT;
+  return reprise ? c[(H.rangFort + 1) % c.length] : c[0];
+}
+function majHeroine(dt, E) {
+  const H = J.H;
+  if (H.fondu && (H.fondu.t += dt) > FONDU) H.fondu = null;
+  H.t += dt;
+  H.invul = Math.max(0, H.invul - dt);
+  H.paradeDepuis += dt;
+  const A = E.appuis;
+  for (const k of ["sabre", "fort", "up"]) if (A.has(k)) {
+    H.tampon = { k, t: 0 };
+    H.presse[k] = J.temps;
+  }
+  if ((A.has("sabre") || A.has("fort")) && Math.abs((H.presse.sabre ?? -9) - (H.presse.fort ?? -9)) < 0.15 && H.fureur >= 1) H.tampon = { k: "fureur", t: 0 };
+  if (H.tampon && (H.tampon.t += dt) > TAMPON) H.tampon = null;
+  const veut = (k) => H.tampon && H.tampon.k === k;
+  const prendre2 = () => {
+    H.tampon = null;
+  };
+  if (A.has("down")) H.paradeDepuis = 0;
+  const relacheFort = H.fortTenu && !E.fort;
+  H.fortTenu = !!E.fort;
+  if ((E.sabre && E.fort || veut("fureur")) && H.fureur >= 1 && !["fureur", "mort", "touche"].includes(H.etat)) {
+    prendre2();
+    fureur(H, E);
+  }
+  const libre = H.etat === "garde" || H.etat === "marche";
+  if (!auSol(H) || H.vy < 0) {
+    H.vy += GRAVITE * dt;
+    H.y -= H.vy * dt;
+    if (H.y <= 0) {
+      H.y = 0;
+      H.vy = 0;
+      if (H.etat === "plonge") {
+        H.vx = 0;
+        H.combo = 4;
+        H.enchaine = 1;
+        H.legers = 0;
+        H.lourds = 1;
+        H.touches.clear();
+        changer(H, "coup", "r-plonge-fin");
+        sfx("lourd");
+        J.gel = Math.max(J.gel, 0.08);
+        J.secousse = Math.max(J.secousse, 0.14);
+      } else if (H.etat === "saut" || H.etat === "coup-air") {
+        retour(H, ["r-k-saut", 11, 12]);
+        sfx("chute");
+      }
+    }
+  }
+  switch (H.etat) {
+    case "garde":
+    case "marche": {
+      if (veut("fureur") && H.fureur >= 1) {
+        prendre2();
+        fureur(H, E);
+        break;
+      }
+      if (relacheFort && moulinetPossible(H, E)) {
+        moulinet(H);
+        break;
+      }
+      for (const t of ["sabre", "fort"]) if (veut(t)) {
+        prendre2();
+        H.enchaine = 0;
+        lancerCoup(H, choisirCoup(H, E, t), E);
+        break;
+      }
+      if (H.etat === "coup") break;
+      if (veut("up")) {
+        prendre2();
+        sauter(H, E);
+        break;
+      }
+      if (E.parade && !veut("sabre") && !veut("fort")) {
+        changer(H, "parade", "r-parade");
+        break;
+      }
+      if (A.has("dash-left") || A.has("dash-right")) {
+        dasher(H, A.has("dash-left") ? -1 : 1);
+        break;
+      }
+      const d = (E.R ? 1 : 0) - (E.L ? 1 : 0);
+      if (d && H.court && d === H.dir) {
+        H.vx = d * HEROINE.vitesse * 1.9;
+        if (H.etat !== "marche") changer(H, "marche", "r-marche");
+      } else if (d) {
+        H.court = false;
+        H.dir = d;
+        H.vx = d * HEROINE.vitesse;
+        if (H.etat !== "marche") changer(H, "marche", "r-marche");
+      } else if (H.court && S["r-course"]) {
+        H.court = false;
+        H.vx = 0;
+        retour(H, ["r-marche", 0, 1]);
+      } else {
+        H.court = false;
+        H.vx = 0;
+        if (H.etat !== "garde") changer(H, "garde", "r-garde");
+      }
+      break;
+    }
+    case "iai": {
+      H.vx = 0;
+      H.charge += dt;
+      if (Math.floor(H.charge * 3) !== Math.floor((H.charge - dt) * 3)) sfx("choix");
+      if (!E.sabre || H.charge > 1.8) {
+        if (H.charge < 0.35) {
+          changer(H, "garde", "r-garde");
+          break;
+        }
+        iai(H);
+      }
+      break;
+    }
+    case "iai-coupe": {
+      if (H.t >= (H.anim === "r-coup-fort" ? 8 / 16 : duree(H.anim))) changer(H, "garde", "r-garde");
+      break;
+    }
+    case "dash": {
+      const f = H.t / DASH;
+      H.vx = H.dir * HEROINE.vitesse * 7 * (1 - f * 0.7);
+      if (Math.floor(H.t / 0.035) !== H.fantomesN) {
+        H.fantomesN = Math.floor(H.t / 0.035);
+        H.fantomes.push({ anim: H.anim, k: H.k, x: H.x, y: H.y, dir: H.dir, t: 0 });
+      }
+      if (veut("sabre") && f > 0.3) {
+        prendre2();
+        lancerCoup(H, 1, E);
+        break;
+      }
+      if (veut("fort") && f > 0.3) {
+        prendre2();
+        lancerCoup(H, 7, E);
+        break;
+      }
+      if (f >= 1) {
+        H.court = E.L && H.dir < 0 || E.R && H.dir > 0;
+        changer(H, H.court ? "marche" : "garde", H.court ? "r-marche" : "r-garde");
+      }
+      break;
+    }
+    case "coup": {
+      const a2 = ANIMS[H.anim], f = H.t / duree(H.anim);
+      if (a2.esquive) {
+        const ki = H.k - (a2.de || 0);
+        if (ki >= a2.esquive[0] && ki <= a2.esquive[1]) H.invul = Math.max(H.invul, 0.03);
+      }
+      H.vx = f > a2.frappe[0] * 0.7 && f < a2.frappe[1] ? H.dir * a2.pas / (duree(H.anim) * (a2.frappe[1] - a2.frappe[0] * 0.7)) : 0;
+      if (f > a2.frappe[1]) {
+        if (f > a2.suite) {
+          const bouton = ["sabre", "fort"].find((b) => veut(b));
+          if (bouton) {
+            const n2 = coupSuivant(H, bouton);
+            if (n2 >= 0) {
+              prendre2();
+              H.enchaine++;
+              lancerCoup(H, n2, E);
+              break;
+            }
+          }
+        }
+        if (E.parade && H.paradeDepuis < H.t) {
+          changer(H, "parade", "r-parade");
+          break;
+        }
+        if (veut("up")) {
+          prendre2();
+          sauter(H, E);
+          break;
+        }
+        if (veut("fureur") && H.fureur >= 1) {
+          prendre2();
+          fureur(H, E);
+          break;
+        }
+      }
+      if (!E.sabre) H.relache = true;
+      if (E.sabre && !H.relache && H.combo === 0 && !H.enchaine && H.t > 0.2 && f < a2.frappe[0]) {
+        changer(H, "iai", S["r-k-charge"] ? "r-k-charge" : "r-coup-fort");
+        H.charge = 0;
+        sfx("fer");
+        break;
+      }
+      if (f >= 1) {
+        if (a2.puis && S[a2.puis]) {
+          H.combo = COMBO.indexOf(a2.puis);
+          changer(H, "coup", a2.puis);
+          break;
+        }
+        H.combo = 0;
+        H.enchaine = 0;
+        if (moulinetPossible(H, E)) {
+          moulinet(H);
+          break;
+        }
+        if (a2.retour && S[a2.retour[0]]) retour(H, a2.retour);
+        else if (a2.retour) retour(H, ["r-k-saut", 11, 12]);
+        else changer(H, "garde", "r-garde");
+      }
+      break;
+    }
+    case "saut": {
+      if (H.t < DECOLLAGE) {
+        H.vx = 0;
+        break;
+      }
+      if (!H.envol) {
+        H.envol = true;
+        H.vy = -HEROINE.saut;
+        H.y = 0.01;
+        H.vx = H.elan;
+        if (H.salto) H.anim = "r-k-salto";
+      }
+      const d = (E.R ? 1 : 0) - (E.L ? 1 : 0);
+      if (d) {
+        H.dir = d;
+        H.vx = d * HEROINE.vitesse * 1.1;
+      }
+      if (veut("fort") && S["r-k-pied-saute"]) {
+        prendre2();
+        H.touches.clear();
+        changer(H, "coup-air", "r-k-pied-saute");
+        sfx("lame");
+      } else if ((veut("sabre") || veut("fort")) && S["r-k-saute-coupe"]) {
+        prendre2();
+        H.touches.clear();
+        changer(H, "plonge", "r-k-saute-coupe");
+        H.fantomesN = -1;
+        sfx("lourd");
+      } else if (veut("sabre") || veut("fort")) {
+        prendre2();
+        H.touches.clear();
+        changer(H, "coup-air", "r-coup-air");
+        sfx("lourd");
+      }
+      break;
+    }
+    case "coup-air": {
+      if (H.anim === "r-k-pied-saute" && H.k >= 6) H.vx = H.dir * 250;
+      if (H.t >= duree(H.anim) && auSol(H)) changer(H, "garde", "r-garde");
+      break;
+    }
+    case "plonge": {
+      if (H.t < PLONGE.appel) {
+        H.vx *= 0.5;
+        break;
+      }
+      H.vx = H.dir * PLONGE.vx;
+      H.vy = Math.max(H.vy, PLONGE.vy);
+      if (Math.floor(H.t / 0.035) !== H.fantomesN) {
+        H.fantomesN = Math.floor(H.t / 0.035);
+        H.fantomes.push({ anim: H.anim, k: H.k, x: H.x, y: H.y, dir: H.dir, t: 0 });
+      }
+      break;
+    }
+    case "moulinet": {
+      H.vx = 0;
+      if (H.t >= duree(H.anim)) changer(H, "garde", "r-garde");
+      break;
+    }
+    case "retour": {
+      H.vx *= 0.5;
+      const d = (E.R ? 1 : 0) - (E.L ? 1 : 0), presse = veut("sabre") || veut("fort") || veut("up");
+      if (H.t >= RETOUR * H.retourImages.length || H.t >= RETOUR && (d || presse)) {
+        H.combo = 0;
+        H.enchaine = 0;
+        if (moulinetPossible(H, E) && !d && !presse) moulinet(H);
+        else changer(H, "garde", "r-garde");
+      }
+      break;
+    }
+    case "parade": {
+      H.vx = 0;
+      if (E.L && !E.R) H.dir = -1;
+      else if (E.R && !E.L) H.dir = 1;
+      if (H.bloque > 0) {
+        H.bloque -= dt;
+        break;
+      }
+      if (!E.parade) {
+        changer(H, "garde", "r-garde");
+        break;
+      }
+      for (const t of ["sabre", "fort"]) if (veut(t)) {
+        prendre2();
+        lancerCoup(H, choisirCoup(H, E, t), E);
+        break;
+      }
+      break;
+    }
+    case "touche": {
+      H.vx *= 1 - 6 * dt;
+      if (H.t >= duree("r-touche")) changer(H, "garde", "r-garde");
+      break;
+    }
+    case "fureur":
+      majFureur(H, dt);
+      break;
+    case "chute": {
+      H.vx *= 1 - 4 * dt;
+      if (H.t >= duree("r-k-chute") + 0.35) changer(H, "releve", S["r-k-releve"] ? "r-k-releve" : "r-garde");
+      break;
+    }
+    case "releve": {
+      H.vx = 0;
+      if (H.t >= duree(H.anim)) changer(H, "garde", "r-garde");
+      break;
+    }
+    case "mort":
+      H.vx *= 1 - 5 * dt;
+      break;
+  }
+  H.x = Math.max(24, Math.min(ARENE - 24, H.x + H.vx * dt));
+  const a = ANIMS[H.anim], n = nbImages(H.anim), suite = suiteImages(H.anim, n);
+  const i = Math.floor(H.t * a.ips);
+  if (H.etat === "saut" && H.anim === "r-k-salto") H.k = Math.min(n - 1, Math.floor((H.t - DECOLLAGE) / VOL * n));
+  else if (H.etat === "saut" && H.anim === "r-k-saut") H.k = imageSaut(H);
+  else if (H.etat === "saut") H.k = Math.min(n - 1, Math.floor((H.vy < 0 ? 0.1 + 0.4 * (1 + H.vy / HEROINE.saut) : 0.5 + Math.min(0.5, H.vy / 900)) * n));
+  else if (H.etat === "retour") H.k = H.retourImages[Math.min(H.retourImages.length - 1, Math.floor(H.t / RETOUR))];
+  else if (H.etat === "plonge") H.k = H.t < PLONGE.appel ? 5 : 8;
+  else if (H.etat === "parade") H.k = H.bloque > 0 ? Math.min(n - 1, 2 + Math.floor((0.3 - H.bloque) / 0.3 * (n - 2))) : Math.min(1, i);
+  else if (H.etat === "fureur" && H.phase === "ruee") H.k = Math.min(n - 1, 4);
+  else if (H.etat === "fureur") H.k = suite[Math.min(suite.length - 1, Math.floor(H.tp * a.ips))];
+  else if (H.etat === "chute" || H.etat === "releve") H.k = Math.min(n - 1, Math.floor(H.t * a.ips));
+  else if (H.etat === "dash") H.k = S["r-course"] ? 1 : Math.min(n - 1, 5);
+  else if (H.etat === "iai") H.k = H.anim === "r-coup-fort" ? 4 : suite[Math.floor(H.charge * a.ips) % suite.length];
+  else if (H.etat === "iai-coupe") H.k = H.anim === "r-coup-fort" ? Math.min(n - 1, 9 + Math.floor(H.t * 16)) : Math.min(n - 1, Math.floor(H.t * a.ips));
+  else if (H.etat === "marche" && H.court) H.k = S["r-course"] ? Math.floor(H.t * 14) % nbImages("r-course") : suite[Math.floor(H.t * a.ips * 2) % suite.length];
+  else H.k = a.boucle ? suite[i % suite.length] : suite[Math.min(suite.length - 1, i)];
+  for (let j = H.fantomes.length - 1; j >= 0; j--) if ((H.fantomes[j].t += dt) > 0.22) H.fantomes.splice(j, 1);
+  H.traineeT = (H.traineeT || 0) + dt;
+  for (let j = H.trainee.length - 1; j >= 0; j--) if (H.traineeT - H.trainee[j].t > TRAINEE) H.trainee.splice(j, 1);
+  if ((H.etat === "coup" || H.etat === "coup-air") && a.frappe) {
+    const fr = H.t / duree(H.anim);
+    if (fr > a.frappe[0] - 0.18 && fr < a.frappe[1] + 0.08) {
+      const seg = lameA(H.anim, H.k, H.x, SOL - H.y, H.dir);
+      if (seg && (!H.trainee.length || H.trainee[H.trainee.length - 1].k !== H.k)) H.trainee.push({ seg, t: H.traineeT, k: H.k });
+    }
+  } else if (H.etat === "moulinet") {
+    const seg = lameA(H.anim, H.k, H.x, SOL - H.y, H.dir);
+    if (seg && (!H.trainee.length || H.trainee[H.trainee.length - 1].k !== H.k)) H.trainee.push({ seg, t: H.traineeT, k: H.k });
+  } else if (H.etat === "plonge" && H.t >= PLONGE.appel) {
+    const seg = lameA(H.anim, H.k, H.x, SOL - H.y, H.dir);
+    if (seg) H.trainee.push({ seg, t: H.traineeT, k: H.k });
+  }
+}
+function iai(H) {
+  const parfait = H.charge > 0.85 && H.charge < 1.2, portee = parfait ? 230 : 70 + 110 * Math.min(1, H.charge);
+  const x0 = H.x, x1 = Math.max(24, Math.min(ARENE - 24, H.x + H.dir * portee));
+  const touches = J.ennemis.filter((e) => e.etat !== "mort" && !e.retirer && e.x - Math.min(x0, x1) >= -20 && e.x - Math.max(x0, x1) <= 20);
+  touches.forEach((e) => {
+    e.fige = 9;
+    e.jeton = false;
+  });
+  H.x = x1;
+  H.invul = Math.max(H.invul, 0.5);
+  J.coupe = 0.07;
+  J.coupeX0 = x0;
+  J.coupeX1 = x1;
+  changer(H, "iai-coupe", S["r-k-dash-coupe"] ? "r-k-dash-coupe" : "r-coup-fort");
+  sfx("lourd");
+  sfx("parade", 0.05);
+  J.gel = 0.12;
+  J.lent = parfait ? 1.1 : 0.45;
+  if (parfait) J.eclair = 0.15;
+  setTimeout(() => J.coupFureur(touches), parfait ? 450 : 260);
+}
+function dasher(H, d) {
+  H.dir = d;
+  changer(H, "dash", "r-marche");
+  H.fantomesN = -1;
+  H.invul = Math.max(H.invul, 0.12);
+  sfx("lame");
+}
+function retour(H, [planche, ...images2]) {
+  H.retourImages = images2;
+  changer(H, "retour", planche);
+}
+function moulinetPossible(H, E) {
+  if (!S["r-moulinet"] || J.serie < MOULINET.morts || H.moulinetSerie === J.serie || E.sabre || E.fort || J.temps - (H.moulinetT ?? -99) < MOULINET.repos) return false;
+  return !J.ennemis.some((e) => e.etat !== "mort" && (Math.abs(e.x - H.x) < MOULINET.libre || e.etat === "armer" || e.etat === "frappe"));
+}
+function moulinet(H) {
+  H.moulinetSerie = J.serie;
+  H.moulinetT = J.temps;
+  H.vx = 0;
+  H.touches.clear();
+  H.souillure = Math.max(0, H.souillure - MOULINET.sang);
+  H.fureur = Math.min(1, H.fureur + MOULINET.fureur);
+  changer(H, "moulinet", "r-moulinet");
+  sfx("lame");
+  sfx("lame", 0.25);
+}
+function sauter(H, E) {
+  const d = (E.R ? 1 : 0) - (E.L ? 1 : 0);
+  H.envol = false;
+  H.elan = d * HEROINE.vitesse * 1.1;
+  H.vx = 0;
+  H.vy = 0;
+  H.salto = !!(d && S["r-k-salto"]);
+  changer(H, "saut", S["r-k-saut"] ? "r-k-saut" : "r-saut");
+  sfx("lame");
+}
+function imageSaut(H) {
+  if (H.t < DECOLLAGE) return 2;
+  const v = H.vy / HEROINE.saut;
+  if (v < -0.55) return 6;
+  if (v < -0.2) return 7;
+  if (v < 0) return 8;
+  if (v < 0.25) return 9;
+  return 10;
+}
+function fureur(H) {
+  H.fureur = 0;
+  H.marques = [];
+  H.phase = "ruee";
+  H.tp = 0;
+  H.invul = 1.6;
+  changer(H, "fureur", "r-estoc");
+  sfx("fureur");
+  J.lent = 0.5;
+  J.eclair = 0.12;
+}
+function majFureur(H, dt) {
+  H.tp += dt;
+  if (H.phase === "ruee") {
+    H.vx = H.dir * 720;
+    for (const e of J.ennemis) if (!H.marques.includes(e) && e.etat !== "mort" && Math.abs(e.x - H.x) < 30) {
+      H.marques.push(e);
+      e.fige = 9;
+    }
+    if (H.tp > 0.36 || H.x <= 30 || H.x >= ARENE - 30) {
+      H.phase = "coupe";
+      H.tp = 0;
+      H.anim = "r-coup-fort";
+      H.vx = 0;
+    }
+  } else {
+    H.vx = 0;
+    const d = duree("r-coup-fort");
+    if (H.tp > d * 0.55 && H.marques.length) {
+      J.coupFureur(H.marques);
+      H.marques = [];
+    }
+    if (H.tp >= d) changer(H, "garde", "r-garde");
+  }
+}
+function blesserHeroine(source, dirCoup) {
+  const H = J.H;
+  if (H.pv <= 0 || H.invul > 0) return "rien";
+  const face = Math.sign(source.x - H.x) === H.dir || source.x === H.x;
+  if (H.etat === "parade" && face) {
+    etincelles(H.x + H.dir * 22, SOL - H.y - 62, 14);
+    if (H.paradeDepuis < FENETRE_PARFAITE) {
+      H.fureur = Math.min(1, H.fureur + FUREUR_PAR_PARADE);
+      J.parfaites++;
+      sfx("parade");
+      J.lent = 0.45;
+      J.gel = 0.12;
+      H.bloque = 0.3;
+      vibrer(30);
+      return "parfait";
+    }
+    sfx("fer");
+    H.bloque = 0.3;
+    H.x -= H.dir * HEROINE.reculParade * 0.4;
+    J.gel = 0.06;
+    return "pare";
+  }
+  H.pv -= source.degats || 1;
+  H.invul = source.enchaine ? 0.5 : 1.1;
+  H.souillure = Math.min(SOUILLURE_MAX, H.souillure + 0.06);
+  gerbe(H.x, SOL - H.y - 70, dirCoup, 30, 0.8);
+  sfx("aie");
+  sfx("chair");
+  vibrer(60);
+  J.gel = 0.12;
+  J.secousse = 0.2;
+  J.rouge = 0.25;
+  H.vx = dirCoup * 160;
+  H.vy = 0;
+  if (H.pv <= 0) {
+    changer(H, "mort", "r-mort");
+    J.lent = 1.6;
+    J.grandMoment = 2.4;
+    sfx("glas", 0.3);
+    H.vx = dirCoup * 60;
+    H.y = 0;
+  } else if (S["r-k-chute"] && (H.y > 0 || H.pv <= 2 || source.coupe === "pied")) {
+    changer(H, "chute", "r-k-chute");
+    H.invul = 2.2;
+    H.vx = dirCoup * 120;
+  } else changer(H, "touche", "r-touche");
+  return "touche";
+}
+function lameActive() {
+  const H = J.H;
+  if (H.etat === "plonge") {
+    if (H.t < PLONGE.appel) return null;
+    const l2 = lameA(H.anim, H.k, H.x, SOL - H.y, H.dir), pointe2 = l2 ? Math.max(Math.abs(l2[0][0] - H.x), Math.abs(l2[1][0] - H.x)) : 0;
+    return { portee: Math.max(70, pointe2 + 22), degats: 2, tranche: true, coupe: "vertical", anim: H.anim, air: true };
+  }
+  if (H.etat !== "coup" && H.etat !== "coup-air") return null;
+  const a = ANIMS[H.anim], f = H.t / duree(H.anim);
+  if (f < a.frappe[0] - 0.06 || f > a.frappe[1] + 0.06) return null;
+  const l = lameA(H.anim, H.k, H.x, SOL - H.y, H.dir);
+  const pointe = l ? Math.max(Math.abs(l[0][0] - H.x), Math.abs(l[1][0] - H.x)) : 0;
+  return { ...a, portee: Math.max(a.portee, pointe + 22), anim: H.anim, air: H.etat === "coup-air" };
+}
+function dessinerHeroine(cam) {
+  const H = J.H;
+  const eclair = H.invul > 1 && H.etat === "touche";
+  for (const g of H.fantomes) dessinerFondu(g.anim, g.k, g.x - cam, SOL - g.y, g.dir, 0.55 * (1 - g.t / 0.22));
+  const f = H.fondu, frappe = H.etat === "coup" || H.etat === "coup-air" || H.etat === "plonge";
+  const opt = eclair ? { blanc: true } : { souillure: H.souillure };
+  const anim = (H.etat === "dash" || H.etat === "marche" && H.court) && S["r-course"] ? "r-course" : H.anim;
+  const dessine = H.anim === "r-garde" && H.etat === "garde" && !eclair && !(S["r-garde"].vivante && J.etat !== "titre" && J.etat !== "prologue") ? dessinerRespire((J.etat === "titre" || J.etat === "prologue") && S["r-garde-titre"] ? "r-garde-titre" : "r-garde", H.x - cam, SOL - H.y, H.dir, J.temps, opt) : dessiner(anim, H.k, H.x - cam, SOL - H.y, H.dir, opt);
+  if (!dessine) {
+    J.ctx.fillStyle = "#eee";
+    J.ctx.fillRect(Math.round(H.x - cam - 10), Math.round(SOL - H.y - 120), 20, 120);
+  }
+  if (frappe && S[anim]?.effet) dessiner(S[anim].effet, H.k, H.x - cam, SOL - H.y, H.dir);
+  if (H.trainee.length) dessinerTrainee(H.trainee, cam, H.traineeT, TRAINEE);
+  if (H.etat === "iai") {
+    const l = lameA(H.anim, H.k, H.x, SOL - H.y, H.dir), c = Math.min(1, H.charge / 1);
+    if (l) {
+      const f2 = H.charge * 1.7 % 1;
+      eclat(l[0][0] + (l[1][0] - l[0][0]) * f2 - cam, l[0][1] + (l[1][1] - l[0][1]) * f2, c);
+    }
+    if (H.charge > 0.85 && H.charge < 1.2) eclat(H.x - cam + H.dir * 8, SOL - H.y - 70, 1);
+  }
+}
+
+// src/js/ennemis.js
+var ANIM = { sabreur: { marche: "marche", attaque: "attaque" }, ninja: { marche: "course", attaque: "lancer" } };
+var ANIM_F = {
+  marche: "marche",
+  course: "course",
+  garde: "garde",
+  attaque: "coupe1",
+  attaque2: "coupe3",
+  chute: "chute",
+  releve: "releve",
+  mort: "chute",
+  touche: "chute",
+  // les attaques à venir (a-refaire/sabreur-*, rendues dans ChatGPT puis montées par depot.py) : dès que la planche existe, le catalogue l'emploie
+  charge: "grande-coupe",
+  degaine: "coupe1",
+  reversC: "revers",
+  feinte: "garde",
+  revers: "revers",
+  grande: "grande-coupe",
+  envol: "envol",
+  montante: "coupe2",
+  parade: "parade",
+  poings: "poings",
+  crochet: "poings",
+  pied: "pied"
+};
+var ATTAQUES = {
+  attaque: { contexte: ["debout", "relance"], poids: 1, suite: ["revers", "crochet", "montante", "grande"] },
+  // coupe1 : le dégainé horizontal
+  revers: { contexte: ["debout", "relance"], poids: 1, suite: ["grande", "attaque", "pied", "envol"] },
+  // la large coupe de revers
+  grande: { contexte: ["debout"], poids: 0.6, tempo: 1.2, bond: 260, portee: 90, suite: ["revers", "montante", "envol"] },
+  // l'immense coupe : lente, longue
+  charge: { contexte: ["course"], poids: 1, bond: 210, freine: true, enCourant: true, portee: 92, suite: ["revers", "montante", "crochet"] },
+  // (Florian, 28/09 : « tous les trois étaient dans la même pose, bras en l'air » — la course n'avait qu'UNE attaque ; il en a quatre)
+  degaine: { contexte: ["course"], poids: 1, bond: 200, freine: true, enCourant: true, portee: 90, suite: ["revers", "grande", "crochet"] },
+  // B : le dégainé en pleine course, lame à l'horizontale
+  reversC: { contexte: ["course"], poids: 1, bond: 190, freine: true, enCourant: true, portee: 90, suite: ["attaque", "montante", "pied"] },
+  // C : le revers en arrivant, large coupe latérale
+  feinte: { contexte: ["course"], poids: 0.8 },
+  // E : il freine, se met en garde, puis frappe (casse le rythme)   // en pleine course : la lame monte sur les derniers mètres et s'abat en arrivant ; il freine après le coup
+  envol: { contexte: ["air"], poids: 1, sautable: 220, bond: 40, saut: -330, coupe: "vertical", suite: ["revers"] },
+  // la coupe tournoyante en s'élevant : contre ses sauts
+  montante: { contexte: ["air", "debout"], poids: 0.5, sautable: 220, coupe: "vertical", suite: ["grande", "revers"] },
+  // la montante verticale
+  parade: { contexte: ["riposte"], poids: 1, tempo: 0.5, suite: ["revers", "grande"] },
+  // après le moulinet de parade : la riposte
+  poings: { contexte: ["contact"], poids: 1, portee: 40, bond: 40, coupe: "poing", tempo: 0.7, suite: ["crochet", "pied"] },
+  // le direct (au corps à corps)
+  crochet: { contexte: ["contact", "relance"], poids: 0.8, portee: 54, bond: 110, coupe: "poing", tempo: 0.8, suite: ["pied", "revers"] },
+  // le grand crochet (même planche : sa fin)
+  pied: { contexte: ["contact"], poids: 0.7, portee: 48, bond: 60, coupe: "pied", tempo: 0.5, suite: ["grande", "attaque"] }
+  // le coup de pied haut : il renverse
+};
+var ATTAQUES_X = {
+  griffe: { contexte: ["debout", "relance", "contact"], poids: 1.2, tempo: 0.7, portee: 72, bond: 40, suite: ["griffe", "grande", "rafale", "pied"] },
+  grande: { contexte: ["debout", "relance"], poids: 1, portee: 88, bond: 120, suite: ["tourbillon", "griffe", "arc"] },
+  arc: { contexte: ["air", "debout"], poids: 0.8, sautable: 240, saut: -300, bond: 60, coupe: "vertical", suite: ["griffe", "tourbillon"] },
+  tourbillon: { contexte: ["debout", "contact", "relance"], poids: 0.8, portee: 80, bond: 60, suite: ["griffe", "pied"] },
+  pied: { contexte: ["contact", "relance"], poids: 0.9, portee: 62, bond: 30, coupe: "pied", tempo: 0.6, suite: ["griffe", "foreuse"] },
+  plongeon: { contexte: ["loin", "air"], poids: 1, portee: 96, bond: 250, freine: true, saut: -360, coupe: "vertical", suite: ["griffe", "tourbillon"] },
+  foreuse: { contexte: ["course", "loin"], poids: 1.2, portee: 84, bond: 330, saut: -130, freine: true, enCourant: true, suite: ["griffe", "grande"] },
+  // il décolle : la vrille se fait en l'air
+  rafale: { contexte: ["contact", "relance"], poids: 0.9, portee: 68, bond: 30, suite: ["grande", "pied"] }
+};
+var STYLES_X = {
+  pression: {
+    distance: 48,
+    poids: { griffe: 2, rafale: 1.6, pied: 1.2, grande: 0.8, tourbillon: 0.6, arc: 0.4, plongeon: 0.2, foreuse: 0.6 },
+    patterns: [["griffe", "griffe", "rafale"], ["griffe", "pied", "grande"], ["rafale", "griffe", "tourbillon"], ["pied", "griffe", "griffe", "grande"]]
+  },
+  contre: {
+    distance: 96,
+    poids: { griffe: 1, grande: 1.2, tourbillon: 0.8, arc: 1.2, pied: 0.5, rafale: 0.4, plongeon: 0.4, foreuse: 0.8 },
+    patterns: [["grande", "griffe"], ["griffe", "tourbillon"], ["arc", "griffe"]]
+  },
+  voltige: {
+    distance: 150,
+    poids: { plongeon: 2, foreuse: 1.6, arc: 1.2, tourbillon: 0.8, griffe: 0.6, grande: 0.5, rafale: 0.2, pied: 0.3 },
+    patterns: [["plongeon", "tourbillon"], ["foreuse", "griffe", "arc"], ["arc", "plongeon"], ["plongeon", "griffe", "grande"]]
+  }
+};
+var STYLES = Object.keys(STYLES_X);
+function changerStyle(e, force) {
+  const autres = STYLES.filter((s) => s !== e.style);
+  e.style = force || autres[Math.floor(Math.random() * autres.length)];
+  e.styleT = 6 + Math.random() * 4;
+  e.pattern = null;
+}
+var catalogue = (e) => e.type === "boss" ? ATTAQUES_X : ATTAQUES;
+var ANIM_B = { marche: "marche", course: "course", garde: "garde", attaque: "lancer", attaque2: "coup", chute: "chute", mort: "mort", touche: "chute", bond: "chute" };
+var PREFIXE = { sabreur: "sa", ninja: "ni", boss: "sa" };
+var ANIM_X = {
+  bloc: "bloc",
+  garde: "garde",
+  marche: "marche2",
+  course: "course",
+  griffe: "griffe",
+  grande: "grande-griffe",
+  arc: "arc",
+  tourbillon: "tourbillon",
+  pied: "pied",
+  plongeon: "plongeon",
+  foreuse: "foreuse",
+  rafale: "rafale",
+  touche: "touche",
+  chute: "chute",
+  releve: "releve",
+  intro: "intro",
+  attaque: "griffe",
+  mort: "chute"
+};
+var REPLI_X = {
+  griffe: "coupe1",
+  grande: "grande-coupe",
+  arc: "envol",
+  tourbillon: "revers",
+  pied: "pied",
+  plongeon: "envol",
+  foreuse: "grande-coupe",
+  rafale: "poings",
+  touche: "chute",
+  intro: "garde",
+  attaque: "coupe1",
+  mort: "chute",
+  chute: "chute",
+  releve: "releve",
+  garde: "garde",
+  marche: "marche",
+  course: "course"
+};
+var escrimeur = (e) => e.type === "sabreur" || e.type === "boss";
+var SEQ = {
+  sabreur: {
+    attaque: { armer: [0, 1, 2, 3, 4, 5, 6], frappe: [7, 8, 9], repos: [10, 11, 12, 13] },
+    // coupe1 : le dégainé
+    revers: { armer: [0, 1, 2, 3], frappe: [4, 5, 6, 7], repos: [9, 10] },
+    // (8, pose isolée, sautée)
+    grande: { armer: [0, 1, 2, 3], frappe: [4, 5, 6], repos: [7, 8] },
+    // (9, la ruée floue, sautée)
+    charge: { armer: [], frappe: [2, 3, 4, 5, 6], tranche: 2, repos: [7, 8] },
+    degaine: { armer: [], frappe: [6, 7, 8, 9], tranche: 1, repos: [10, 11, 12, 13] },
+    // la lame sort du fourreau dans la foulée
+    reversC: { armer: [], frappe: [3, 4, 5, 6, 7], tranche: 1, repos: [9, 10] },
+    // l'armé : il court encore (planche de course) ; puis la grande coupe : lame levée (2-3), abattue (4-6) — elle ne tranche qu'à partir de 4
+    envol: { armer: [0, 1], frappe: [2, 3, 4, 5, 6, 7, 8], repos: [9, 10, 11, 12] },
+    montante: { armer: [4, 5, 6], frappe: [7, 8, 9, 10], repos: [11, 12] },
+    // 0-3 : des gardes quasi immobiles, sautées
+    parade: { bloque: [2, 3, 4, 5, 6, 7], armer: [7], frappe: [8, 9], repos: [10] },
+    // le moulinet à la parade, puis la riposte
+    poings: { armer: [0], frappe: [1, 2], repos: [3, 4] },
+    crochet: { armer: [9], frappe: [10, 11, 12], repos: [] },
+    pied: { armer: [2], frappe: [0, 1], repos: [3, 4] }
+    // l'anticipation : la pose tournée (2) avant la jambe tendue (0)
+  },
+  ninja: {
+    attaque: { armer: [0, 1, 2], frappe: [3], repos: [4, 5] },
+    // le lancer
+    attaque2: { armer: [0, 1, 2], frappe: [3, 4], repos: [5, 6, 7, 8, 9, 10] }
+    // le coup de chakram
+  },
+  boss: {
+    // lues sur la planche Wolverine (rangée par rangée) et les planches montées ; les doublons de pose de l'original sont sautés
+    griffe: { armer: [0], frappe: [1, 2, 3], repos: [6, 7] },
+    // 0 bras en arrière ; 1-5 la même pose griffes devant (tenue) ; 6-7 il se redresse
+    grande: { armer: [0, 1], frappe: [2, 3], repos: [5, 6] },
+    // 0 bras bas, 1 bras levé ; 2 la fente, 3 le suivi ; 5-6 il se relève (4 : un bout de poing détaché sur l'original)
+    arc: { armer: [0, 1], frappe: [2, 3, 4], repos: [] },
+    // 0-1 accroupi ; 2-4 la montée griffes en l'air (il saute)
+    tourbillon: { armer: [], frappe: [1, 2, 3], repos: [] },
+    // 0 (un bond dessiné géant par ChatGPT) écarté ; 1-3 la toupie accroupie
+    pied: { armer: [0, 1], frappe: [2, 3], repos: [6, 7] },
+    // 0 penché, 1 accroupi ; 2-5 la jambe en l'air (tenue) ; 6-7 il revient
+    plongeon: { armer: [0, 1], frappe: [2, 3], repos: [4, 5] },
+    // 0-1 le bond bras levés ; 2 la plongée griffes devant, 3 l'impact ; 4-5 ramassé
+    foreuse: { armer: [0, 1], frappe: [2, 3, 4, 5], tranche: 1, repos: [] },
+    // 0-1 l'appel (sauf en pleine course : il court) ; 2-5 la vrille
+    rafale: { armer: [0, 1], frappe: [2, 3], repos: [] }
+    // 0-1 bras levés ; 2-3 griffes devant
+  }
+};
+var SEQ_PAR_BANDE = { "r-f-coupe1": "attaque", "r-f-revers": "revers", "r-f-grande-coupe": "grande", "r-f-envol": "envol", "r-f-coupe2": "montante", "r-f-parade": "parade", "r-f-poings": "poings", "r-f-pied": "pied" };
+function seqDe(e) {
+  const propre = SEQ[e.type]?.[e.attaque];
+  if (propre && (e.type !== "boss" || e.anim.startsWith("r-x-"))) return propre;
+  const emprunt = SEQ.sabreur[SEQ_PAR_BANDE[e.anim]];
+  if (emprunt) return emprunt;
+  const n = nbImages(e.anim), a = Math.max(1, Math.round(n * 0.4)), b = Math.max(a + 1, Math.round(n * 0.7)), r = (i, j) => Array.from({ length: Math.max(0, j - i) }, (_, k) => i + k);
+  return { armer: r(0, a), frappe: r(a, b), repos: r(b, n) };
+}
+function coupSuivant2(e, H, dist) {
+  if (J.forcerAttaque && S[nomAnim(e, J.forcerAttaque)]) return J.forcerAttaque;
+  if (e.type === "boss" && e.pattern && e.pattern.length && H.y <= 30) {
+    const k = e.pattern.shift(), c = catalogue(e)[k] || {};
+    const convient = c.contexte.includes("relance") || dist < 60 && c.contexte.includes("contact") || dist >= 90 && c.contexte.includes("loin") || c.contexte.includes("debout");
+    if (S[nomAnim(e, k)] && convient) return k;
+    e.pattern = null;
+  }
+  if (H.y > 30) return choisirAttaque(e, "air", e.attaque);
+  const suites = ((catalogue(e)[e.attaque] || {}).suite || []).filter((k) => S[nomAnim(e, k)] && (dist < 44 || !["poings", "crochet", "pied"].includes(k) || k === "crochet"));
+  return suites.length ? suites[Math.floor(Math.random() * suites.length)] : choisirAttaque(e, "relance", e.attaque);
+}
+function choisirAttaque(e, contexte, sauf) {
+  if (J.forcerAttaque && S[nomAnim(e, J.forcerAttaque)]) return J.forcerAttaque;
+  const st = e.type === "boss" ? STYLES_X[e.style || "pression"] : null;
+  if (st && contexte !== "air" && Math.random() < 0.6) {
+    const p = st.patterns[Math.floor(Math.random() * st.patterns.length)].filter((k) => S[nomAnim(e, k)]);
+    if (p.length && catalogue(e)[p[0]].contexte.includes(contexte)) {
+      e.pattern = p.slice(1);
+      e.chaine = Math.max(e.chaine || 0, p.length);
+      return p[0];
+    }
+  }
+  const choix = Object.entries(catalogue(e)).filter(([k, a]) => k !== sauf && a.contexte.includes(contexte) && S[nomAnim(e, k)]);
+  if (!choix.length) return "attaque";
+  const poids = ([k, a]) => a.poids * (st ? st.poids[k] ?? 1 : 1);
+  let r = Math.random() * choix.reduce((s, c) => s + poids(c), 0);
+  for (const c of choix) {
+    r -= poids(c);
+    if (r <= 0) return c[0];
+  }
+  return choix[choix.length - 1][0];
+}
+var TRAINEE2 = 0.2;
+var RELEVE = { "r-b-chute": [4, 8] };
+var REPRISE = { "r-b-course": 1 };
+var falcon = () => !!S["r-f-marche"];
+var byakki = () => !!S["r-b-marche"];
+var REPLI_X_PROPRE = { touche: "chute", intro: "garde", mort: "chute", releve: "chute", marche: "marche", bloc: "garde" };
+var ANIM_W = {
+  garde: "pret",
+  pret: "pret",
+  marche: "marche",
+  ruee: "ruee",
+  lourd: "lourd",
+  fente: "fente",
+  droit: "droit",
+  pied: "pied",
+  accroupie: "accroupie",
+  tornade: "tornade",
+  saut: "saut",
+  retombee: "retombee",
+  intro: "intro",
+  bloc: "bloc",
+  touche: "touche",
+  souleve: "souleve",
+  chute: "chute",
+  mort: "mort1",
+  mort1: "mort1",
+  mort2: "mort2",
+  gisant: "gisant",
+  releve: "chute",
+  victoire: "victoire"
+};
+var nomAnim = (e, g) => e.type === "boss" ? ANIM_W[g] && S[`r-w-${ANIM_W[g]}`] ? `r-w-${ANIM_W[g]}` : S[`r-x-${ANIM_X[g] || g}`] ? `r-x-${ANIM_X[g] || g}` : S[`r-x-${REPLI_X_PROPRE[g]}`] ? `r-x-${REPLI_X_PROPRE[g]}` : `r-f-${REPLI_X[g] || ANIM_F[g] || g}` : e.type === "sabreur" && falcon() && ANIM_F[g] ? `r-f-${ANIM_F[g]}` : e.type === "ninja" && byakki() && ANIM_B[g] ? `r-b-${ANIM_B[g]}` : `r-${PREFIXE[e.type]}-${(ANIM[e.type] || {})[g] || g}`;
+var prochainId = 1;
+J.ennemis = [];
+function apparaitre(type, cote) {
+  const cfg = ENNEMIS[type];
+  J.ennemis.push({
+    id: prochainId++,
+    type,
+    cfg,
+    x: cote < 0 ? Math.max(-50, J.cam - 40) : Math.min(ARENE + 50, J.cam + J.W + 40),
+    y: 0,
+    vy: 0,
+    vx: 0,
+    dir: -cote,
+    etat: "approche",
+    t: 0,
+    recharge: rand(0.6, 1.6),
+    k: 0,
+    anim: nomAnim({ type }, "marche"),
+    fige: 0,
+    rang: 0,
+    jeton: false,
+    eclair: 0
+  });
+  const e = J.ennemis[J.ennemis.length - 1];
+  if (type === "boss") {
+    e.pvMax = e.pv = BOSS_PV + (J.bossN || 0);
+    e.etat = "entree";
+    e.invul = 9;
+    e.anim = nomAnim(e, "marche");
+    for (const o of J.ennemis) if (o !== e && o.type !== "boss" && o.etat !== "mort") {
+      o.retrait = true;
+      o.jeton = false;
+    }
+    J.boss = e;
+  }
+  return e;
+}
+function changer2(e, etat, g) {
+  const avant2 = e.vu || e.anim, kAvant = e.vu ? e.kVu : e.k, apres = g ? nomAnim(e, g) : avant2;
+  const boucle2 = (n) => n === nomAnim(e, "garde") || n === nomAnim(e, "marche"), course = (n) => n === nomAnim(e, "course");
+  let duree2 = 0;
+  if (e.type === "boss") {
+    e.fondu = null;
+  } else if (avant2 && g && apres !== avant2 && etat !== "frappe" && etat !== "chute" && etat !== "mort" && !course(apres)) {
+    if ((etat === "garde" || etat === "approche") && !course(avant2)) duree2 = 0.12;
+    else if (etat === "armer" && !course(avant2)) duree2 = 0.07;
+    else if (etat === "bond" || etat === "releve" || etat === "esquive") duree2 = 0.1;
+    else if (etat === "bloque" && boucle2(avant2)) duree2 = 0.07;
+  }
+  if (duree2) e.fondu = { anim: avant2, k: Math.min(kAvant, nbImages(avant2) - 1), dir: e.dir, t: 0, duree: duree2 };
+  const tgAvant = e.etat === "repos" && avant2 === nomAnim(e, "garde") ? e.tg : null;
+  e.etat = etat;
+  e.t = 0;
+  e.depuis = 0;
+  if (g) e.anim = nomAnim(e, g);
+  if (e.type === "boss" && g && avant2 && avant2 !== e.anim && S[avant2]?.allonge && S[e.anim]?.allonge && S[avant2].ancre !== S[e.anim].ancre) {
+    const c0 = S[avant2].allonge[Math.min(kAvant, S[avant2].n - 1)].cx, c1 = S[e.anim].allonge[0].cx;
+    e.x += e.dir * (c0 - c1);
+  }
+  if (g && e.anim !== avant2 && etat !== "garde" && etat !== "approche") e.k = 0;
+  if (etat === "garde" && tgAvant != null) {
+    e.t = tgAvant;
+    return;
+  }
+  if ((etat === "garde" || etat === "approche") && avant2 && avant2 !== e.anim && e.type !== "boss") {
+    const k = plusProche(avant2, kAvant, e.anim);
+    e.t = etat === "garde" ? k / (e.type === "boss" ? 6 : 7) : 0;
+    if (etat === "approche") e.pas = k + 0.3;
+  }
+}
+var vivant = (e) => e.etat !== "mort";
+var vitesseJeu = () => 1 + Math.min(0.5, J.chrono / 300);
+var BOSS_COUPS = {
+  lourd: { armer: [0, 1], armerT: 0.42, frappe: [2, 3], frappeT: 0.22, suite: [4, 5], suiteT: 0.16, retour: [6], retourT: 0.16, degats: 2, bond: 40 },
+  fente: { armer: [0], armerT: 0.22, frappe: [1, 2], frappeT: 0.2, retour: [1, 0], retourT: 0.2, degats: 1, bond: 90 },
+  droit: { armer: [4, 3], armerT: 0.3, frappe: [0, 1, 2], frappeT: 0.24, retour: [3, 4], retourT: 0.26, degats: 2 },
+  pied: { armer: [0, 1], armerT: 0.24, frappe: [2, 3], frappeT: 0.2, retour: [4, 5, 6], retourT: 0.3, degats: 1, coupe: "pied" },
+  accroupie: { armer: [3], armerT: 0.18, frappe: [0, 1, 2], frappeT: 0.24, retour: [3], retourT: 0.16, degats: 1 },
+  tornade: { armer: [0, 1], armerT: 0.34, frappe: [2, 3, 4, 5, 6, 7], frappeT: 0.46, contact: [6, 7], retour: [8, 9], retourT: 0.3, degats: 2, bond: 230, coupe: "lateral", ouvert: 0.6 },
+  // T1 (Raiga, choix de Florian) : il se ramasse, fonce bas, se relève et frappe devant ; puis ouvert 0,6 s
+  ruee: { armer: [0], armerT: 0.2, frappe: [1, 2, 3], frappeT: 0.5, retour: [4, 5], retourT: 0.3, degats: 1, saut: -300, bond: 470 }
+};
+var BOSS_FOULEE = 12;
+var bossPhase = (e) => e.pv <= Math.ceil(e.pvMax / 2) ? 2 : 1;
+var bossCoup = (e) => BOSS_COUPS[e.attaque] || BOSS_COUPS.lourd;
+function allongeDe(nom, k) {
+  const s = S[nom], a = s && s.allonge ? s.allonge[Math.max(0, Math.min(k, s.n - 1))] : null;
+  return a ? { avant: Math.max(a.avant, a.corps), corps: a.corps, haut: a.haut, bas: a.bas } : { avant: 80, corps: 60, haut: 120, bas: 0 };
+}
+var cxDe = (nom, k) => {
+  const s = S[nom], a = s && s.allonge ? s.allonge[Math.max(0, Math.min(k, s.n - 1))] : null;
+  return a ? a.cx : 0;
+};
+var centreX = (e) => e.x + e.dir * cxDe(e.anim, e.k);
+var porteeCoup = (e, coup) => {
+  const C = BOSS_COUPS[coup], nom = nomAnim(e, coup);
+  return Math.max(...C.frappe.map((k) => allongeDe(nom, k).avant)) - cxDe(nomAnim(e, "pret"), 0);
+};
+var distanceVoulue = (e) => porteeCoup(e, "lourd") - 45;
+function bossChoisir(e, H, dist) {
+  const p = bossPhase(e), r = Math.random(), voulu = distanceVoulue(e);
+  if (J.forcerAttaque && (BOSS_COUPS[J.forcerAttaque] || J.forcerAttaque === "plongee")) return J.forcerAttaque;
+  if (H.pv <= 0 || H.etat === "chute" || H.etat === "releve") return null;
+  if (dist <= voulu + 20) {
+    const c = r < 0.2 ? "pied" : "accroupie";
+    return r < 0.4 && dist <= porteeCoup(e, c) + 10 ? c : "lourd";
+  }
+  if (dist >= 130 && dist <= porteeCoup(e, "tornade") + BOSS_COUPS.tornade.bond * BOSS_COUPS.tornade.frappeT * 0.8 && r < (p === 2 ? 0.35 : 0.25) && (e.tornadeT || 0) <= 0) return "tornade";
+  if (dist >= 280 && r < (p === 2 ? 0.7 : 0.5)) return "plongee";
+  if (dist >= 170 && dist <= 300 && r < (p === 2 ? 0.5 : 0.35)) return "ruee";
+  return null;
+}
+function bossArmer(e, coup) {
+  e.touche = false;
+  e.blocs = 0;
+  if (coup === "plongee") {
+    e.attaque = "plongee";
+    changer2(e, "armer", "retombee");
+    e.degats = 2;
+    e.coupe = "vertical";
+    return;
+  }
+  const C = BOSS_COUPS[coup];
+  e.attaque = coup;
+  e.degats = C.degats;
+  e.coupe = C.coupe || "lateral";
+  e.enchaine = !!(e.chaine && e.chaine.length);
+  if (coup === "tornade") e.tornadeT = 3;
+  changer2(e, "armer", coup);
+}
+function bossEnchaine(e, H, dist) {
+  if (!e.chaine || !e.chaine.length || H.pv <= 0 || H.etat === "chute" || H.etat === "releve" || e.dir !== Math.sign(H.x - e.x)) {
+    e.chaine = null;
+    return false;
+  }
+  let coup = e.chaine[0];
+  const c = Math.random() < 0.5 ? "pied" : "accroupie";
+  if (!e.insere && Math.random() < 0.6 && dist <= porteeCoup(e, c) + 10) {
+    e.insere = true;
+    coup = c;
+  } else e.chaine.shift();
+  if (dist > porteeCoup(e, coup) + 40) {
+    e.chaine = null;
+    return false;
+  }
+  bossArmer(e, coup);
+  return true;
+}
+function bossLire(e, H, dist) {
+  if (H.etat !== "coup" || H.t > 0.1 || dist > 130 || (e.lecture || 0) > 0 || e.dir !== -H.dir) return false;
+  e.lecture = 0.9;
+  const p = bossPhase(e), lourd = !!ANIMS[H.anim]?.tranche;
+  if (Math.random() < (lourd ? p === 2 ? 0.6 : 0.4 : p === 2 ? 0.85 : 0.65)) {
+    changer2(e, "bloque", "bloc");
+    e.pare = 0.5;
+    e.riposte = false;
+    e.vx = 0;
+    return true;
+  }
+  return false;
+}
+function bossContact(e, H) {
+  const al = allongeDe(e.anim, e.k), devant = (H.x - e.x) * e.dir - 16;
+  if (devant < -8 || devant > al.avant + 6) return false;
+  const bas = e.y + al.bas - 6, haut = e.y + al.haut + 8, hH = hauteur(H.anim, H.k) || 88;
+  return H.y < haut && H.y + hH > bas;
+}
+function bossFrappe(e, H, C) {
+  if (e.touche || C.contact && !C.contact.includes(e.k) || !bossContact(e, H)) return;
+  e.touche = true;
+  const r = blesserHeroine(e, e.dir);
+  if (r === "touche") {
+    J.gel = Math.max(J.gel, e.degats >= 2 ? 0.14 : 0.08);
+    J.secousse = Math.max(J.secousse, 0.3);
+  }
+  if (r === "parfait") {
+    e.chaine = null;
+    changer2(e, "touche", "touche");
+    e.vx = -e.dir * 120;
+    e.eclair = 0.1;
+    e.long = 0.7;
+  }
+  if (r === "pare") {
+    e.vx = -e.dir * 90;
+  }
+}
+function bossImage(e) {
+  const n = nbImages(e.anim), C = bossCoup(e), t = e.t;
+  const seq = (liste, T) => liste && liste.length ? liste[Math.min(liste.length - 1, Math.floor(t / Math.max(0.01, T) * liste.length))] : e.k;
+  let k;
+  switch (e.etat) {
+    case "entree":
+    case "marche":
+      k = Math.floor(e.pas || 0) % n;
+      break;
+    case "intro":
+      k = Math.floor(t * 8);
+      break;
+    case "garde":
+      k = Math.floor(t * 6) % n;
+      break;
+    // « prêt à l'attaque », il se penche et provoque
+    case "armer":
+      k = e.attaque === "plongee" ? Math.min(1, Math.floor(t * 6)) : seq(C.armer, C.armerT);
+      break;
+    case "frappe":
+      k = seq(C.frappe, C.frappeT);
+      break;
+    case "suite":
+      k = seq(C.suite, C.suiteT);
+      break;
+    case "retour":
+      k = seq(C.retour, C.retourT);
+      break;
+    case "saut":
+      k = t < 0.1 ? 0 : t < 0.2 ? 1 : 2 + Math.min(2, Math.floor((t - 0.2) * 6));
+      break;
+    case "plonge":
+      k = t < 0.12 ? 2 : t < 0.3 ? 3 : 4;
+      break;
+    case "atterrit":
+      k = 5;
+      break;
+    case "bloque":
+      k = e.anim === "r-w-bloc" ? Math.floor(t * 8) % n : 1;
+      break;
+    // garde griffes sorties : elle respire
+    case "touche":
+      k = e.souleve ? Math.min(5, Math.floor(t * 10)) : Math.min(3, Math.floor(t * 10));
+      break;
+    // à genoux → accroupi ; soulevé : l'autre planche
+    case "chute":
+      k = Math.floor(t * 12);
+      break;
+    case "releve":
+      k = 3;
+      break;
+    case "mort":
+      k = e.anim === "r-w-mort1" ? Math.min(n - 1, Math.floor(t * 8)) : e.anim === "r-w-mort2" ? Math.floor(t * 12) : Math.floor(t * 5);
+      break;
+    // envoyé en l'air → culbute → face contre terre
+    case "victoire":
+      k = Math.floor(t * 7) % (n + 8);
+      break;
+    // V2 : la provocation, rejouée après un temps
+    default:
+      k = e.k;
+  }
+  return Math.max(0, Math.min(n - 1, k));
+}
+function majBoss(e, dt) {
+  const H = J.H, cfg = e.cfg, dx = H.x - centreX(e), dist = Math.abs(dx), face = () => {
+    e.dir = Math.sign(dx) || e.dir;
+  };
+  e.recharge -= dt;
+  if (e.lecture > 0) e.lecture -= dt;
+  if (e.pare > 0) e.pare -= dt;
+  if (e.tornadeT > 0) e.tornadeT -= dt;
+  if (e.ouvert > 0) e.ouvert -= dt;
+  const n = nbImages(e.anim), p = bossPhase(e), C = bossCoup(e), vitesse = cfg.vitesse * (p === 2 ? 1.5 : 1.25);
+  const marcher = (v) => {
+    e.vx = e.dir * v;
+    e.pas = (e.pas || 0) + Math.abs(e.vx) * dt / BOSS_FOULEE;
+  };
+  switch (e.etat) {
+    case "entree": {
+      face();
+      marcher(vitesse * 0.9);
+      if (dist < 240 || e.t > 4) {
+        changer2(e, "intro", "intro");
+        e.vx = 0;
+      }
+      break;
+    }
+    case "intro": {
+      e.vx = 0;
+      if (e.t >= 5 / 8 && !e.snikt) {
+        e.snikt = true;
+        sfx("taiko");
+        J.secousse = Math.max(J.secousse, 0.2);
+      }
+      if (e.t >= n / 8 + 0.2) {
+        changer2(e, "garde", "garde");
+        e.pret = true;
+        e.invul = 0;
+        e.recharge = 0.9;
+      }
+      break;
+    }
+    case "garde": {
+      face();
+      e.vx = 0;
+      if (e.anim !== nomAnim(e, "garde")) e.anim = nomAnim(e, "garde");
+      if (H.pv <= 0 && e.t > 0.6 && S["r-w-victoire"]) {
+        changer2(e, "victoire", "victoire");
+        break;
+      }
+      if (bossLire(e, H, dist)) break;
+      const coup = e.recharge <= 0 && e.t >= 0.15 ? bossChoisir(e, H, dist) : null;
+      if (coup) {
+        if (coup === "lourd") {
+          e.chaine = ["fente", "droit"];
+          e.insere = false;
+        }
+        bossArmer(e, coup);
+        break;
+      }
+      if (dist > distanceVoulue(e) + 30 && e.t >= 0.25 && H.pv > 0) {
+        changer2(e, "marche", "marche");
+        e.pas = 0;
+      }
+      break;
+    }
+    case "marche": {
+      face();
+      marcher(vitesse);
+      if (bossLire(e, H, dist)) break;
+      const coup = e.recharge <= 0 ? bossChoisir(e, H, dist) : null;
+      if (coup) {
+        if (coup === "lourd") {
+          e.chaine = ["fente", "droit"];
+          e.insere = false;
+        }
+        bossArmer(e, coup);
+        break;
+      }
+      if (dist <= distanceVoulue(e) || H.pv <= 0) changer2(e, "garde", "garde");
+      break;
+    }
+    case "armer": {
+      e.vx = 0;
+      if (e.attaque === "plongee") {
+        if (e.t >= 0.3) {
+          changer2(e, "saut", "saut");
+          e.vy = -560;
+          e.y = 0.01;
+          e.vx = e.dir * Math.max(60, Math.min(300, (dist - 70) / 0.8));
+        }
+        break;
+      }
+      if (e.t >= C.armerT) {
+        changer2(e, "frappe");
+        sfx("lame");
+        if (C.saut && e.y === 0) {
+          e.vy = C.saut;
+          e.y = 0.01;
+        }
+        if (e.attaque === "ruee") e.bond = Math.max(120, Math.min(C.bond, (dist - 110) / 0.42));
+      }
+      break;
+    }
+    case "frappe": {
+      e.vx = e.dir * (e.attaque === "ruee" ? e.bond : C.bond || 0) * (e.attaque === "ruee" && e.y === 0 ? 0.3 : 1);
+      bossFrappe(e, H, C);
+      if (e.etat !== "frappe") break;
+      if (e.t >= C.frappeT && e.y === 0) changer2(e, C.suite ? "suite" : "retour");
+      else if (e.attaque === "ruee" && e.y === 0 && e.t > 0.25) changer2(e, "retour");
+      break;
+    }
+    case "suite": {
+      e.vx *= 1 - 6 * dt;
+      bossFrappe(e, H, C);
+      if (e.etat === "suite" && e.t >= C.suiteT) changer2(e, "retour");
+      break;
+    }
+    case "retour": {
+      e.vx *= 1 - 8 * dt;
+      if (e.t >= C.retourT) {
+        if (bossEnchaine(e, H, dist)) break;
+        changer2(e, "garde", "garde");
+        e.recharge = (C.ouvert || 0) + (p === 2 ? rand(0.4, 0.8) : rand(0.8, 1.3));
+        e.ouvert = C.ouvert || 0;
+      }
+      break;
+    }
+    case "saut": {
+      if (e.vy >= -40 || e.t > 0.6) {
+        changer2(e, "plonge", "retombee");
+        e.vx = e.dir * 140;
+      }
+      break;
+    }
+    case "plonge": {
+      if (e.t < 0.12) e.vx = e.dir * 160;
+      else {
+        e.vx = e.dir * 90;
+        if (e.vy < 320) e.vy = 320;
+      }
+      bossFrappe(e, H, C);
+      if (e.y === 0 && e.t > 0.15) {
+        changer2(e, "atterrit", "retombee");
+        e.vx = 0;
+        sfx("taiko");
+        J.secousse = Math.max(J.secousse, 0.3);
+      }
+      break;
+    }
+    case "atterrit": {
+      e.vx = 0;
+      if (e.t < 0.12) bossFrappe(e, H, C);
+      if (e.etat === "atterrit" && e.t >= 0.3) {
+        changer2(e, "garde", "garde");
+        e.recharge = p === 2 ? 0.5 : 0.9;
+        e.ouvert = 0.4;
+      }
+      break;
+    }
+    case "bloque": {
+      face();
+      e.vx *= 1 - 10 * dt;
+      if (e.t > 0.32 && e.pare <= 0) {
+        if (e.riposte && dist < porteeCoup(e, "fente") + 10 && H.pv > 0 && (p === 2 || Math.random() < 0.6)) {
+          e.riposte = false;
+          e.chaine = ["droit"];
+          bossArmer(e, "fente");
+        } else {
+          e.riposte = false;
+          changer2(e, "garde", "garde");
+          e.recharge = Math.min(e.recharge, 0.3);
+        }
+      }
+      break;
+    }
+    case "touche": {
+      e.vx *= 1 - 7 * dt;
+      if (e.t > (e.long || (e.souleve ? 0.6 : 0.45))) {
+        e.long = 0;
+        e.souleve = false;
+        changer2(e, "garde", "garde");
+        e.recharge = 0.35;
+      }
+      break;
+    }
+    case "chute": {
+      e.vx *= 1 - 5 * dt;
+      if (e.t >= n / 12 + 0.6) {
+        changer2(e, "releve", "chute");
+        e.invul = 0.2;
+      }
+      break;
+    }
+    case "releve": {
+      e.vx = 0;
+      if (e.t >= 0.35) {
+        changer2(e, "garde", "garde");
+        e.recharge = 0.4;
+      }
+      break;
+    }
+    case "victoire": {
+      e.vx = 0;
+      break;
+    }
+    case "mort": {
+      if (e.anim === "r-w-mort1") {
+        if (e.y === 0 && e.t > 0.2) {
+          changer2(e, "mort", "mort2");
+          e.vx = e.vx * 0.6;
+        }
+      } else if (e.anim === "r-w-mort2") {
+        e.vx *= 1 - 3 * dt;
+        if (e.t >= n / 12) {
+          changer2(e, "mort", "gisant");
+          e.vx = 0;
+        }
+      } else {
+        e.vx = 0;
+        if (e.t >= 1.4) {
+          gisant(e.anim, n - 1, e.x, e.dir);
+          e.retirer = true;
+        }
+      }
+      break;
+    }
+    default:
+      changer2(e, "garde", "garde");
+  }
+  e.k = bossImage(e);
+  if (e.y === 0 && !["frappe", "suite", "plonge", "chute", "mort", "touche"].includes(e.etat) && H.pv > 0) {
+    const c = centreX(e), d = H.x - c;
+    if (Math.abs(d) < 60) {
+      e.x -= (Math.sign(d) || e.dir) * (60 - Math.abs(d));
+      if (e.vx * (Math.sign(d) || e.dir) > 0) e.vx = 0;
+    }
+  }
+}
+function majEnnemis(dt) {
+  const H = J.H;
+  for (const cote of [-1, 1]) {
+    const liste = J.ennemis.filter((e) => vivant(e) && Math.sign(e.x - H.x) === cote && e.type !== "ninja").sort((a, b) => Math.abs(a.x - H.x) - Math.abs(b.x - H.x));
+    liste.forEach((e, i) => {
+      e.rang = i;
+    });
+  }
+  let attaquants = J.ennemis.filter((e) => e.jeton).length;
+  for (const e of J.ennemis) {
+    e.t += dt;
+    e.depuis = (e.depuis || 0) + dt;
+    e.eclair = Math.max(0, e.eclair - dt);
+    if (e.fondu && (e.fondu.t += dt) > (e.fondu.duree || 0.12)) e.fondu = null;
+    if (e.fige > 0) {
+      e.fige -= dt;
+      if (e.fige < 5) e.fige = Math.max(0, e.fige);
+      continue;
+    }
+    const cfg = e.cfg, dx = H.x - e.x, dist = Math.abs(dx), v = vitesseJeu();
+    const peutTourner = e.etat === "approche" || e.etat === "garde";
+    if (peutTourner) e.dir = Math.sign(dx) || e.dir;
+    if (e.y > 0 || e.vy < 0) {
+      e.vy += GRAVITE * dt;
+      e.y -= e.vy * dt;
+      if (e.y <= 0) {
+        e.y = 0;
+        e.vy = 0;
+        if (e.type === "boss") J.secousse = Math.max(J.secousse, 0.12);
+        if (e.etat === "bond") {
+          const r = RELEVE[nomAnim(e, "chute")];
+          if (r) {
+            changer2(e, "releve", "chute");
+            e.depart = r[0];
+            e.cadence = 14;
+            e.retour = false;
+            e.vx = 0;
+          } else changer2(e, "garde", "garde");
+        }
+      }
+    }
+    if (e.invul > 0) e.invul -= dt;
+    if (e.retrait && (e.etat === "approche" || e.etat === "garde")) {
+      e.dir = Math.sign(dx) || e.dir;
+      e.vx = -e.dir * cfg.vitesse * 2.2;
+      e.charge = false;
+      if (e.etat !== "approche" || e.anim !== nomAnim(e, "course")) changer2(e, "approche", "course");
+      if (Math.abs(e.x - (J.cam + J.W / 2)) > J.W / 2 + 90) e.retirer = true;
+      e.pas = (e.pas || 0) + Math.abs(e.vx) * dt / 22;
+      e.k = Math.floor(e.pas) % nbImages(e.anim);
+      e.x += e.vx * dt;
+      e.vu = e.anim;
+      e.kVu = e.k;
+      continue;
+    }
+    if (e.type === "boss") {
+      majBoss(e, dt);
+    } else switch (e.etat) {
+      case "entree": {
+        e.dir = Math.sign(dx) || e.dir;
+        e.vx = e.dir * cfg.vitesse * 0.85;
+        if (dist < 230 || e.t > 4) {
+          changer2(e, "intro", "intro");
+          e.vx = 0;
+          sfx("taiko");
+          J.secousse = Math.max(J.secousse, 0.25);
+        }
+        break;
+      }
+      case "intro": {
+        e.vx = 0;
+        if (e.t >= Math.max(0.8, nbImages(e.anim) / 9)) {
+          changer2(e, "garde", "garde");
+          e.recharge = 1.3;
+          e.invul = 0;
+          e.pret = true;
+        }
+        break;
+      }
+      // pret : sa jauge apparaît, le combat commence (elle a le temps de reprendre la main avant son premier coup)
+      case "esquive": {
+        e.vx = -e.dir * 480;
+        e.invul = Math.max(e.invul || 0, 0.06);
+        if (e.t > 0.24 && e.y === 0) {
+          changer2(e, "garde", "garde");
+          e.recharge = 0;
+          e.chaine = 3;
+          e.pattern = e.style === "voltige" ? ["plongeon", "griffe"] : ["grande", "griffe"];
+        }
+        break;
+      }
+      case "touche": {
+        e.vx *= 1 - 7 * dt;
+        if (e.t > 0.32) {
+          changer2(e, "garde", "garde");
+          e.recharge = 0.1;
+        }
+        break;
+      }
+      case "approche":
+      case "garde": {
+        if (e.type === "boss") {
+          if (!e.style) changerStyle(e);
+          if ((e.styleT -= dt) <= 0) changerStyle(e);
+          if (e.esquiveT > 0) e.esquiveT -= dt;
+          if (H.etat === "coup" && H.t < 0.1 && dist < 110 && (e.lecture || 0) <= 0) {
+            e.lecture = 0.7;
+            const lourd = !!ANIMS[H.anim]?.tranche, talent = e.style === "contre" ? 0.8 : e.style === "voltige" ? 0.65 : 0.55;
+            if (Math.random() < talent) {
+              if (lourd && e.style !== "pression" && (e.esquiveT || 0) <= 0) {
+                e.esquiveT = 1.2;
+                changer2(e, "esquive", "arc");
+                if (e.y === 0) {
+                  e.vy = -190;
+                  e.y = 0.01;
+                }
+                break;
+              }
+              e.pare = 0.45;
+            }
+          }
+          if (e.lecture > 0) e.lecture -= dt;
+          if (e.pare > 0) e.pare -= dt;
+        }
+        e.feinte = e.feinte ?? rand(0, 6.28);
+        const porteeReelle = cfg.portee + cfg.bond * cfg.frappe * 0.7 - 4;
+        const premierOccupe = e.rang === 1 && J.ennemis.some((o) => o !== e && o.type !== "ninja" && o.rang === 0 && Math.sign(o.x - H.x) === Math.sign(e.x - H.x) && ["armer", "frappe", "repos", "chute", "releve"].includes(o.etat));
+        let voulu = (e.type === "ninja" ? cfg.distance : e.type === "boss" ? STYLES_X[e.style].distance : Math.min(cfg.distance, porteeReelle - 12)) + (premierOccupe ? 26 : e.rang * 48) + (e.rang > 0 ? Math.sin(J.temps * 1.3 + e.feinte) * 14 : 0);
+        if (e.type === "ninja") {
+          for (const o of J.ennemis) if (o.type !== "ninja" && o.etat !== "mort" && Math.sign(o.x - H.x) === Math.sign(e.x - H.x)) voulu = Math.max(voulu, Math.abs(o.x - H.x) + 60);
+        }
+        const bouche = e.type !== "ninja" && J.ennemis.some((o) => o !== e && o.type !== "ninja" && o.etat !== "mort" && Math.sign(o.x - H.x) === Math.sign(e.x - H.x) && Math.abs(o.x - H.x) < Math.abs(e.x - H.x) && Math.abs(e.x - H.x) - Math.abs(o.x - H.x) < 46);
+        e.recharge -= dt;
+        if (e.type === "ninja" && dist < 120 && e.y === 0 && H.pv > 0) {
+          e.surpris = (e.surpris || 0) + dt;
+          e.vx = 0;
+          if (e.etat !== "garde") changer2(e, "garde", "garde");
+          if (e.surpris < 0.25) break;
+          const libreN = J.ennemis.filter((o) => o.type === "ninja" && o.jeton).length < 1;
+          if (byakki() && dist < 70 && e.recharge <= 0 && libreN && !(J.lent > 0)) {
+            e.jeton = true;
+            attaquants++;
+            e.vx = 0;
+            e.touche = false;
+            e.attaque = "attaque2";
+            e.tempo = 0.7;
+            changer2(e, "armer", "attaque2");
+            break;
+          }
+          e.surpris = 0;
+          fuir(e);
+          break;
+        }
+        if (e.type === "ninja") e.surpris = 0;
+        const stable = e.depuis > 0.3;
+        if (dist > voulu + 10 && bouche) {
+          e.vx = 0;
+          if (e.etat !== "garde" && stable) changer2(e, "garde", "garde");
+        } else if (dist > voulu + 10) {
+          const aCourse = S[nomAnim(e, "course")] && nomAnim(e, "course") !== nomAnim(e, "marche");
+          const fuit = H.vx * Math.sign(H.x - e.x) > 40;
+          const peutCharger = e.type === "ninja" ? dist > voulu + 90 : e.type === "boss" ? dist > 170 && e.recharge <= 0.3 : e.rang === 0 && e.recharge <= 0.5 && attaquants < J.jetons && dist < 240;
+          if (aCourse && (peutCharger || fuit)) e.charge = true;
+          if (e.charge && dist > 320 && e.type !== "ninja") e.charge = false;
+          const court = e.charge;
+          e.elan = Math.min(1, Math.max(0, (e.elan || 0) + (court ? dt / 0.12 : -dt / 0.15)));
+          e.vx = e.dir * cfg.vitesse * v * (1 + 1.2 * e.elan);
+          const g = court ? "course" : "marche";
+          if ((e.etat !== "approche" || e.anim !== nomAnim(e, g)) && (stable || e.charge)) changer2(e, "approche", g);
+        } else if (dist < voulu - 14 && e.type !== "boss") {
+          e.vx = -e.dir * cfg.vitesse * 0.7;
+          if (e.etat !== "approche" && stable) changer2(e, "approche", "marche");
+        } else if (stable || e.etat === "garde") {
+          e.vx = 0;
+          e.charge = false;
+          if (e.etat !== "garde") changer2(e, "garde", "garde");
+        }
+        if (e.etat === "garde") e.vx = 0;
+        const enCourse = e.charge && e.etat === "approche" && e.anim === nomAnim(e, "course") && (e.elan || 0) > 0.6;
+        const vH = Math.max(0, H.vx * Math.sign(e.x - H.x)), fonce = vH > 160 && H.y < 30;
+        const aPortee = e.type === "ninja" ? dist < 330 && e.x > 10 && e.x < ARENE - 10 : dist < (enCourse ? 150 : e.type === "boss" ? 215 : porteeReelle) + vH * 0.2;
+        const libre = e.type === "ninja" ? J.ennemis.filter((o) => o.type === "ninja" && o.jeton).length < 1 : e.type === "boss" || attaquants < J.jetons;
+        const ouverte = e.type !== "ninja" && ouverture(H);
+        const relais = e.type === "sabreur" && e.rang === 1 && premierOccupe;
+        if (aPortee && (e.recharge <= 0 || ouverte || e.charge || fonce && escrimeur(e)) && libre && !(e.etat === "garde" && e.t < 0.07) && (e.rang === 0 || e.type === "ninja" || relais) && H.pv > 0 && H.etat !== "fureur" && !(J.lent > 0)) {
+          e.charge = false;
+          e.jeton = true;
+          attaquants++;
+          e.vx = 0;
+          e.touche = false;
+          e.glisse = 0;
+          e.lance = false;
+          if (escrimeur(e) && enCourse && e.type === "sabreur") {
+            const pris = J.ennemis.filter((o) => o !== e && o.arrivee && (o.etat === "armer" || o.etat === "frappe")).map((o) => o.attaque);
+            const l = ["charge", "degaine", "reversC", "feinte"].filter((k2) => S[nomAnim(e, k2)] && k2 !== e.derniereArrivee && !pris.includes(k2));
+            const c = l.length ? l : ["charge"], poids = c.map((k2) => ATTAQUES[k2].poids);
+            let r = Math.random() * poids.reduce((a, b) => a + b, 0), k = c[c.length - 1];
+            for (let i = 0; i < c.length; i++) {
+              r -= poids[i];
+              if (r <= 0) {
+                k = c[i];
+                break;
+              }
+            }
+            e.attaque = k;
+            e.derniereArrivee = k;
+            e.arrivee = true;
+          } else if (escrimeur(e)) {
+            e.attaque = choisirAttaque(e, enCourse ? "course" : H.y > 30 ? "air" : dist < 44 ? "contact" : e.type === "boss" && dist > 130 ? "loin" : "debout");
+            e.arrivee = false;
+          } else e.attaque = "attaque";
+          if (e.attaque === "feinte") {
+            e.jeton = false;
+            attaquants--;
+            e.arrivee = false;
+            changer2(e, "garde", "garde");
+            e.recharge = rand(0.45, 0.85);
+            e.chaine = 0;
+            break;
+          }
+          changer2(e, "armer", (catalogue(e)[e.attaque] || {}).enCourant && enCourse ? "course" : e.attaque);
+          const A = catalogue(e)[e.attaque] || {};
+          e.tempo = (enCourse && escrimeur(e) ? 0.5 : ouverte || fonce ? 0.6 : Math.random() < (e.type === "boss" ? 0.2 : 0.1) ? 1.4 : 1) * (A.tempo || 1);
+          e.lance = enCourse && escrimeur(e);
+          if (e.type !== "boss" || !e.pattern) e.chaine = e.type === "boss" ? 3 + Math.floor(Math.random() * 3) : e.type === "sabreur" ? 2 + Math.floor(Math.random() * 3) : 1;
+        }
+        break;
+      }
+      case "armer": {
+        const pas = Math.min(e.glisse || 0, 110 * dt);
+        e.glisse = (e.glisse || 0) - pas;
+        e.vx = pas / dt * e.dir;
+        if (e.type === "sabreur" && e.attaque === "attaque2" && e.t < 0.14) {
+          e.vx += e.dir * 70;
+          if (e.y === 0 && e.t < dt) {
+            e.vy = -110;
+            e.y = 0.01;
+          }
+        }
+        if (e.lance) e.vx += e.dir * cfg.vitesse * v * 2.2;
+        const enCharge = !!(catalogue(e)[e.attaque] || {}).enCourant && e.anim === nomAnim(e, "course");
+        const vH = Math.max(0, H.vx * Math.sign(e.x - H.x));
+        if (vH > 160 && (e.tempo || 1) > 0.6 && !enCharge) e.tempo = 0.6;
+        if (enCharge ? Math.abs(H.x - e.x) <= 96 + 0.13 * vH || e.t >= 0.6 : e.t >= cfg.armer * (e.tempo || 1) / v) {
+          changer2(e, "frappe", e.anim === nomAnim(e, "course") ? e.attaque : void 0);
+          if (e.type === "ninja" && e.attaque !== "attaque2") lancer(e);
+          else sfx("lame");
+          const A = catalogue(e)[e.attaque];
+          if (A && A.saut && e.y === 0) {
+            e.vy = A.saut;
+            e.y = 0.01;
+          }
+        }
+        break;
+      }
+      case "frappe": {
+        const A = catalogue(e)[e.attaque] || {}, apresCoup = Math.floor(e.t * 15) > (seqDe(e).tranche || 0);
+        e.vx = e.dir * (e.type === "ninja" && e.attaque === "attaque2" ? 90 : (A.bond ?? cfg.bond) * (apresCoup && A.freine ? 0.3 : 1));
+        const sqF = seqDe(e), tranche = Math.floor(e.t * 15) >= (sqF.tranche || 0);
+        if ((e.type !== "ninja" || e.attaque === "attaque2") && !e.touche && tranche) {
+          const devant = (H.x - e.x) * e.dir;
+          const portee = e.type === "ninja" ? 64 : A.portee ?? cfg.portee, sautable = e.type === "ninja" ? 60 : e.attaque === "attaque2" ? 30 : A.sautable ?? cfg.sautable;
+          if (devant > -10 && devant < portee && H.y < sautable) {
+            e.touche = true;
+            e.coupe = A.coupe || "lateral";
+            const r = blesserHeroine(e, e.dir);
+            if (e.type === "boss" && r === "touche") {
+              J.gel = Math.max(J.gel, ["grande", "foreuse", "plongeon", "tourbillon"].includes(e.attaque) ? 0.14 : 0.08);
+              J.secousse = Math.max(J.secousse, 0.3);
+            }
+            if (r === "parfait") {
+              briser(e);
+              break;
+            }
+            if (r === "pare") {
+              e.vx = -e.dir * 120;
+              e.x -= e.dir * 14;
+            }
+          }
+        }
+        if (e.t >= Math.max(cfg.frappe, seqDe(e).frappe.length / 15)) changer2(e, "repos");
+        break;
+      }
+      case "repos": {
+        e.vx *= 1 - 8 * dt;
+        if ((e.chaine || 0) > 1 && e.t >= 0.04 && Math.abs(H.x - e.x) < porteeReelleDe(e) + 36 && H.pv > 0 && H.etat !== "chute" && H.etat !== "releve") {
+          e.chaine--;
+          e.tempo = 0.7;
+          e.lance = false;
+          if ((H.x - e.x) * e.dir < -16) e.dir = -e.dir;
+          e.attaque = escrimeur(e) ? coupSuivant2(e, H, Math.abs(H.x - e.x)) : "attaque";
+          if (Math.abs(H.x - e.x) > porteeReelleDe(e) - 10) e.glisse = e.type === "boss" ? 8 : 18;
+          changer2(e, "armer", e.attaque);
+          e.touche = false;
+          break;
+        }
+        if (e.t >= cfg.repos / v) {
+          e.jeton = false;
+          e.chaine = 0;
+          e.recharge = (e.type === "boss" ? rand(0.3, 0.6) : rand(0.15, 0.5)) / v;
+          changer2(e, "garde", "garde");
+        }
+        break;
+      }
+      case "brise": {
+        e.vx *= 1 - 6 * dt;
+        if (e.t > 1.1) {
+          e.jeton = false;
+          e.recharge = 1;
+          changer2(e, "garde", "garde");
+        }
+        break;
+      }
+      case "bloque": {
+        e.vx *= 1 - 10 * dt;
+        if (e.t > 0.35) {
+          if (e.riposte && (e.type === "boss" || attaquants < J.jetons) && Math.abs(H.x - e.x) < porteeReelleDe(e) && H.pv > 0) {
+            e.jeton = true;
+            attaquants++;
+            e.touche = false;
+            e.attaque = e.type === "boss" ? "griffe" : "parade";
+            e.tempo = 0.5;
+            e.lance = false;
+            e.glisse = 0;
+            e.chaine = e.type === "boss" ? 3 : 1;
+            changer2(e, "armer", e.attaque);
+          } else changer2(e, "garde", "garde");
+          e.riposte = false;
+        }
+        break;
+      }
+      case "bond":
+        break;
+      case "chute": {
+        e.vx *= 1 - 5 * dt;
+        const r = RELEVE[e.anim], sol = r ? r[0] : nbImages(e.anim) - 1, cad = r ? 12 : 15;
+        if (e.t >= (sol + 1) / cad + 0.5) {
+          e.jeton = false;
+          e.recharge = 0.6;
+          if (r) {
+            changer2(e, "releve", "chute");
+            e.depart = r[1];
+            e.cadence = 8;
+          } else {
+            changer2(e, "releve", S[nomAnim(e, "releve")] ? "releve" : "chute");
+            e.depart = 0;
+            e.cadence = 8;
+            e.retour = !S[nomAnim(e, "releve")];
+          }
+        }
+        break;
+      }
+      case "releve": {
+        e.vx = 0;
+        if (e.t >= (nbImages(e.anim) - (e.depart || 0)) / (e.cadence || 8)) changer2(e, "garde", "garde");
+        break;
+      }
+      case "mort": {
+        e.vx *= 1 - 5 * dt;
+        if (e.t * (e.anim === nomAnim(e, "chute") ? 14 : 10) >= nbImages(e.anim) + 3) {
+          gisant(e.anim, nbImages(e.anim) - 1, e.x, e.dir);
+          e.retirer = true;
+        }
+        break;
+      }
+    }
+    if (e.etat !== "mort" && e.fige <= 0) for (const o of J.ennemis) {
+      if (o === e || o.etat === "mort" || o.fige > 0 || Math.sign(o.x - H.x) !== Math.sign(e.x - H.x) || o.type === "ninja" !== (e.type === "ninja")) continue;
+      const ecart = Math.abs(o.x - e.x), mini = 40;
+      if (ecart < mini && Math.abs(e.x - H.x) > Math.abs(o.x - H.x)) {
+        e.x += Math.sign(e.x - o.x || -e.dir) * Math.min(mini - ecart, 120 * dt);
+        if (e.vx * e.dir > 0) e.vx = 0;
+      }
+    }
+    e.x += e.vx * dt;
+    if (e.etat !== "approche" && e.etat !== "mort") e.x = Math.max(-30, Math.min(ARENE + 30, e.x));
+    if (e.type !== "boss") {
+      const n = nbImages(e.anim), f = e.cfg;
+      const sq = seqDe(e);
+      if (e.etat === "armer") {
+        if (e.anim === nomAnim(e, "course")) {
+          e.pas = (e.pas || 0) + Math.abs(e.vx) * dt / 22;
+          e.k = Math.floor(e.pas) % n;
+        } else if (!sq.armer.length) e.k = sq.frappe[0];
+        else {
+          const L = sq.armer, duree2 = f.armer * (e.tempo || 1) / v;
+          const nb = Math.min(L.length, Math.max(4, Math.round(duree2 * 0.78 * 20))), premiere = L.length - nb, cadence = Math.min(24, nb / (0.78 * duree2));
+          e.k = L[Math.max(0, Math.min(L.length - 1, premiere + Math.floor(e.t * cadence + 1e-4)))];
+        }
+      } else if (e.etat === "frappe") e.k = sq.frappe[Math.min(sq.frappe.length - 1, Math.floor(e.t * 15))];
+      else if (e.etat === "repos") {
+        const i = Math.floor(e.t * 12);
+        if (i < sq.repos.length && e.anim === nomAnim(e, e.attaque || "attaque")) e.k = sq.repos[i];
+        else {
+          if (e.anim !== nomAnim(e, "garde")) {
+            const kf = Math.min(e.k, n - 1);
+            e.fondu = { anim: e.anim, k: kf, dir: e.dir, t: 0, duree: 0.12 };
+            e.anim = nomAnim(e, "garde");
+            e.tg = plusProche(nomAnim(e, e.attaque || "attaque"), kf, e.anim) / 7;
+          }
+          e.tg += dt;
+          e.k = Math.floor(e.tg * 7) % nbImages(e.anim);
+        }
+      } else if (e.etat === "touche") e.k = Math.min(1, Math.floor(e.t * 10));
+      else if (e.etat === "intro") e.k = Math.min(n - 1, Math.floor(e.t * (e.anim === nomAnim(e, "garde") ? 6 : 9)));
+      else if (e.etat === "esquive") e.k = 0;
+      else if (e.etat === "entree") {
+        e.pas = (e.pas || 0) + Math.abs(e.vx) * dt / (12 * (e.type === "boss" ? 1.4 : 1));
+        e.k = Math.floor(e.pas) % n;
+      } else if (e.etat === "brise") e.k = Math.min(n - 1, 2, Math.floor(e.t * 10));
+      else if (e.etat === "bloque") {
+        const m = SEQ.sabreur.parade.bloque;
+        e.k = e.anim === nomAnim(e, "parade") ? m[Math.min(m.length - 1, Math.floor(e.t * 16))] : Math.min(n - 1, 1 + Math.floor(e.t * 7));
+      } else if (e.etat === "mort") {
+        if (e.type === "sabreur" && e.anim === "r-f-chute") {
+          e.k = e.t < 0.05 ? e.t < 0.02 ? 0 : 1 : Math.min(n - 1, 3 + Math.floor((e.t - 0.05) * 14));
+        } else e.k = Math.min(n - 1, Math.floor(e.t * (e.anim === nomAnim(e, "chute") ? 14 : 10)));
+      } else if (e.etat === "chute") {
+        const r = RELEVE[e.anim], sol = r ? r[0] : n - 1, cad = r ? 12 : 15, bref = e.type === "sabreur" && e.anim === "r-f-chute" && e.t >= 0.05, k = bref ? 3 + Math.floor((e.t - 0.05) * cad) : e.t < 0.05 && e.type === "sabreur" && e.anim === "r-f-chute" ? 1 : Math.floor(e.t * cad);
+        e.k = k <= sol ? k : r ? sol + Math.floor((e.t - (sol + 1) / cad) * 5) % (r[1] - sol) : sol;
+      } else if (e.etat === "releve") {
+        const k2 = e.retour ? Math.max(0, n - 1 - Math.floor(e.t * 8)) : Math.min(n - 1, (e.depart || 0) + Math.floor(e.t * (e.cadence || 8)));
+        if (k2 !== e.k && e.t > 0) e.fondu = { anim: e.anim, k: e.k, dir: e.dir, t: 0, duree: 0.1 };
+        e.k = k2;
+      } else if (e.etat === "bond") e.k = RELEVE[e.anim] ? Math.min(RELEVE[e.anim][0] - 1, 1 + Math.floor(e.t * 8)) : Math.min(n - 1, Math.floor(e.t * 16));
+      else if (e.etat === "approche") {
+        const foulee = (e.anim.endsWith("course") ? e.type === "ninja" ? 18 : 22 : Math.sign(e.vx) === -e.dir ? 8 : 12) * (e.type === "boss" ? 1.4 : 1);
+        e.pas = (e.pas || 0) + Math.abs(e.vx) * dt / foulee;
+        const reprise = REPRISE[e.anim] || 0, kk = Math.floor(e.pas);
+        const k = kk < n ? kk : reprise + (kk - reprise) % (n - reprise);
+        e.k = Math.sign(e.vx) === -e.dir ? n - 1 - k : k;
+      } else e.k = Math.floor(e.t * 7) % n;
+    }
+    e.vu = e.anim;
+    e.kVu = e.k;
+    e.traineeT = (e.traineeT || 0) + dt;
+    e.trainee = e.trainee || [];
+    for (let j = e.trainee.length - 1; j >= 0; j--) if (e.traineeT - e.trainee[j].t > TRAINEE2) e.trainee.splice(j, 1);
+    const boss = e.type === "boss";
+    const sqT = e.attaque && !boss ? seqDe(e) : null, menace = sqT && sqT.armer.length ? sqT.armer[sqT.armer.length - 1] : -1;
+    const enCoup = boss ? e.etat === "frappe" || e.etat === "suite" : e.etat === "frappe" || e.etat === "armer" && e.anim !== nomAnim(e, "course") && e.k === menace || e.etat === "repos" && e.t < 0.08;
+    if (enCoup && e.type !== "ninja" && (boss || !["pied", "poing"].includes((catalogue(e)[e.attaque] || {}).coupe))) {
+      let seg = lameA(e.anim, e.k, e.x, SOL - e.y, e.dir);
+      if (seg) seg = [seg[0], [seg[0][0] + (seg[1][0] - seg[0][0]) * 1.05, seg[0][1] + (seg[1][1] - seg[0][1]) * 1.05]];
+      if (seg && (!e.trainee.length || e.trainee[e.trainee.length - 1].k !== e.k || e.trainee[e.trainee.length - 1].anim !== e.anim)) e.trainee.push({ seg, t: e.traineeT, k: e.k, anim: e.anim });
+    }
+  }
+  for (let i = J.ennemis.length - 1; i >= 0; i--) if (J.ennemis[i].retirer) J.ennemis.splice(i, 1);
+  const coup = lameActive();
+  if (coup) {
+    for (const e of J.ennemis) {
+      if (!vivant(e) || H.touches.has(e.id) || e.fige > 0) continue;
+      const devant = (e.x - H.x) * H.dir;
+      if (devant < -14 || devant > coup.portee) continue;
+      if (e.y > 90 + H.y) continue;
+      H.touches.add(e.id);
+      frapper(e, coup);
+    }
+    for (let i = J.projectiles.length - 1; i >= 0; i--) {
+      const p = J.projectiles[i], devant = (p.x - H.x) * H.dir;
+      if (devant > -10 && devant < coup.portee && p.y > SOL - H.y - 120) {
+        etincelles(p.x, p.y, 8);
+        sfx("fer");
+        J.projectiles.splice(i, 1);
+      }
+    }
+  }
+  for (let i = J.projectiles.length - 1; i >= 0; i--) {
+    const p = J.projectiles[i];
+    p.t += dt;
+    p.x += p.vx * dt;
+    const corps = hauteur(H.anim, H.k);
+    if (Math.abs(p.x - H.x) < 12 && p.y > SOL - H.y - corps && p.y < SOL - H.y) {
+      const r = blesserHeroine(p, Math.sign(p.vx));
+      if (r !== "rien") {
+        J.projectiles.splice(i, 1);
+        if (r !== "touche") {
+          etincelles(p.x, p.y, 8);
+        }
+        continue;
+      }
+    }
+    if (p.x < -40 || p.x > ARENE + 40) J.projectiles.splice(i, 1);
+  }
+}
+var porteeReelleDe = (e) => e.cfg.portee + e.cfg.bond * e.cfg.frappe * 0.7 - 4;
+function ouverture(H) {
+  if (H.etat === "retour" || H.etat === "releve") return true;
+  if (H.etat === "iai") return H.charge > 0.5;
+  if (H.etat !== "coup") return false;
+  const a = ANIMS[H.anim];
+  if (!a || !a.frappe) return false;
+  const f = H.t / (suiteImages(H.anim, nbImages(H.anim)).length / a.ips);
+  return !!a.tranche && f > a.frappe[1];
+}
+function fuir(e) {
+  const vers = e.x < ARENE / 2 ? -1 : 1;
+  const bord = vers < 0 ? e.x < 40 : e.x > ARENE - 40;
+  if (bord) return;
+  e.dir = -vers;
+  e.vy = byakki() ? -260 : -460;
+  e.y = 0.01;
+  e.vx = vers * 230;
+  changer2(e, "bond", "bond");
+}
+function lancer(e) {
+  const bas = Math.random() < 0.35;
+  J.projectiles.push({ x: e.x + e.dir * 18, y: SOL - (bas ? 26 : 74), vx: e.dir * 290, t: 0 });
+  sfx("shuriken");
+}
+function briser(e) {
+  e.jeton = false;
+  changer2(e, "brise", "touche");
+  e.vx = -e.dir * 90;
+  e.eclair = 0.1;
+}
+function frapper(e, coup) {
+  const H = J.H;
+  if (e.type === "boss") {
+    if (e.invul > 0) return;
+    const deFace = e.dir === -H.dir, enGarde = ["garde", "marche", "bloque"].includes(e.etat);
+    if (deFace && enGarde && (e.blocs || 0) < 3 && !(e.ouvert > 0)) {
+      const p = bossPhase(e), chance = e.etat === "bloque" || e.pare > 0 ? 1 : coup.tranche ? p === 2 ? 0.5 : 0.35 : p === 2 ? 0.8 : 0.65;
+      if (Math.random() < chance) {
+        e.pare = 0;
+        e.blocs = (e.blocs || 0) + 1;
+        changer2(e, "bloque", "bloc");
+        e.t = 0;
+        e.vx = H.dir * (coup.tranche ? 110 : 50);
+        e.riposte = !coup.tranche;
+        etincelles(e.x - H.dir * 16, SOL - 80, 18);
+        sfx("fer");
+        J.gel = coup.tranche ? 0.1 : 0.07;
+        H.x -= H.dir * (coup.tranche ? 6 : 12);
+        return;
+      }
+    }
+    e.blocs = 0;
+    e.pv--;
+    e.invul = 0.45;
+    e.eclair = 0.1;
+    e.jeton = false;
+    e.chaine = 0;
+    e.pattern = null;
+    sfx("chair");
+    vibrer(20);
+    gerbe(e.x, SOL - 80, H.dir, 18, 0.7);
+    J.gel = coup.tranche ? 0.1 : 0.06;
+    if (e.pv <= 0) {
+      J.boss = null;
+      J.bossN = (J.bossN || 0) + 1;
+      J.serie += 2;
+      J.tues += 4;
+      if (S["r-w-mort1"]) {
+        e.jeton = false;
+        J.tues++;
+        J.serie++;
+        J.serieT = 2.2;
+        H.fureur = Math.min(1, H.fureur + FUREUR_PAR_MORT);
+        sfx("chair");
+        sfx("sang");
+        vibrer(25);
+        gerbe(e.x, SOL - 80, H.dir, 30, 0.9);
+        changer2(e, "mort", "mort1");
+        e.vx = H.dir * 260;
+        e.vy = -430;
+        e.y = 0.01;
+        e.dir = -H.dir;
+        e.eclair = 0.1;
+      } else tuer(e, coup.tranche ? "fend" : Math.random() < 0.5 ? "decapite" : "tranche", H.dir);
+      J.gel = 0.3;
+      J.lent = 1.4;
+      J.grandMoment = 2.2;
+      J.secousse = 0.6;
+      sfx("taiko");
+      sfx("taiko", 0.5);
+      H.fureur = 1;
+      J.gloire = 3.2;
+      return;
+    }
+    if (coup.tranche && Math.random() < 0.35 && S[nomAnim(e, "chute")]) {
+      e.vx = H.dir * 170;
+      changer2(e, "chute", "chute");
+      return;
+    }
+    e.vx = H.dir * (coup.tranche ? 140 : 90);
+    e.souleve = !!coup.tranche && !!S["r-w-souleve"];
+    changer2(e, "touche", e.souleve ? "souleve" : "touche");
+    return;
+  }
+  if (e.type === "sabreur" && (e.etat === "garde" || e.etat === "approche") && e.dir === -H.dir && !coup.tranche && Math.random() < e.cfg.bloque + Math.min(0.25, J.chrono / 600)) {
+    const moulinet2 = !!S[nomAnim(e, "parade")];
+    changer2(e, "bloque", moulinet2 ? "parade" : "garde");
+    e.k = moulinet2 ? 2 : Math.min(nbImages(e.anim) - 1, 1);
+    e.vx = H.dir * 140;
+    e.riposte = moulinet2;
+    etincelles(e.x - H.dir * 16, SOL - 70, 16);
+    sfx("fer");
+    J.gel = 0.07;
+    H.x -= H.dir * 10;
+    return;
+  }
+  const sens = coup.coupe || "lateral";
+  if (sens === "pied" && S[nomAnim(e, "chute")] && (nomAnim(e, "chute") !== nomAnim(e, "mort") || e.type === "sabreur" && falcon())) {
+    e.jeton = false;
+    e.vx = H.dir * 200;
+    e.eclair = 0.08;
+    sfx("chair");
+    J.gel = Math.max(J.gel, 0.06);
+    changer2(e, "chute", "chute");
+    return;
+  }
+  const rafale = J.temps - (J.derniereMort ?? -9) < 0.4;
+  tuer(e, sens === "vertical" ? "fend" : sens === "estoc" ? "transperce" : sens === "pied" ? "coupe" : Math.random() < 0.4 ? "decapite" : "tranche", H.dir);
+  J.gel = (coup.tranche ? 0.11 : 0.06) * (rafale ? 0.5 : 1);
+  if (coup.tranche) J.secousse = Math.max(J.secousse, 0.14);
+}
+function tuer(e, maniere, dirH) {
+  J.evt && (J.evt.mort = true);
+  const H = J.H, h = hauteur(e.anim, e.k);
+  e.jeton = false;
+  J.tues++;
+  J.serie++;
+  J.serieT = 2.2;
+  H.fureur = Math.min(1, H.fureur + FUREUR_PAR_MORT);
+  if (J.tues % SOIN_TOUS === 0 && H.pv < PV_MAX) {
+    H.pv++;
+    sfx("soin");
+  }
+  sfx("chair");
+  sfx("sang");
+  vibrer(25);
+  J.gel = Math.max(J.gel, J.temps - (J.derniereMort ?? -9) < 0.4 ? 0.05 : 0.1);
+  J.derniereMort = J.temps;
+  const cou = SOL - e.y - h * 0.8;
+  if (maniere === "decapite") {
+    const [tete, corps] = trancher(e.anim, e.k, e.x, e.dir, 0.8, rand(-0.12, 0.12), [dirH * rand(50, 150), -rand(300, 460), rand(-14, 14)]);
+    jet(e.x, cou, dirH, 1, -1.45 + rand(-0.2, 0.2));
+    gerbe(e.x, cou, dirH, 50, 1, 0.9);
+    e.retirer = true;
+  } else if (maniere === "tranche") {
+    const ligne = rand(0.42, 0.58);
+    trancher(e.anim, e.k, e.x, e.dir, ligne, rand(-0.3, 0.3) * dirH, [dirH * rand(80, 170), -rand(140, 240), dirH * rand(2, 6)]);
+    gerbe(e.x, SOL - h * ligne, dirH, 90, 1.2, 0.7);
+    jet(e.x, SOL - h * ligne, dirH, 0.6, -0.9);
+    J.secousse = 0.12;
+    e.retirer = true;
+  } else if (maniere === "fend") {
+    const ligne = rand(0.5, 0.6);
+    trancher(e.anim, e.k, e.x, e.dir, ligne, dirH * rand(2.2, 3.2), [dirH * rand(20, 60), -rand(60, 120), dirH * rand(2, 5)]);
+    gerbe(e.x, SOL - h * 0.9, dirH, 60, 1, 1.4);
+    gerbe(e.x, SOL - h * 0.45, dirH, 50, 1, 0.6);
+    jet(e.x, SOL - h * 0.85, dirH, 0.5, -1.3);
+    J.secousse = 0.12;
+    e.retirer = true;
+  } else if (maniere === "transperce") {
+    gerbe(e.x + dirH * 8, SOL - h * 0.55, dirH, 70, 1.1, 0.35);
+    changer2(e, "mort", "mort");
+    e.vx = dirH * 70;
+    e.eclair = 0.08;
+  } else {
+    gerbe(e.x, SOL - h * 0.6, dirH, 60, 1, 0.8);
+    changer2(e, "mort", "mort");
+    e.vx = dirH * 110;
+    e.eclair = 0.08;
+  }
+}
+J.coupFureur = (liste) => {
+  J.eclair = 0.2;
+  J.lent = 0.8;
+  sfx("parade");
+  liste.forEach((e, i) => setTimeout(() => {
+    if (!e.retirer) {
+      e.fige = 0;
+      tuer(e, i % 2 ? "tranche" : "decapite", J.H.dir);
+    }
+  }, i * 90));
+};
+function dessinerEnnemis(cam) {
+  const ordre = [...J.ennemis].sort((a, b) => (b.type === "ninja") - (a.type === "ninja"));
+  for (const e of ordre) {
+    const blanc = e.eclair > 0;
+    const repos = e.etat === "garde" && !blanc && e.anim === nomAnim(e, "garde");
+    if (repos && e.type !== "boss") {
+      const n = nbImages(e.anim), t = J.temps + e.id * 0.37;
+      if (e.type === "ninja") {
+        const p = Math.max(1, 2 * n - 2), i = Math.floor(t * 5) % p;
+        e.k = i < n ? i : p - i;
+      } else e.k = Math.floor(t * 7) % n;
+      e.kVu = e.k;
+    }
+    if (!(repos && e.type === "boss" ? dessinerRespire(e.anim, e.x - cam, SOL - e.y, e.dir, J.temps + e.id * 0.7) : dessiner(e.anim, e.k, e.x - cam, SOL - e.y, e.dir, { blanc }))) {
+      J.ctx.fillStyle = "#111";
+      J.ctx.fillRect(Math.round(e.x - cam - 12), Math.round(SOL - e.y - 110), 24, 110);
+    }
+    if (e.fondu && !blanc) dessinerFondu(e.fondu.anim, e.fondu.k, e.x - cam, SOL - e.y, e.fondu.dir, 1 - e.fondu.t / (e.fondu.duree || 0.12));
+    if (e.trainee && e.trainee.length > 1 && !blanc) dessinerTrainee(e.trainee, cam, e.traineeT, TRAINEE2);
+    if (e.type === "boss" && S["g" + e.anim.slice(1)] && !blanc) dessiner("g" + e.anim.slice(1), e.k, e.x - cam, SOL - e.y, e.dir);
+    if (e.etat === "armer") {
+      const f = e.t / (e.cfg.armer * (e.tempo || 1) / vitesseJeu());
+      if (f > 0.55) eclat(e.x - cam + e.dir * 26, SOL - e.y - hauteur(e.anim, e.k) * 0.72, (f - 0.55) / 0.45);
+    }
+  }
+  for (const p of J.projectiles) dessinerShuriken(p, cam, SOL);
+}
+
+// src/js/directeur.js
+function nouveauDirecteur() {
+  J.chrono = 0;
+  J.prochain = 1.2;
+  J.vague = 45;
+  J.jetons = 1;
+  J.respire = 0;
+  J.boss = null;
+  J.bossN = 0;
+  J.prochainBoss = BOSS_TOUS_LES;
+  J.repit = 0;
+  J.cinema = null;
+}
+function lancerBoss(naturel = true) {
+  if (naturel) J.prochainBoss += BOSS_TOUS_LES;
+  const cote = J.H.x - J.cam < J.W / 2 ? 1 : -1;
+  apparaitre("boss", cote);
+  J.cinema = { t: 0, fin: null };
+  sfx("taiko");
+}
+function majDirecteur(dt) {
+  if (J.majDirecteurOff) return;
+  const t = J.chrono += dt;
+  J.jetons = t < 25 ? 1 : t < 90 ? 2 : 3;
+  if (J.boss && (J.boss.etat === "mort" || J.boss.retirer || !J.ennemis.includes(J.boss))) {
+    J.boss = null;
+    J.repit = BOSS_REPIT;
+  }
+  if (J.boss) return;
+  if (J.repit > 0) {
+    J.repit -= dt;
+    return;
+  }
+  if (J.tues >= J.prochainBoss && J.H.pv > 0) {
+    if (J.ennemis.some((e) => e.etat !== "mort")) return;
+    lancerBoss();
+    return;
+  }
+  const vivants = J.ennemis.filter((e) => e.etat !== "mort").length;
+  const plafond = Math.min(10, 3 + Math.floor(t / 18));
+  if ((J.vague -= dt) <= 0) {
+    J.vague = rand(40, 55);
+    J.respire = 7;
+    sfx("taiko");
+    sfx("taiko", 0.35);
+    sfx("taiko", 0.6);
+    for (let i = 0; i < 4; i++) apparaitre(choisir(t), i % 2 ? 1 : -1);
+    return;
+  }
+  if (J.respire > 0) {
+    J.respire -= dt;
+    return;
+  }
+  if ((J.prochain -= dt) > 0 || vivants >= plafond) return;
+  J.prochain = Math.max(0.7, 2.4 - t / 60) * rand(0.7, 1.3);
+  const g = J.ennemis.filter((e) => e.x < J.H.x).length, d = J.ennemis.length - g;
+  const vide = g === 0 !== (d === 0);
+  apparaitre(choisir(t), vide ? g === 0 ? -1 : 1 : Math.random() < 0.7 ? g <= d ? -1 : 1 : Math.random() < 0.5 ? -1 : 1);
+}
+function choisir(t) {
+  const n = (type) => J.ennemis.filter((e) => e.type === type).length;
+  const r = Math.random();
+  if (t > 20 && r < 0.22 && n("ninja") < 2) return "ninja";
+  return "sabreur";
+}
+
+// src/js/texte.js
+var GLYPHES = {
+  A: [14, 17, 17, 31, 17, 17, 17],
+  B: [30, 17, 17, 30, 17, 17, 30],
+  C: [14, 17, 16, 16, 16, 17, 14],
+  D: [30, 17, 17, 17, 17, 17, 30],
+  E: [31, 16, 16, 30, 16, 16, 31],
+  F: [31, 16, 16, 30, 16, 16, 16],
+  G: [14, 17, 16, 23, 17, 17, 15],
+  H: [17, 17, 17, 31, 17, 17, 17],
+  I: [14, 4, 4, 4, 4, 4, 14],
+  J: [7, 2, 2, 2, 2, 18, 12],
+  K: [17, 18, 20, 24, 20, 18, 17],
+  L: [16, 16, 16, 16, 16, 16, 31],
+  M: [17, 27, 21, 21, 17, 17, 17],
+  N: [17, 17, 25, 21, 19, 17, 17],
+  O: [14, 17, 17, 17, 17, 17, 14],
+  P: [30, 17, 17, 30, 16, 16, 16],
+  Q: [14, 17, 17, 17, 21, 18, 13],
+  R: [30, 17, 17, 30, 20, 18, 17],
+  S: [15, 16, 16, 14, 1, 1, 30],
+  T: [31, 4, 4, 4, 4, 4, 4],
+  U: [17, 17, 17, 17, 17, 17, 14],
+  V: [17, 17, 17, 17, 17, 10, 4],
+  W: [17, 17, 17, 21, 21, 21, 10],
+  X: [17, 17, 10, 4, 10, 17, 17],
+  Y: [17, 17, 10, 4, 4, 4, 4],
+  Z: [31, 1, 2, 4, 8, 16, 31],
+  0: [14, 17, 19, 21, 25, 17, 14],
+  1: [4, 12, 4, 4, 4, 4, 14],
+  2: [14, 17, 1, 2, 4, 8, 31],
+  3: [31, 2, 4, 2, 1, 17, 14],
+  4: [2, 6, 10, 18, 31, 2, 2],
+  5: [31, 16, 30, 1, 1, 17, 14],
+  6: [6, 8, 16, 30, 17, 17, 14],
+  7: [31, 1, 2, 4, 8, 8, 8],
+  8: [14, 17, 17, 14, 17, 17, 14],
+  9: [14, 17, 17, 15, 1, 2, 12],
+  " ": [0, 0, 0, 0, 0, 0, 0],
+  "!": [4, 4, 4, 4, 4, 0, 4],
+  "?": [14, 17, 1, 2, 4, 0, 4],
+  ".": [0, 0, 0, 0, 0, 0, 4],
+  ",": [0, 0, 0, 0, 4, 4, 8],
+  ":": [0, 0, 4, 0, 0, 4, 0],
+  "-": [0, 0, 0, 14, 0, 0, 0],
+  "+": [0, 4, 4, 31, 4, 4, 0],
+  "/": [1, 1, 2, 4, 8, 16, 16],
+  "'": [4, 4, 8, 0, 0, 0, 0],
+  "×": [0, 17, 10, 4, 10, 17, 0],
+  "·": [0, 0, 0, 4, 0, 0, 0],
+  "(": [2, 4, 8, 8, 8, 4, 2],
+  ")": [8, 4, 2, 2, 2, 4, 8],
+  "=": [0, 0, 31, 0, 31, 0, 0],
+  "←": [0, 4, 8, 31, 8, 4, 0],
+  "→": [0, 4, 2, 31, 2, 4, 0],
+  "↑": [4, 14, 21, 4, 4, 4, 0],
+  "↓": [0, 4, 4, 4, 21, 14, 4]
+};
+var ACCENTS = { "É": ["E", [2, 4]], "È": ["E", [8, 4]], "Ê": ["E", [4, 10]], "À": ["A", [8, 4]], "Â": ["A", [4, 10]], "Ç": ["C", null, [4, 8]] };
+function motifGlyphe(ch) {
+  const a = ACCENTS[ch];
+  return { base: GLYPHES[a ? a[0] : ch] || GLYPHES["?"], dessus: a && a[1], dessous: a && a[2] };
+}
+var cacheTexte = /* @__PURE__ */ new Map();
+function rendreTexte(s, couleur, k, style) {
+  const cle2 = s + "|" + couleur + "|" + k + "|" + style;
+  let c = cacheTexte.get(cle2);
+  if (c) return c;
+  if (cacheTexte.size > 300) cacheTexte.clear();
+  const marge = style === "contour" ? k : 0;
+  c = toile(s.length * 6 * k + 2 * marge + k, 12 * k + 2 * marge);
+  const g = c.getContext("2d");
+  const couleurs = Array.isArray(couleur) ? couleur : null;
+  const tracer = (ox, oy, teinte) => {
+    [...s].forEach((ch, n) => {
+      const { base, dessus, dessous } = motifGlyphe(ch);
+      const x0 = ox + n * 6 * k, y0 = oy + 2 * k;
+      const ligne = (bits, r) => {
+        for (let b = 0; b < 5; b++) if (bits & 16 >> b) {
+          g.fillStyle = teinte || (couleurs ? couleurs[clamp(r, 0, 6)] : couleur);
+          g.fillRect(x0 + b * k, y0 + r * k, k, k);
+        }
+      };
+      base.forEach((bits, r) => ligne(bits, r));
+      if (dessus) {
+        ligne(dessus[0], -2);
+        ligne(dessus[1], -1);
+      }
+      if (dessous) {
+        ligne(dessous[0], 7);
+        ligne(dessous[1], 8);
+      }
+    });
+  };
+  if (style === "contour") {
+    for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, 1], [-1, 1], [1, -1], [1, 2], [0, 2], [-1, 2]])
+      tracer(marge + dx * k, marge + dy * k, ENCRE);
+  } else if (style === "ombre") tracer(k, k, ENCRE);
+  tracer(marge, marge, null);
+  cacheTexte.set(cle2, c);
+  return c;
+}
+function texte(s, x, y, couleur = OS, k = 1, style = "ombre", aligne = "gauche") {
+  const c = rendreTexte(s, couleur, k, style);
+  const lx = aligne === "centre" ? x - Math.floor(c.width / 2) : aligne === "droite" ? x - c.width : x;
+  ctx.drawImage(c, Math.round(lx), Math.round(y - 2 * k));
+}
+
+// src/js/interface.js
+var peint = (nom) => S[nom] || null;
+function image(nom, x, y, o = {}) {
+  const s = S[nom];
+  if (!s) return false;
+  const w = o.w || s.w, h = o.h || s.h;
+  if (o.aligne === "centre") x -= Math.floor(w / 2);
+  else if (o.aligne === "droite") x -= w;
+  if (o.part != null) {
+    const l = Math.round(w * Math.max(0, Math.min(1, o.part)));
+    if (l <= 0) return true;
+    ctx.drawImage(s.img, 0, 0, Math.round(s.w * l / w), s.h, Math.round(x), Math.round(y), l, h);
+    return true;
+  }
+  ctx.drawImage(s.img, Math.round(x), Math.round(y), w, h);
+  return true;
+}
+var portrait2 = null;
+var portraitBoss = null;
+function fairePortraitBoss() {
+  if (S["portrait-boss"]) {
+    const c2 = toile(34, 34), g2 = c2.getContext("2d");
+    g2.fillStyle = "#1a1a19";
+    g2.fillRect(0, 0, 34, 34);
+    g2.drawImage(S["portrait-boss"].img, 1, 1);
+    g2.strokeStyle = SANG[3];
+    g2.strokeRect(0.5, 0.5, 33, 33);
+    return c2;
+  }
+  const s = S["r-x-intro"] || S["r-x-marche"] || S["r-x-garde"];
+  if (!s) return null;
+  const k = 0, [ax, ay] = s.ancres[k], W = s.img.width;
+  let haut = -1, somme = 0, nb = 0;
+  for (let y = 0; y < s.ch && haut < 0; y++) for (let x = 0; x < s.cw; x++) if (s.px.data[(y * W + k * s.cw + x) * 4 + 3] > 0) {
+    haut = y;
+    break;
+  }
+  for (let y = haut; y < Math.min(s.ch, haut + 22); y++) for (let x = 0; x < s.cw; x++) if (s.px.data[(y * W + k * s.cw + x) * 4 + 3] > 0) {
+    somme += x;
+    nb++;
+  }
+  const cx = nb ? Math.round(somme / nb) : ax;
+  const c = toile(34, 34), g = c.getContext("2d");
+  g.fillStyle = "#1a1a19";
+  g.fillRect(0, 0, 34, 34);
+  g.drawImage(s.img, k * s.cw + cx - 17, haut + 2, 34, 34, 0, 0, 34, 34);
+  g.strokeStyle = SANG[3];
+  g.strokeRect(0.5, 0.5, 33, 33);
+  return c;
+}
+function faireportrait() {
+  const s = S["r-garde"];
+  if (!s) return null;
+  const c = toile(34, 34), g = c.getContext("2d");
+  g.fillStyle = "#1a1a19";
+  g.fillRect(0, 0, 34, 34);
+  const [ax, ay] = s.ancres[0], h = s.hauts[0];
+  g.drawImage(s.img, ax - 20, ay - h - 2, 34, 34, -2, 1, 34, 34);
+  g.strokeStyle = BRUME;
+  g.strokeRect(0.5, 0.5, 33, 33);
+  return c;
+}
+function hud() {
+  const H = J.H;
+  if (peint("portrait") && peint("vie-pleine") && peint("jauge-vide")) return hudPeint(H);
+  portrait2 = portrait2 || faireportrait();
+  if (portrait2) ctx.drawImage(portrait2, 10, 10);
+  for (let i = 0; i < PV_MAX; i++) {
+    const x = 52 + i * 13, y = 12;
+    ctx.fillStyle = ENCRE;
+    ctx.fillRect(x, y, 10, 10);
+    ctx.fillStyle = "#3a3a38";
+    ctx.fillRect(x + 1, y + 1, 8, 8);
+    if (i < H.pv) {
+      ctx.fillStyle = SANG[3];
+      ctx.fillRect(x + 1, y + 1, 8, 8);
+      ctx.fillStyle = SANG[4];
+      ctx.fillRect(x + 2, y + 2, 3, 2);
+    }
+  }
+  const l = 150, x0 = 52, y0 = 28, plein = H.fureur >= 1;
+  ctx.fillStyle = ENCRE;
+  ctx.fillRect(x0, y0, l + 2, 6);
+  ctx.fillStyle = "#3a3a38";
+  ctx.fillRect(x0 + 1, y0 + 1, l, 4);
+  ctx.fillStyle = plein && Math.floor(J.temps * 6) % 2 ? "#ffffff" : OS;
+  ctx.fillRect(x0 + 1, y0 + 1, Math.round(l * H.fureur), 4);
+  ctx.fillStyle = ENCRE;
+  ctx.fillRect(x0 + l + 2, y0 + 1, 6, 4);
+  ctx.fillRect(x0 + l + 8, y0 + 2, 3, 2);
+  if (plein) texte("X+C", x0 + l + 16, y0 - 1, OS, 1, "ombre");
+  compteurs();
+}
+function barreBoss() {
+  const b = J.boss;
+  if (!b || !b.pvMax || !b.pret || b.etat === "mort") return false;
+  portraitBoss = portraitBoss || fairePortraitBoss();
+  const xp = J.W - 10 - 34;
+  if (portraitBoss) ctx.drawImage(portraitBoss, xp, 10);
+  for (let i = 0; i < b.pvMax; i++) {
+    const x = xp - 8 - 10 - i * 13, y = 12;
+    ctx.fillStyle = ENCRE;
+    ctx.fillRect(x, y, 10, 10);
+    ctx.fillStyle = "#3a3a38";
+    ctx.fillRect(x + 1, y + 1, 8, 8);
+    if (i < b.pv) {
+      ctx.fillStyle = SANG[3];
+      ctx.fillRect(x + 1, y + 1, 8, 8);
+      ctx.fillStyle = SANG[4];
+      ctx.fillRect(x + 2, y + 2, 3, 2);
+    }
+  }
+  return true;
+}
+function cinema(c) {
+  const e = (u) => u * u * (3 - 2 * u);
+  const h = Math.round(46 * e(Math.min(1, c.t / 0.5)) * (c.fin == null ? 1 : 1 - e(Math.min(1, (c.t - c.fin) / 0.5))));
+  if (h <= 0) return;
+  ctx.fillStyle = ENCRE;
+  ctx.fillRect(0, 0, J.W, h);
+  ctx.fillRect(0, J.HAUT - h, J.W, h);
+  if (c.t > 0.9 && c.fin == null && h > 30) texte("LE COLOSSE", Math.floor(J.W / 2), J.HAUT - h + Math.floor(h / 2) - 7, OS, 2, "plein", "centre");
+}
+function gloire(t) {
+  const a = Math.min(1, t / 0.6) * Math.min(1, (3.2 - t) * 2);
+  const e = (u) => u * u * (3 - 2 * u), h = Math.round(30 * e(Math.min(1, (3.2 - t) / 0.4)) * e(Math.min(1, t / 0.3)));
+  ctx.fillStyle = ENCRE;
+  ctx.fillRect(0, 0, J.W, h);
+  ctx.fillRect(0, J.HAUT - h, J.W, h);
+  ctx.globalAlpha = a;
+  texte("LE COLOSSE EST TOMBÉ", Math.floor(J.W / 2), 120, OS, 3, "ombre", "centre");
+  texte("LE CLAN REVIENT", Math.floor(J.W / 2), 156, SANG[4], 1, "ombre", "centre");
+  ctx.globalAlpha = 1;
+}
+function compteurs() {
+  const d = barreBoss() ? 40 : 0;
+  texte(String(J.tues), J.W - 14, 12 + d, OS, 3, "ombre", "droite");
+  const m = Math.floor(J.chrono / 60), s = Math.floor(J.chrono % 60);
+  texte(`${m}:${String(s).padStart(2, "0")}`, J.W - 14, 38 + d, BRUME, 1, "ombre", "droite");
+  if (J.serie >= 3 && J.serieT > 0) texte(`${J.serie} D'UN TRAIT`, J.W - 14, 52 + d, SANG[4], 1, "ombre", "droite");
+}
+function hudPeint(H) {
+  const p = S.portrait;
+  image("portrait", 8, 8);
+  const x0 = 8 + p.w + 6, plein = H.fureur >= 1;
+  for (let i = 0; i < PV_MAX; i++) image(i < H.pv ? "vie-pleine" : "vie-perdue", x0 + i * (S["vie-pleine"].w + 2), 9);
+  const jy = 9 + S["vie-pleine"].h + 4;
+  image("jauge-vide", x0, jy);
+  const luit = plein && Math.floor(J.temps * 6) % 2;
+  if (!luit || true) image("jauge-pleine", x0, jy, { part: H.fureur });
+  if (plein && luit) {
+    ctx.globalAlpha = 0.5;
+    image("jauge-pleine", x0, jy - 1);
+    ctx.globalAlpha = 1;
+  }
+  if (plein) texte("X+C", x0 + S["jauge-vide"].w + 6, jy + Math.floor(S["jauge-vide"].h / 2) - 4, OS, 1, "ombre");
+  const d = barreBoss() ? 40 : 0;
+  const c = S.cartouche;
+  if (c) {
+    image("cartouche", J.W - 8, 6 + d, { aligne: "droite" });
+    texte(String(J.tues), J.W - 8 - Math.floor(c.w / 2), 6 + d + Math.floor(c.h / 2) - 10, OS, 3, "ombre", "centre");
+  } else texte(String(J.tues), J.W - 14, 12 + d, OS, 3, "ombre", "droite");
+  const yb = 6 + d + (c ? c.h : 30) + 4;
+  const m = Math.floor(J.chrono / 60), s = Math.floor(J.chrono % 60);
+  texte(`${m}:${String(s).padStart(2, "0")}`, J.W - 14, yb, BRUME, 1, "ombre", "droite");
+  if (J.serie >= 3 && J.serieT > 0) {
+    const b = S["bandeau-serie"];
+    if (b) {
+      image("bandeau-serie", J.W - 8, yb + 12, { aligne: "droite" });
+      texte(`${J.serie} D'UN TRAIT`, J.W - 8 - Math.floor(b.w / 2), yb + 12 + Math.floor(b.h / 2) - 4, OS, 1, "ombre", "centre");
+    } else texte(`${J.serie} D'UN TRAIT`, J.W - 14, yb + 14, SANG[4], 1, "ombre", "droite");
+  }
+}
+
+// src/js/titre.js
+var record = 0;
+try {
+  record = +localStorage.getItem("lady-snowblood-record") || 0;
+} catch {
+}
+var lireRecord = () => record;
+var erreur = null;
+try {
+  erreur = localStorage.getItem("lady-snowblood-erreur");
+  localStorage.removeItem("lady-snowblood-erreur");
+} catch {
+}
+function noterRecord(n) {
+  if (n > record) {
+    record = n;
+    try {
+      localStorage.setItem("lady-snowblood-record", String(n));
+    } catch {
+    }
+    return true;
+  }
+  return false;
+}
+function voile(a) {
+  ctx.fillStyle = `rgba(5,5,5,${a})`;
+  ctx.fillRect(0, 0, J.W, J.HAUT);
+}
+function colonne(s, x, y, couleur = BRUME) {
+  const lettres = s.replace(/ /g, "").length, h = lettres * 9 + (s.split(" ").length - 1) * 4 + 12;
+  if (S.colonne) image("colonne", x, y - 8, { aligne: "centre", h: Math.max(S.colonne.h, h + 4), w: S.colonne.w });
+  else {
+    ctx.fillStyle = "rgba(5,5,5,0.5)";
+    ctx.fillRect(x - 8, y - 6, 16, h);
+  }
+  let yy = y;
+  for (const ch of s) {
+    if (ch === " ") {
+      yy += 4;
+      continue;
+    }
+    texte(ch, x, yy, couleur, 1, "ombre", "centre");
+    yy += 9;
+  }
+}
+function sceau(s, x, y) {
+  const w = Math.max(24, s.length * 6 + 10), h = 24;
+  if (S.sceau) image("sceau", x, y, { aligne: "centre", w: Math.max(S.sceau.w, w), h: Math.max(S.sceau.h, h) });
+  else {
+    ctx.fillStyle = SANG[3];
+    ctx.fillRect(x - w / 2, y, w, h);
+    ctx.strokeStyle = SANG[4];
+    ctx.strokeRect(x - w / 2 + 1.5, y + 1.5, w - 3, h - 3);
+  }
+  texte(s, x, y + (S.sceau ? Math.floor(Math.max(S.sceau.h, h) / 2) - 3 : 8), OS, 1, "plein", "centre");
+}
+function bandeau(y, h, a = 0.62) {
+  ctx.fillStyle = `rgba(5,5,5,${a})`;
+  ctx.fillRect(0, y, J.W, h);
+}
+function ecranTitre() {
+  voile(0.35);
+  const L = S.logo;
+  if (L) ctx.drawImage(L.img, Math.round(J.W / 2 - L.w / 2), Math.max(6, 132 - L.h));
+  else {
+    texte("LADY SNOWBLOOD", J.W / 2, 70, OS, 5, "ombre", "centre");
+    ctx.fillStyle = SANG[3];
+    ctx.fillRect(J.W / 2 - 150, 116, 300, 2);
+  }
+  if (Math.floor(J.temps * 1.6) % 2 === 0) texte("APPUYER SUR X", J.W / 2, 166, OS, 2, "ombre", "centre");
+  colonne("TENIR LA NUIT", 24, 150);
+  if (record) {
+    const y = 150;
+    colonne("RECORD", J.W - 26, y);
+    sceau(String(record), J.W - 26, y + 6 * 9 + 10);
+  }
+  bandeau(J.HAUT - 22, 22, 0.45);
+  texte("X  LÉGER      C  FORT      ↑  SAUT      ↓  PARADE", J.W / 2, J.HAUT - 15, BRUME, 1, "ombre", "centre");
+  if (erreur) texte(("ERREUR " + erreur).toUpperCase().slice(0, 100), 6, J.HAUT - 32, "#8a8a86", 1, "ombre");
+}
+var CARTES = [
+  ["LE CLAN A TUÉ SON MARI.", OS],
+  ["CETTE NUIT, IL VIENT L'ACHEVER.", OS],
+  ["ELLE L'ATTEND SUR LA NEIGE, SABRE À LA MAIN.", OS],
+  ["ELLE MOURRA. MAIS PAS SEULE.", SANG[4]]
+];
+var CARTE = 2;
+var FONDU2 = 0.3;
+var dureePrologue = () => CARTES.length * CARTE;
+var carteSuivante = (t) => Math.min(dureePrologue(), (Math.floor(t / CARTE) + 1) * CARTE);
+function prologue(t) {
+  const i = Math.min(CARTES.length - 1, Math.floor(t / CARTE)), u = t - i * CARTE;
+  const a = Math.max(0, Math.min(1, u / FONDU2, (CARTE - u) / FONDU2));
+  if (a <= 0) return;
+  const [phrase, couleur] = CARTES[i], y = 96;
+  ctx.globalAlpha = a;
+  bandeau(y - 14, 40);
+  texte(phrase, J.W / 2, y, couleur, 2, "ombre", "centre");
+  ctx.globalAlpha = 1;
+  if (i < CARTES.length - 1 && Math.floor(t * 2) % 2 === 0) texte("X : SUITE", J.W - 10, J.HAUT - 14, BRUME, 1, "ombre", "droite");
+}
+function ecranFin(t, nouveau) {
+  voile(Math.min(0.55, t * 0.2));
+  if (t < 1.2) return;
+  const r = S.rouleau, haut = 44;
+  if (r) image("rouleau", J.W / 2, haut, { aligne: "centre" });
+  else bandeau(haut + 18, 168);
+  const cx = J.W / 2, y0 = haut + 42, teinte = r ? ENCRE : OS, sourd = r ? "#4a4a47" : BRUME, rouge = r ? SANG[2] : SANG[4];
+  texte("ELLE EST TOMBÉE.", cx, y0, teinte, 3, r ? "plein" : "ombre", "centre");
+  texte(`${J.tues} OMBRE${J.tues > 1 ? "S" : ""} AVANT ELLE.`, cx, y0 + 34, rouge, 2, r ? "plein" : "ombre", "centre");
+  const m = Math.floor(J.chrono / 60), s = Math.floor(J.chrono % 60);
+  texte(`TENU ${m}:${String(s).padStart(2, "0")}    PARADES PARFAITES ${J.parfaites}    PLUS LONGUE SÉRIE ${J.meilleureSerie}`, cx, y0 + 72, sourd, 1, r ? "plein" : "ombre", "centre");
+  texte(nouveau ? "NOUVEAU RECORD" : `RECORD : ${lireRecord()}`, cx, y0 + 92, nouveau ? rouge : sourd, 1, r ? "plein" : "ombre", "centre");
+  if (t > 2.2 && Math.floor(t * 1.6) % 2 === 0) texte("X POUR RECOMMENCER", cx, y0 + 130, OS, 2, "ombre", "centre");
+}
+function ecranPause() {
+  voile(0.5);
+  if (S["lune-pause"]) {
+    image("lune-pause", J.W / 2, 120, { aligne: "centre" });
+    texte("PAUSE", J.W / 2, 128 + S["lune-pause"].h, OS, 3, "ombre", "centre");
+  } else texte("PAUSE", J.W / 2, 160, OS, 3, "ombre", "centre");
+}
+
+// src/js/main.js
+var VITESSE = 1.25;
+J.ctx = ctx;
+J.temps = 0;
+J.gel = 0;
+J.lent = 0;
+J.grandMoment = 0;
+J.secousse = 0;
+J.eclair = 0;
+J.rouge = 0;
+J.cam = (ARENE - J.W) / 2;
+J.etat = "titre";
+J.tues = 0;
+J.serie = 0;
+J.serieT = 0;
+J.meilleureSerie = 0;
+J.parfaites = 0;
+function nouvellePartie() {
+  nouvelleHeroine();
+  viderSang();
+  nouveauDirecteur();
+  J.ennemis.length = 0;
+  J.projectiles.length = 0;
+  J.etincelles.length = 0;
+  J.tues = 0;
+  J.serie = 0;
+  J.meilleureSerie = 0;
+  J.parfaites = 0;
+  J.etat = "prologue";
+  J.etatT = 0;
+  J.nouveauRecord = false;
+}
+var avant = 0;
+function boucle(tms) {
+  requestAnimationFrame(boucle);
+  if (J.manuel) return;
+  try {
+    image2(tms);
+  } catch (e) {
+    noterErreur(e);
+  }
+}
+function noterErreur(e) {
+  const m = String(e && (e.stack || e.message) || e).split("\n").slice(0, 3).join(" | ").slice(0, 240);
+  if (J.derniereErreur === m) return;
+  J.derniereErreur = m;
+  try {
+    localStorage.setItem("lady-snowblood-erreur", (/* @__PURE__ */ new Date()).toISOString().slice(0, 16) + " " + m);
+  } catch {
+  }
+}
+addEventListener("error", (e) => noterErreur(e.error || e.message));
+addEventListener("unhandledrejection", (e) => noterErreur(e.reason));
+function image2(tms) {
+  const debut = performance.now();
+  const reel = Math.min(0.05, (tms - avant) / 1e3 || 0);
+  avant = tms;
+  J.temps += reel;
+  const A = J.appuis;
+  const E = { L: tenu("left"), R: tenu("right"), U: tenu("up"), parade: tenu("down"), bas: tenu("down"), sabre: tenu("sabre"), fort: tenu("fort"), appuis: A };
+  if (A.has("konami")) {
+    const on = basculerGundam();
+    sfx("taiko");
+    sfx(on ? "fureur" : "parade", 0.2);
+    A.delete("sabre");
+    A.delete("fort");
+  }
+  if (J.etat === "titre" && (A.has("sabre") || A.has("fort")) && !konamiEnCours()) {
+    nouvellePartie();
+    sfx("taiko");
+  } else if (J.etat === "fin" && J.etatT > 1.5 && (A.has("sabre") || A.has("fort"))) {
+    nouvellePartie();
+  }
+  const pause = J.etat === "jeu" && enPause();
+  if (!pause) {
+    J.etatT = (J.etatT || 0) + reel;
+    let dt = reel * VITESSE;
+    if (J.lent > 0) {
+      J.lent -= reel;
+      dt *= 0.3;
+    }
+    if (J.gel > 0) {
+      J.gel -= reel;
+      dt = 0;
+    }
+    majAmbiance(AMB, reel);
+    if (J.cinema) {
+      J.cinema.t += reel;
+      if (J.cinema.fin == null && (J.boss?.pret || !J.boss || J.boss.etat === "mort")) J.cinema.fin = J.cinema.t;
+      if (J.cinema.fin != null && J.cinema.t - J.cinema.fin > 0.5) J.cinema = null;
+    }
+    if (A.has("boss") && J.etat === "jeu" && !J.boss && !J.cinema) lancerBoss(false);
+    if (J.gloire > 0) J.gloire -= reel;
+    if (J.H && J.H.etat === "garde" && J.H.pv > 0 && (J.souffleT = (J.souffleT ?? 2) - reel) <= 0) {
+      souffler(AMB, J.H.x - J.cam + J.H.dir * 14, SOL - J.H.y - 104, J.H.dir);
+      J.souffleT = 2.2 + Math.random();
+    }
+    if (dt > 0) {
+      if (J.etat === "prologue") {
+        majHeroine(dt, { ...E, appuis: /* @__PURE__ */ new Set() });
+        if (A.has("sabre") || A.has("fort")) J.etatT = carteSuivante(J.etatT);
+        if (J.etatT >= dureePrologue()) {
+          J.etat = "jeu";
+          J.etatT = 0;
+        }
+      } else if (J.etat === "jeu" || J.etat === "fin") {
+        majHeroine(dt, J.etat === "jeu" && !J.cinema ? E : { appuis: /* @__PURE__ */ new Set() });
+        if (J.etat === "jeu") majDirecteur(dt);
+        majEnnemis(dt);
+        if (J.etat === "jeu" && J.H.pv <= 0 && J.H.t > 2.5) {
+          J.etat = "fin";
+          J.etatT = 0;
+          J.nouveauRecord = noterRecord(J.tues);
+        }
+      } else if (J.H) majHeroine(dt, { appuis: /* @__PURE__ */ new Set() });
+      majSang(dt);
+      majEffets(dt);
+      if ((J.serieT -= dt) <= 0) {
+        J.meilleureSerie = Math.max(J.meilleureSerie, J.serie);
+        J.serie = 0;
+      }
+    }
+    J.secousse = Math.max(0, J.secousse - reel);
+    J.coupe = Math.max(0, (J.coupe || 0) - reel);
+    J.eclair = Math.max(0, J.eclair - reel);
+    J.rouge = Math.max(0, J.rouge - reel);
+  }
+  const theme = J.boss || J.cinema ? (J.bossN || 0) % 2 ? "theme" : "theme2" : "theme2";
+  const bossProche = J.etat === "jeu" && !J.boss && J.tues >= (J.prochainBoss || 30) - 6;
+  musique(J.etat === "titre" || J.etat === "prologue" ? "nuit" : J.etat === "fin" || J.H && J.H.pv <= 0 ? "fin" : J.etat === "jeu" ? J.boss || J.cinema ? "boss" : "nuit" : null, theme, bossProche ? "boss" : null);
+  majMusique(J.grandMoment > 0, false, J.coupe > 0, pause);
+  if (J.grandMoment > 0) J.grandMoment -= reel;
+  A.clear();
+  if (J.H) J.cam += (clamp(J.H.x - J.W / 2, 0, ARENE - J.W) - J.cam) * Math.min(1, reel * 5);
+  dessiner2();
+  if (ESSAI) {
+    (J.mesures ||= []).push(performance.now() - debut);
+    if (J.mesures.length > 600) J.mesures.shift();
+  }
+  if (J.compteur) compteur(tms, performance.now() - debut, reel);
+  if (J.gel > 0 && J.evt) J.evt.gel = true;
+  J.evtPrec = J.evt;
+  J.evt = {};
+}
+var CPT = { n: 0, t0: 0, calc: 0, pire: 0, sautees: 0, texte: "", causes: {} };
+J.evt = {};
+if (/[?&]compteur/.test(location.search)) J.compteur = true;
+function compteur(tms, calcul, reel) {
+  CPT.n++;
+  CPT.calc += calcul;
+  CPT.pire = Math.max(CPT.pire, calcul);
+  if (reel > 0.025) {
+    CPT.sautees++;
+    const e = J.evtPrec || {}, c = e.mort ? "MORT" : e.toile ? "TOILE" : e.musique ? "MUSIQUE" : e.gel ? "GEL" : "?";
+    CPT.causes[c] = (CPT.causes[c] || 0) + 1;
+  }
+  if (tms - CPT.t0 >= 1e3) {
+    const causes = Object.entries(CPT.causes).map(([k, v]) => `${k} ${v}`).join(" ");
+    CPT.texte = `${CPT.n} I/S  ${(CPT.calc / Math.max(1, CPT.n)).toFixed(1)} MS (PIRE ${CPT.pire.toFixed(1)})  ${CPT.sautees} SAUTEES${causes ? " : " + causes : ""}`;
+    CPT.causes = {};
+    CPT.n = 0;
+    CPT.calc = 0;
+    CPT.pire = 0;
+    CPT.sautees = 0;
+    CPT.t0 = tms;
+  }
+  if (CPT.texte) texte(CPT.texte, 8, J.HAUT - 14, OS, 1, "ombre");
+}
+function dessiner2() {
+  const sx = J.secousse > 0 ? Math.round((Math.random() - 0.5) * 6) : 0, sy = J.secousse > 0 ? Math.round((Math.random() - 0.5) * 4) : 0;
+  const cam = Math.round(J.cam) - sx;
+  ctx.save();
+  ctx.translate(0, sy);
+  dessinerFond(cam);
+  ambianceFond(ctx, AMB, cam);
+  if (J.taches) dessinerTaches(cam);
+  dessinerMorceaux(cam);
+  if (J.etat !== "titre") dessinerEnnemis(cam);
+  if (J.H) dessinerHeroine(cam);
+  dessinerGouttes(cam);
+  dessinerEtincelles(cam);
+  dessinerDevant(cam);
+  ambianceDevant(ctx, AMB, cam);
+  ctx.restore();
+  if (J.H?.etat === "iai") {
+    const c = Math.min(1, J.H.charge / 1.2);
+    ctx.globalAlpha = 0.45 * c;
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, J.W, J.HAUT);
+    ctx.globalAlpha = 1;
+    dessinerHeroine(Math.round(J.cam));
+  }
+  if (J.coupe > 0) {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, J.W, J.HAUT);
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(Math.round(Math.min(J.coupeX0, J.coupeX1) - J.cam), SOL - 58, Math.round(Math.abs(J.coupeX1 - J.coupeX0)), 2);
+  }
+  if (J.eclair > 0 && !(J.coupe > 0)) {
+    ctx.globalAlpha = Math.min(0.7, J.eclair * 5);
+    ctx.fillStyle = OS;
+    ctx.fillRect(0, 0, J.W, J.HAUT);
+    ctx.globalAlpha = 1;
+  }
+  if (J.rouge > 0) {
+    ctx.globalAlpha = J.rouge * 1.6;
+    ctx.fillStyle = SANG[2];
+    ctx.fillRect(0, 0, J.W, 4);
+    ctx.fillRect(0, J.HAUT - 4, J.W, 4);
+    ctx.fillRect(0, 0, 4, J.HAUT);
+    ctx.fillRect(J.W - 4, 0, 4, J.HAUT);
+    ctx.globalAlpha = 1;
+  }
+  if (J.etat === "titre") ecranTitre();
+  else if (J.etat === "prologue") prologue(J.etatT);
+  else {
+    hud();
+    if (J.cinema) cinema(J.cinema);
+    if (J.gloire > 0) gloire(J.gloire);
+    if (J.etat === "fin") ecranFin(J.etatT, J.nouveauRecord);
+  }
+  if (J.etat === "jeu" && enPause()) ecranPause();
+  if (!S["r-garde"]) texte("IMAGES ABSENTES : LANCER  python3 outils/rotoscoper.py monter garde ga", J.W / 2, 20, SANG[4], 1, "ombre", "centre");
+}
+window.__musique = etatMusique;
+window.__lady = () => ({ etat: J.etat, x: J.H && Math.round(J.H.x), pv: J.H?.pv, h: J.H?.etat, anim: J.H?.anim, k: J.H?.k, fureur: J.H?.fureur, tues: J.tues, ennemis: J.ennemis.map((e) => `${e.type}:${e.etat}:${Math.round(e.x)}`), chrono: J.chrono });
+if (ESSAI) window.__essai = {
+  J,
+  S,
+  apparaitre,
+  tuer,
+  jouer: nouvellePartie,
+  memoire,
+  dessinerSprite: dessiner,
+  poser(x) {
+    J.H.x = x;
+  },
+  fureur() {
+    J.H.fureur = 1;
+  },
+  invincible() {
+    J.H.pv = 999;
+  },
+  calme() {
+    J.majDirecteurOff = true;
+  },
+  // le banc d'essai des animations (outils/tests/animations.mjs) : le jeu avance image par image, entrées scriptées
+  manuel(on = true) {
+    J.manuel = on;
+    if (on) avant = 0;
+  },
+  pas(s = 1 / 60) {
+    if (!avant) avant = 1e3;
+    image2(avant + s * 1e3);
+  },
+  rendu: () => ctx.canvas.toDataURL(),
+  appuyer(k) {
+    appui(k);
+    clavier[k] = true;
+  },
+  lacher(k) {
+    clavier[k] = false;
+  },
+  direct() {
+    J.etat = "jeu";
+    J.etatT = 0;
+    J.majDirecteurOff = true;
+    J.forcerAttaque = null;
+    J.H.pv = 999;
+    J.H.x = ARENE / 2;
+    J.cam = (ARENE - J.W) / 2;
+    if (J.gundam) basculerGundam();
+  },
+  // chaque scénario du banc repart avec l'héroïne
+  blesser(dir = 1) {
+    blesserHeroine({ x: J.H.x + dir * 40, type: "sabreur" }, -dir);
+  },
+  touches: () => ({ ...boutons }),
+  // l'état de la manette tactile (outils/tests/croix.mjs)
+  etat: () => ({
+    etat: J.H.etat,
+    anim: J.H.anim,
+    k: J.H.k,
+    x: J.H.x,
+    y: J.H.y,
+    cam: J.cam,
+    dir: J.H.dir,
+    tues: J.tues,
+    nb: J.ennemis.length,
+    repit: +(J.repit || 0).toFixed(2),
+    cinema: J.cinema ? [+J.cinema.t.toFixed(2), J.cinema.fin] : null,
+    ennemi: J.ennemis[0] ? { type: J.ennemis[0].type, etat: J.ennemis[0].etat, anim: J.ennemis[0].anim, k: J.ennemis[0].k, x: J.ennemis[0].x, y: J.ennemis[0].y, dir: J.ennemis[0].dir, pv: J.ennemis[0].pv, fondu: J.ennemis[0].fondu ? [J.ennemis[0].fondu.anim, J.ennemis[0].fondu.k] : null } : null
+  })
+};
+disposer();
+var AMB = creerAmbiance(J.W, J.HAUT, SOL);
+nouvelleHeroine();
+await chargerSprites();
+assemblerHeroine();
+preparerSouillures(["r-garde", "r-course", "r-marche", "r-coup-leger", "r-estoc", "r-coup-fort", "r-k-combo2", "r-k-final", "r-revers", "r-k-coupe-epaule", "r-k-balayage", "r-k-montante", "r-k-haute", "r-k-dash-coupe", "r-bond-coupe", "r-k-pied-tournant"], [1, 4]);
+preparerSignatures(Object.keys(S).filter((n) => /^r-/.test(n)));
+if (S["bouton-leger"] && S["bouton-fort"]) {
+  document.body.classList.add("peint");
+  for (const [k, nom] of [["sabre", "bouton-leger"], ["fort", "bouton-fort"]]) {
+    const el = document.querySelector(`.rond[data-k="${k}"]`);
+    if (el) el.style.backgroundImage = `url(${S[nom].img.src})`;
+  }
+}
+requestAnimationFrame(boucle);
+export {
+  noterErreur
+};
+//# sourceMappingURL=jeu.js.map

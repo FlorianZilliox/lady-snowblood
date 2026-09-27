@@ -20,11 +20,14 @@
   <div class="manette">
     <div class="croix" id="croix" aria-label="Croix directionnelle">
       <div class="croix-dessin">
-        <span data-dir="up" class="bras haut"></span>
-        <span data-dir="left" class="bras gauche"></span>
-        <span class="moyeu"></span>
-        <span data-dir="right" class="bras droite"></span>
-        <span data-dir="down" class="bras bas"></span>
+        <svg class="anneau" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46"/>
+          <path data-dir="up" class="chevron" d="M43 14 L50 8 L57 14"/>
+          <path data-dir="down" class="chevron" d="M43 86 L50 92 L57 86"/>
+          <path data-dir="left" class="chevron" d="M14 43 L8 50 L14 57"/>
+          <path data-dir="right" class="chevron" d="M86 43 L92 50 L86 57"/>
+        </svg>
+        <span class="pommeau"></span>
       </div>
     </div>
     <div class="actions" id="actions">
