@@ -1,8 +1,8 @@
 {
   "name": "Lady Snowblood",
   "short_name": "Snowblood",
-  "description": "Une veuve en kimono blanc, sur une plaine enneigée, sous la lune. Le clan vient pour elle.",
-  "lang": "fr",
+  "description": "A widow in a white kimono, on a snowy plain, under the moon. The clan comes for her.",
+  "lang": "en",
   "id": "./",
   "start_url": "./",
   "scope": "./",
